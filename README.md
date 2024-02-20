@@ -8,11 +8,11 @@ Web application for selling and buying cars.
   - Unregistered users can only view and search for advertisements. Registration is required to gain access to the additional functionality.
 - Vehicle search
   - The buyer searches for vehicles based on criteria such as make, model, year, price, mileage, location etc.
-- Listing a Vehicle for Sale
+- Listing a vehicle for sale
   - The seller creates a new listing by providing details about the vehicle, including make, model, condition, images, price, etc.
 - Managing listings
   - The seller can edit, update, or remove their listings. They may also mark a vehicle as sold.
-- Viewing Vehicle Details
+- Viewing vehicle details
   -  The buyer clicks on a vehicle listing to view detailed information, including specifications, images, car history and the seller's contact details.
-- Personal Messaging
+- Personal messaging
   - Users can engage in private conversations to discuss vehicle details, negotiate prices and make an appointments.
