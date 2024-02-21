@@ -2,25 +2,25 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{60198138-1124-4206-92C6-8AD822E22D23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedyWheelsSales.Domain", "SpeedyWheelsSales.Domain\SpeedyWheelsSales.Domain.csproj", "{20B753CA-6A10-4ED7-8901-A8BCECEE5FC5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedyWheelsSales.Domain", "src\SpeedyWheelsSales.Domain\SpeedyWheelsSales.Domain.csproj", "{20B753CA-6A10-4ED7-8901-A8BCECEE5FC5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedyWheelsSales.Application", "SpeedyWheelsSales.Application\SpeedyWheelsSales.Application.csproj", "{478AFA2B-5A8D-4127-9BA3-DAD2DD24F51A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedyWheelsSales.Application", "src\SpeedyWheelsSales.Application\SpeedyWheelsSales.Application.csproj", "{478AFA2B-5A8D-4127-9BA3-DAD2DD24F51A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedyWheelsSales.Infrastructure.Data", "SpeedyWheelsSales.Infrastructure.Data\SpeedyWheelsSales.Infrastructure.Data.csproj", "{2F04837C-29B1-44A7-B173-6903FA805073}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedyWheelsSales.Infrastructure.Data", "src\SpeedyWheelsSales.Infrastructure.Data\SpeedyWheelsSales.Infrastructure.Data.csproj", "{2F04837C-29B1-44A7-B173-6903FA805073}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedyWheelsSales.Infrastructure", "SpeedyWheelsSales.Infrastructure\SpeedyWheelsSales.Infrastructure.csproj", "{779F2495-060F-43F9-A46D-2A64CB0C994E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedyWheelsSales.Infrastructure", "src\SpeedyWheelsSales.Infrastructure\SpeedyWheelsSales.Infrastructure.csproj", "{779F2495-060F-43F9-A46D-2A64CB0C994E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{232A94E0-EF53-4F68-A8F9-C55EDED7265F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedyWheelsSales.Tests", "SpeedyWheelsSales.Tests\SpeedyWheelsSales.Tests.csproj", "{B58DC5C4-42AA-40D0-B838-81DA821930BD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedyWheelsSales.Tests", "tests\SpeedyWheelsSales.Tests\SpeedyWheelsSales.Tests.csproj", "{B58DC5C4-42AA-40D0-B838-81DA821930BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedyWheelsSales.Shared", "SpeedyWheelsSales.Shared\SpeedyWheelsSales.Shared.csproj", "{FE41A827-0B56-49E2-9C9F-F942456AEB25}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedyWheelsSales.Shared", "src\SpeedyWheelsSales.Shared\SpeedyWheelsSales.Shared.csproj", "{FE41A827-0B56-49E2-9C9F-F942456AEB25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedyWheelsSales.WebUI", "SpeedyWheelsSales.WebUI\SpeedyWheelsSales.WebUI.csproj", "{8C90482D-0F24-45E0-8CF4-401FB9505644}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedyWheelsSales.WebUI", "src\SpeedyWheelsSales.WebUI\SpeedyWheelsSales.WebUI.csproj", "{8C90482D-0F24-45E0-8CF4-401FB9505644}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedyWheelsSales.WebAPI", "SpeedyWheelsSales.WebAPI\SpeedyWheelsSales.WebAPI.csproj", "{A8E5D57E-F881-4738-9560-89FF6D88AE07}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedyWheelsSales.WebAPI", "src\SpeedyWheelsSales.WebAPI\SpeedyWheelsSales.WebAPI.csproj", "{A8E5D57E-F881-4738-9560-89FF6D88AE07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedyWheelsSales.IdentityServer", "SpeedyWheelsSales.IdentityServer\SpeedyWheelsSales.IdentityServer.csproj", "{EA3C040A-3938-4ADB-8AA5-F3E260D04E4A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedyWheelsSales.IdentityServer", "src\SpeedyWheelsSales.IdentityServer\SpeedyWheelsSales.IdentityServer.csproj", "{EA3C040A-3938-4ADB-8AA5-F3E260D04E4A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
