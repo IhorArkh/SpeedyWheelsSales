@@ -11,6 +11,9 @@ Welcome to SpeedyWheelsSales, the ultimate online marketplace for buying and sel
   - Every registered user can change his profile details like photo, name, mobbile number, etc.
 - Search and filter options
   - The buyer searches for vehicles based on criteria such as make, model, year, price, mileage, location etc.
+- Save searches
+  - Allow users to save their search criteria, such as make, model, year range, price range, mileage range, and location.
+  - User have ability to delete saved searches. 
 - Listing a vehicle for sale
   - The seller creates a new listing by providing details about the vehicle, including make, model, condition, images, price, etc.
 - Managing listings
