@@ -1,6 +1,4 @@
-﻿using System.Security.AccessControl;
-
-namespace Domain;
+﻿namespace Domain;
 
 public class AppUser
 {
