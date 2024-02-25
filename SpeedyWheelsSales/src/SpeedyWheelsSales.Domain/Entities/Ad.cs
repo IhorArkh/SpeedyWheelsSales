@@ -15,7 +15,7 @@ public class Ad
     public DateOnly ManufactureDate { get; set; }
     public string Description { get; set; }
     public string City { get; set; }
-    public DateTime CreatedAt { get; set; } = DateTime.Now;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public bool IsSold { get; set; }
     public DateTime SoldAt { get; set; }
     public double FuelConsumption { get; set; }

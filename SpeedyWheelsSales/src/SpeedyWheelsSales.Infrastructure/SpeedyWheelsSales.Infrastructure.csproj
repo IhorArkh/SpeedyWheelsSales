@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\SpeedyWheelsSales.Application\SpeedyWheelsSales.Application.csproj" />
+    </ItemGroup>
+
 </Project>
