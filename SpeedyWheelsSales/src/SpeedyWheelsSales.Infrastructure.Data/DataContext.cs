@@ -16,8 +16,9 @@ public class DataContext : DbContext
     public DbSet<Photo> Photos { get; set; }
     public DbSet<SavedSearch> SavedSearches { get; set; }
     
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(ModelBuilder builder)
     {
-        base.OnModelCreating(modelBuilder);
+        base.OnModelCreating(builder);
+        
     }
 }

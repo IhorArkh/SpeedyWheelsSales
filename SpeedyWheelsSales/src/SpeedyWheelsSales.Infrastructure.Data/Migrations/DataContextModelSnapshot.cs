@@ -44,6 +44,9 @@ namespace SpeedyWheelsSales.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsSold")
                         .HasColumnType("bit");
 
@@ -149,13 +152,15 @@ namespace SpeedyWheelsSales.Infrastructure.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AdId")
+                        .HasColumnType("int");
+
                     b.Property<int>("AppUserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppUserId")
-                        .IsUnique();
+                    b.HasIndex("AdId");
 
                     b.ToTable("FavouriteAds");
                 });
@@ -231,13 +236,13 @@ namespace SpeedyWheelsSales.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Domain.FavouriteAd", b =>
                 {
-                    b.HasOne("Domain.AppUser", "AppUser")
-                        .WithOne("FavouriteAd")
-                        .HasForeignKey("Domain.FavouriteAd", "AppUserId")
+                    b.HasOne("Domain.Ad", "Ad")
+                        .WithMany("FavouriteAds")
+                        .HasForeignKey("AdId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("AppUser");
+                    b.Navigation("Ad");
                 });
 
             modelBuilder.Entity("Domain.Photo", b =>
@@ -267,15 +272,14 @@ namespace SpeedyWheelsSales.Infrastructure.Data.Migrations
                     b.Navigation("Car")
                         .IsRequired();
 
+                    b.Navigation("FavouriteAds");
+
                     b.Navigation("Photo");
                 });
 
             modelBuilder.Entity("Domain.AppUser", b =>
                 {
                     b.Navigation("Ads");
-
-                    b.Navigation("FavouriteAd")
-                        .IsRequired();
 
                     b.Navigation("FavouriteSearches");
                 });

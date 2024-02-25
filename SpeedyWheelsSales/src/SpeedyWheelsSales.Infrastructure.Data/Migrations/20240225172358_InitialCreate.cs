@@ -38,6 +38,7 @@ namespace SpeedyWheelsSales.Infrastructure.Data.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     IsSold = table.Column<bool>(type: "bit", nullable: false),
                     SoldAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     AppUserId = table.Column<int>(type: "int", nullable: false)
@@ -47,25 +48,6 @@ namespace SpeedyWheelsSales.Infrastructure.Data.Migrations
                     table.PrimaryKey("PK_Ads", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Ads_AppUsers_AppUserId",
-                        column: x => x.AppUserId,
-                        principalTable: "AppUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "FavouriteAds",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AppUserId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FavouriteAds", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_FavouriteAds_AppUsers_AppUserId",
                         column: x => x.AppUserId,
                         principalTable: "AppUsers",
                         principalColumn: "Id",
@@ -122,6 +104,26 @@ namespace SpeedyWheelsSales.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "FavouriteAds",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AppUserId = table.Column<int>(type: "int", nullable: false),
+                    AdId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FavouriteAds", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FavouriteAds_Ads_AdId",
+                        column: x => x.AdId,
+                        principalTable: "Ads",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Photos",
                 columns: table => new
                 {
@@ -154,10 +156,9 @@ namespace SpeedyWheelsSales.Infrastructure.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_FavouriteAds_AppUserId",
+                name: "IX_FavouriteAds_AdId",
                 table: "FavouriteAds",
-                column: "AppUserId",
-                unique: true);
+                column: "AdId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Photos_AdId",
