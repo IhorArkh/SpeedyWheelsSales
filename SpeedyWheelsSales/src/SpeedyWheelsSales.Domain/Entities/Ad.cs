@@ -7,7 +7,7 @@ public class Ad
     public string City { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public bool IsSold { get; set; }
-    public DateTime SoldAt { get; set; }
+    public DateTime? SoldAt { get; set; }
     
     public int AppUserId { get; set; }
 

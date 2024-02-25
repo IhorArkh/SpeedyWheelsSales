@@ -12,7 +12,7 @@ using SpeedyWheelsSales.Infrastructure.Data;
 namespace SpeedyWheelsSales.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240225123022_InitialCreate")]
+    [Migration("20240225144219_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -50,7 +50,7 @@ namespace SpeedyWheelsSales.Infrastructure.Data.Migrations
                     b.Property<bool>("IsSold")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("SoldAt")
+                    b.Property<DateTime?>("SoldAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -69,7 +69,6 @@ namespace SpeedyWheelsSales.Infrastructure.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Bio")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Location")
@@ -81,7 +80,6 @@ namespace SpeedyWheelsSales.Infrastructure.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhotoUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("RegisterDate")

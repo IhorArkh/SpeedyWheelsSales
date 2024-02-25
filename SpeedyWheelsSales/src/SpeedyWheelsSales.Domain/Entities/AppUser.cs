@@ -8,8 +8,8 @@ public class AppUser
     public string Name { get; set; }
     public string Surname { get; set; }
     public string Location { get; set; }
-    public string Bio { get; set; }
-    public string PhotoUrl { get; set; }
+    public string? Bio { get; set; }
+    public string? PhotoUrl { get; set; }
     public DateTime RegisterDate { get; set; } = DateTime.UtcNow;
 
     public FavouriteAd FavouriteAd { get; set; }
