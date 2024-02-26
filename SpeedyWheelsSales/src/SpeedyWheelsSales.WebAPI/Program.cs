@@ -6,9 +6,10 @@ using SpeedyWheelsSales.WebAPI.Middlewares;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
-
-builder.Services.AddApplicationServices(builder.Configuration);
+builder.Services.AddDataServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
 
 var app = builder.Build();
@@ -22,7 +23,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection(); // Am I need it?
+app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
