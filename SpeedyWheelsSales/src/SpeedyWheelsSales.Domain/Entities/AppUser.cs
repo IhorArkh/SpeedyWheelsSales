@@ -1,8 +1,9 @@
-﻿namespace Domain;
+﻿using Microsoft.AspNetCore.Identity;
 
-public class AppUser
+namespace Domain.Entities;
+
+public class AppUser : IdentityUser
 {
-    public int Id { get; set; }
     public string Name { get; set; }
     public string Surname { get; set; }
     public string Location { get; set; }

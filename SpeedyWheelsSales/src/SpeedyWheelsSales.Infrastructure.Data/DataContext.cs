@@ -1,9 +1,11 @@
 ﻿using Domain;
+using Domain.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace SpeedyWheelsSales.Infrastructure.Data;
 
-public class DataContext : DbContext
+public class DataContext : IdentityDbContext
 {
     public DataContext(DbContextOptions<DataContext> options) : base(options)
     {
@@ -24,6 +26,14 @@ public class DataContext : DbContext
             .HasOne(x => x.AppUser)
             .WithMany(x => x.FavouriteAds)
             .HasForeignKey(x => x.AppUserId)
-            .OnDelete(DeleteBehavior.NoAction);
+            .OnDelete(DeleteBehavior.NoAction); 
+        
+        builder.Entity<Car>()
+            .Property(c => c.Price)
+            .HasColumnType("decimal(18, 2)");
+
+        builder.Entity<Car>()
+            .Property(c => c.EngineSize)
+            .HasColumnType("decimal(18, 2)");
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Domain;
+﻿using Domain.Entities;
+
+namespace Domain;
 
 public class Ad
 {
@@ -10,7 +12,7 @@ public class Ad
     public bool IsSold { get; set; }
     public DateTime? SoldAt { get; set; }
     
-    public int AppUserId { get; set; }
+    public string AppUserId { get; set; }
 
     public ICollection<FavouriteAd> FavouriteAds { get; set; }
     public Car Car { get; set; }

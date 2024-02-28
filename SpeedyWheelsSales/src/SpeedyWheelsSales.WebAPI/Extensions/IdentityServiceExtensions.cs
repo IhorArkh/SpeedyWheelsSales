@@ -1,4 +1,7 @@
-﻿namespace SpeedyWheelsSales.WebAPI.Extensions;
+﻿using Domain.Entities;
+using SpeedyWheelsSales.Infrastructure.Data;
+
+namespace SpeedyWheelsSales.WebAPI.Extensions;
 
 public static class IdentityServiceExtensions
 {
@@ -6,6 +9,12 @@ public static class IdentityServiceExtensions
     {
         services.AddAuthentication();
         services.AddAuthorization();
+
+        services.AddIdentityCore<AppUser>(opt =>
+            {
+                opt.Password.RequireNonAlphanumeric = false;
+            })
+            .AddEntityFrameworkStores<DataContext>();
         
         return services;
     }
