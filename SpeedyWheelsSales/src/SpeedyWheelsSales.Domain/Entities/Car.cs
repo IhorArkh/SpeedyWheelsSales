@@ -7,9 +7,9 @@ public class Car
 {
     public int Id { get; set; }
     public string Model { get; set; }
-    public int Price { get; set; }
+    public decimal Price { get; set; }
     public int Mileage { get; set; }
-    public double EngineSize { get; set; }
+    public decimal EngineSize { get; set; }
     public double FuelConsumption { get; set; }
     public DateTime ManufactureDate { get; set; }
     public EngineType EngineType { get; set; }

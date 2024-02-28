@@ -19,6 +19,11 @@ public class DataContext : DbContext
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        
+
+        builder.Entity<FavouriteAd>()
+            .HasOne(x => x.AppUser)
+            .WithMany(x => x.FavouriteAds)
+            .HasForeignKey(x => x.AppUserId)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

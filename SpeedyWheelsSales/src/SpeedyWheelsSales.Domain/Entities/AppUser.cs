@@ -12,5 +12,7 @@ public class AppUser
     
     public ICollection<Ad> Ads { get; set; } = new List<Ad>();
     public ICollection<SavedSearch> FavouriteSearches { get; set; } = new List<SavedSearch>();
+
+    public ICollection<FavouriteAd> FavouriteAds { get; set; } = new List<FavouriteAd>();
     // Fields like PhoneNumber, IsConfirmed, Email will be provided by asp.net identity 
 }
