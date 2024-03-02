@@ -11,4 +11,9 @@
       <ProjectReference Include="..\SpeedyWheelsSales.Infrastructure.Data\SpeedyWheelsSales.Infrastructure.Data.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="13.0.1" />
+      <PackageReference Include="MediatR" Version="12.2.0" />
+    </ItemGroup>
+
 </Project>

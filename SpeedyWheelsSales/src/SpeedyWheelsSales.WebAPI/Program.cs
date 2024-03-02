@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using SpeedyWheelsSales.Application.Ad.Queries.GetAdList;
+using SpeedyWheelsSales.Application.Core;
 using SpeedyWheelsSales.Infrastructure.Data;
 using SpeedyWheelsSales.WebAPI.Extensions;
 using SpeedyWheelsSales.WebAPI.Middlewares;
@@ -14,6 +16,15 @@ builder.Services.AddControllers();
 builder.Services.AddDataServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
 
+builder.Services.AddMediatR(x => 
+    x.RegisterServicesFromAssembly(typeof(GetAdListQueryHandler).Assembly));
+builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+builder.Services.AddCors(x => x.AddPolicy("CorsPolicy", policy =>
+{
+    policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+    //TODO Need to add specific origin in future.
+}));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -25,6 +36,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("CorsPolicy");
 app.UseHttpsRedirection();
 
 app.UseAuthentication();

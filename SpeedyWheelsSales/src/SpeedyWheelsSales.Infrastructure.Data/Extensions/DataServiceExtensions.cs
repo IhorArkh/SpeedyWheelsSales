@@ -10,7 +10,8 @@ public static class DataServiceExtensions
     {
         services.AddDbContext<DataContext>(opt =>
         {
-            opt.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+            opt.UseSqlServer(config.GetConnectionString("DefaultConnection")); 
+            //TODO Need to pass connection string directly to this method
         });
 
         return services;
