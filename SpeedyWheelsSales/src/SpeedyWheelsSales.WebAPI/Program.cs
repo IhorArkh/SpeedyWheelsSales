@@ -13,7 +13,9 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllers();
 
-builder.Services.AddDataServices(builder.Configuration);
+//TODO delete comment below
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection"); // Am I do it right?
+builder.Services.AddDataServices(connectionString);
 builder.Services.AddIdentityServices(builder.Configuration);
 
 builder.Services.AddMediatR(x => 
