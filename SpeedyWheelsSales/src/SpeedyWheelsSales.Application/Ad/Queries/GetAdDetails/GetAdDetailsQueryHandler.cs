@@ -1,9 +1,10 @@
 ﻿using MediatR;
+using SpeedyWheelsSales.Application.Core;
 using SpeedyWheelsSales.Infrastructure.Data;
 
 namespace SpeedyWheelsSales.Application.Ad.Queries.GetAdDetails;
 
-public class GetAdDetailsQueryHandler : IRequestHandler<GetAdDetailsQuery, Domain.Ad>
+public class GetAdDetailsQueryHandler : IRequestHandler<GetAdDetailsQuery, Result<Domain.Ad>>
 {
     private readonly DataContext _context;
 
@@ -12,8 +13,10 @@ public class GetAdDetailsQueryHandler : IRequestHandler<GetAdDetailsQuery, Domai
         _context = context;
     }
     
-    public async Task<Domain.Ad> Handle(GetAdDetailsQuery request, CancellationToken cancellationToken)
+    public async Task<Result<Domain.Ad>> Handle(GetAdDetailsQuery request, CancellationToken cancellationToken)
     {
-        return await _context.Ads.FindAsync(request.Id);
+        var ad = await _context.Ads.FindAsync(request.Id);
+        
+        return Result<Domain.Ad>.Success(ad);
     }
 }

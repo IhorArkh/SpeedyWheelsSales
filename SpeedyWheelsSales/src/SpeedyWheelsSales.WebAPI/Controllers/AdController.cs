@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using System.Reflection.Metadata;
+using Domain;
 using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -15,20 +16,19 @@ public class AdController : BaseApiController
     [HttpGet]
     public async Task<ActionResult<List<Ad>>> GetAds()
     {
-        return await Mediator.Send(new GetAdListQuery());
+        return HandleResult(await Mediator.Send(new GetAdListQuery()));
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Ad>> GetAdDetails(int id)
+    public async Task<IActionResult> GetAdDetails(int id)
     {
-        return await Mediator.Send(new GetAdDetailsQuery { Id = id });
+        return HandleResult(await Mediator.Send(new GetAdDetailsQuery { Id = id }));
     }
 
     [HttpPost]
     public async Task<IActionResult> CreateAd(Ad ad)
     {
-        await Mediator.Send(new CreateAdCommand { Ad = ad });
-        return Ok();
+        return HandleResult(await Mediator.Send(new CreateAdCommand { Ad = ad }));
     }
 
     [HttpPut("{id}")]
@@ -36,14 +36,12 @@ public class AdController : BaseApiController
     {
         ad.Id = id;
 
-        await Mediator.Send(new UpdateAdCommand { Ad = ad });
-        return Ok();
+        return HandleResult(await Mediator.Send(new UpdateAdCommand { Ad = ad }));
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteAd(int id)
     {
-        await Mediator.Send(new DeleteAdCommand { Id = id });
-        return Ok();
+        return HandleResult(await Mediator.Send(new DeleteAdCommand { Id = id }));
     }
 }

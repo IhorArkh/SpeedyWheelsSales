@@ -1,9 +1,10 @@
 ﻿using MediatR;
+using SpeedyWheelsSales.Application.Core;
 using SpeedyWheelsSales.Infrastructure.Data;
 
 namespace SpeedyWheelsSales.Application.Ad.Commands.DeleteAd;
 
-public class DeleteAdCommandHandler : IRequestHandler<DeleteAdCommand>
+public class DeleteAdCommandHandler : IRequestHandler<DeleteAdCommand, Result<Unit>>
 {
     private readonly DataContext _context;
 
@@ -12,11 +13,19 @@ public class DeleteAdCommandHandler : IRequestHandler<DeleteAdCommand>
         _context = context;
     }
 
-    public async Task Handle(DeleteAdCommand request, CancellationToken cancellationToken)
+    public async Task<Result<Unit>> Handle(DeleteAdCommand request, CancellationToken cancellationToken)
     {
         var ad = await _context.Ads.FindAsync(request.Id);
 
+        if (ad is null)
+            return null;
+
         _context.Remove(ad);
-        await _context.SaveChangesAsync();
+        var result = await _context.SaveChangesAsync() > 0;
+
+        if (!result)
+            return Result<Unit>.Failure("Failed to delete ad.");
+
+        return Result<Unit>.Success(Unit.Value);
     }
 }

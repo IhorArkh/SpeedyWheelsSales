@@ -1,7 +1,8 @@
 ﻿using MediatR;
+using SpeedyWheelsSales.Application.Core;
 
 namespace SpeedyWheelsSales.Application.Ad.Queries.GetAdList;
 
-public class GetAdListQuery : IRequest<List<Domain.Ad>>
+public class GetAdListQuery : IRequest<Result<List<Domain.Ad>>>
 {
 }

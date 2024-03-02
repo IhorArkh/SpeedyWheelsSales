@@ -1,11 +1,12 @@
 ﻿using Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using SpeedyWheelsSales.Application.Core;
 using SpeedyWheelsSales.Infrastructure.Data;
 
 namespace SpeedyWheelsSales.Application.Ad.Queries.GetAdList;
 
-public class GetAdListQueryHandler : IRequestHandler<GetAdListQuery, List<Domain.Ad>>
+public class GetAdListQueryHandler : IRequestHandler<GetAdListQuery, Result<List<Domain.Ad>>>
 {
     private readonly DataContext _context;
 
@@ -14,8 +15,10 @@ public class GetAdListQueryHandler : IRequestHandler<GetAdListQuery, List<Domain
         _context = context;
     }
     
-    public async Task<List<Domain.Ad>> Handle(GetAdListQuery request, CancellationToken cancellationToken)
+    public async Task<Result<List<Domain.Ad>>> Handle(GetAdListQuery request, CancellationToken cancellationToken)
     {
-        return await _context.Ads.ToListAsync();
+        var ads = await _context.Ads.ToListAsync();
+        
+        return Result<List<Domain.Ad>>.Success(ads);
     }
 }
