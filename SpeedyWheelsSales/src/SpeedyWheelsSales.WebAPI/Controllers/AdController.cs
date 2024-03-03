@@ -1,6 +1,7 @@
 ﻿using System.Reflection.Metadata;
 using Domain;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using SpeedyWheelsSales.Application.Ad.Commands.CreateAd;
@@ -13,6 +14,7 @@ namespace SpeedyWheelsSales.WebAPI.Controllers;
 
 public class AdController : BaseApiController
 {
+    [Authorize]
     [HttpGet]
     public async Task<ActionResult<List<Ad>>> GetAds()
     {

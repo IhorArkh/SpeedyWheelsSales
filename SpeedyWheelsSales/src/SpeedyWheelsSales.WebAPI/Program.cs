@@ -1,3 +1,5 @@
+using Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SpeedyWheelsSales.Application.Ad.Queries.GetAdList;
 using SpeedyWheelsSales.Application.Core;
@@ -18,7 +20,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDataServices(connectionString);
 builder.Services.AddIdentityServices(builder.Configuration);
 
-builder.Services.AddMediatR(x => 
+builder.Services.AddMediatR(x =>
     x.RegisterServicesFromAssembly(typeof(GetAdListQueryHandler).Assembly));
 builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 builder.Services.AddCors(x => x.AddPolicy("CorsPolicy", policy =>
@@ -52,8 +54,9 @@ var services = scope.ServiceProvider;
 try
 {
     var context = services.GetRequiredService<DataContext>();
+    var userManager = services.GetService<UserManager<AppUser>>();
     await context.Database.MigrateAsync();
-    await Seed.SeedData(context);
+    await Seed.SeedData(context, userManager);
 }
 catch (Exception ex)
 {
