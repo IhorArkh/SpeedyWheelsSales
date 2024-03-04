@@ -1,4 +1,4 @@
-﻿namespace SpeedyWheelsSales.Application.Ad.DTOs;
+﻿namespace SpeedyWheelsSales.Application.Ad.Queries.GetAdDetails.DTOs;
 
 public class AppUserDetailsDto
 {

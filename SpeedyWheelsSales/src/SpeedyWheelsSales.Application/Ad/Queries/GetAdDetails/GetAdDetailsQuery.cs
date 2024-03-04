@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using SpeedyWheelsSales.Application.Ad.DTOs;
+using SpeedyWheelsSales.Application.Ad.Queries.GetAdDetails.DTOs;
 using SpeedyWheelsSales.Application.Core;
 
 namespace SpeedyWheelsSales.Application.Ad.Queries.GetAdDetails;

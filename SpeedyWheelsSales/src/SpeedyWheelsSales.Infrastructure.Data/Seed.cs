@@ -3,7 +3,6 @@ using Domain.Entities;
 using Domain.Enums;
 using Microsoft.AspNetCore.Identity;
 using SpeedyWheelsSales.Infrastructure.Data;
-using DriveType = System.IO.DriveType;
 
 public class Seed
 {

@@ -1,11 +1,10 @@
 ﻿using Domain.Enums;
-using DriveType = System.IO.DriveType;
+using DriveType = Domain.Enums.DriveType;
 
-namespace SpeedyWheelsSales.Application.Ad.DTOs;
+namespace SpeedyWheelsSales.Application.Ad.Commands.CreateAd.DTOs;
 
-public class CarDetailsDto
+public class CreateAdCarDto
 {
-    public int Id { get; set; }
     public string Model { get; set; }
     public decimal Price { get; set; }
     public int Mileage { get; set; }

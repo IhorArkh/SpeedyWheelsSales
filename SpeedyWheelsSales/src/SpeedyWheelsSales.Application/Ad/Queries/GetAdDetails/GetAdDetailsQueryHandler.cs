@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using SpeedyWheelsSales.Application.Ad.DTOs;
+using SpeedyWheelsSales.Application.Ad.Queries.GetAdDetails.DTOs;
 using SpeedyWheelsSales.Application.Core;
 using SpeedyWheelsSales.Infrastructure.Data;
 

@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using Domain;
 using Domain.Entities;
-using SpeedyWheelsSales.Application.Ad.DTOs;
+using SpeedyWheelsSales.Application.Ad.Commands.CreateAd.DTOs;
+using SpeedyWheelsSales.Application.Ad.Queries.GetAdDetails.DTOs;
+using SpeedyWheelsSales.Application.Ad.Queries.GetAdList;
+
 
 namespace SpeedyWheelsSales.Application.Core;
 
@@ -25,5 +28,13 @@ public class MappingProfiles : Profile
                 opt.MapFrom(src => src.Car))
             .ForMember(dest => dest.PhotoDetailsDtos, opt =>
                 opt.MapFrom(src => src.Photo));
+
+        CreateMap<CreateAdCarDto, Car>();
+        CreateMap<CreateAdPhotoDto, Photo>();
+        CreateMap<CreateAdDto, Domain.Ad>()
+            .ForMember(dest => dest.Car, opt =>
+                opt.MapFrom(src => src.CreateAdCarDto))
+            .ForMember(dest => dest.Photo, opt =>
+                opt.MapFrom(src => src.CreateAdPhotoDtos));
     }
 }
