@@ -11,7 +11,7 @@ public static class IdentityServiceExtensions
         services.AddAuthentication()
             .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, o =>
             {
-                o.ExpireTimeSpan = TimeSpan.FromSeconds(15);
+                o.ExpireTimeSpan = TimeSpan.FromMinutes(5);
             });
         services.AddAuthorization();
 

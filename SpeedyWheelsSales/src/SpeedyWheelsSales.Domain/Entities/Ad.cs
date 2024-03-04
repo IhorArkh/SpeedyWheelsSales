@@ -2,7 +2,7 @@
 
 namespace Domain;
 
-public class Ad
+public class Ad // TODO Need to add logic for IsDeleted and IsSold. Also for CreatedAt.
 {
     public int Id { get; set; }
     public string Description { get; set; }

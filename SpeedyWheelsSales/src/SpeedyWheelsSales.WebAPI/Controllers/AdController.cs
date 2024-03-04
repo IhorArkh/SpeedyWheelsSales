@@ -5,6 +5,7 @@ using SpeedyWheelsSales.Application.Ad.Commands.CreateAd;
 using SpeedyWheelsSales.Application.Ad.Commands.CreateAd.DTOs;
 using SpeedyWheelsSales.Application.Ad.Commands.DeleteAd;
 using SpeedyWheelsSales.Application.Ad.Commands.UpdateAd;
+using SpeedyWheelsSales.Application.Ad.Commands.UpdateAd.DTOs;
 using SpeedyWheelsSales.Application.Ad.Queries.GetAdDetails;
 using SpeedyWheelsSales.Application.Ad.Queries.GetAdList;
 
@@ -33,11 +34,9 @@ public class AdController : BaseApiController
 
     [Authorize]
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateAd(int id, Ad ad)
+    public async Task<IActionResult> UpdateAd(int id, UpdateAdDto updateAdDto)
     {
-        ad.Id = id;
-
-        return HandleResult(await Mediator.Send(new UpdateAdCommand { Ad = ad }));
+        return HandleResult(await Mediator.Send(new UpdateAdCommand { UpdateAdDto = updateAdDto, Id = id}));
     }
 
     [Authorize]
