@@ -47,7 +47,7 @@ public class Seed
                         ManufactureDate = new DateTime(2019, 1, 1),
                         EngineType = EngineType.Diesel,
                         Transmission = Transmission.Automatic,
-                        DriveType = Domain.Enums.DriveType.Fwd,
+                        TypeOfDrive = Domain.Enums.TypeOfDrive.Fwd,
                         Color = Colors.Blue
                     },
                     AppUser = user1,
@@ -73,7 +73,7 @@ public class Seed
                         ManufactureDate = new DateTime(2020, 3, 1),
                         EngineType = EngineType.Diesel,
                         Transmission = Transmission.Manual,
-                        DriveType = Domain.Enums.DriveType.Rwd,
+                        TypeOfDrive = Domain.Enums.TypeOfDrive.Rwd,
                         Color = Colors.Red
                     },
                     AppUser = user2,
@@ -98,7 +98,7 @@ public class Seed
                         ManufactureDate = new DateTime(2018, 5, 1),
                         EngineType = EngineType.Electric,
                         Transmission = Transmission.Automatic,
-                        DriveType = Domain.Enums.DriveType.Rwd,
+                        TypeOfDrive = Domain.Enums.TypeOfDrive.Rwd,
                         Color = Colors.Silver
                     },
                     AppUser = user1,
@@ -123,7 +123,7 @@ public class Seed
                         ManufactureDate = new DateTime(2017, 8, 1),
                         EngineType = EngineType.Electric,
                         Transmission = Transmission.Automatic,
-                        DriveType = Domain.Enums.DriveType.Fwd,
+                        TypeOfDrive = Domain.Enums.TypeOfDrive.Fwd,
                         Color = Colors.Black
                     },
                     AppUser = user2,
@@ -148,7 +148,7 @@ public class Seed
                         ManufactureDate = new DateTime(2019, 10, 1),
                         EngineType = EngineType.Gas,
                         Transmission = Transmission.Automatic,
-                        DriveType = Domain.Enums.DriveType.Awd,
+                        TypeOfDrive = Domain.Enums.TypeOfDrive.Awd,
                         Color = Colors.White
                     },
                     AppUser = user1,

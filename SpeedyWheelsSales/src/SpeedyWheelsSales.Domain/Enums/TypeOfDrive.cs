@@ -1,6 +1,6 @@
 ﻿namespace Domain.Enums;
 
-public enum DriveType
+public enum TypeOfDrive
 {
     Fwd,
     Rwd,

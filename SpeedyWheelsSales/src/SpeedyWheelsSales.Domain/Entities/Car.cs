@@ -1,5 +1,4 @@
 ﻿using Domain.Enums;
-using DriveType = Domain.Enums.DriveType;
 
 namespace Domain;
 
@@ -14,7 +13,7 @@ public class Car
     public DateTime ManufactureDate { get; set; }
     public EngineType EngineType { get; set; }
     public Transmission Transmission { get; set; }
-    public DriveType DriveType { get; set; }
+    public TypeOfDrive TypeOfDrive { get; set; }
     public Colors Color { get; set; }
 
     public int AdId { get; set; }
