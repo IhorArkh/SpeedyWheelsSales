@@ -71,6 +71,19 @@ public class AccountController : ControllerBase
 
         if (result.Succeeded)
         {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, user.UserName),
+            };
+            
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity), new AuthenticationProperties()
+                {
+                    IsPersistent = true
+                });
+            
             return new UserDto()
             {
                 Name = user.Name,

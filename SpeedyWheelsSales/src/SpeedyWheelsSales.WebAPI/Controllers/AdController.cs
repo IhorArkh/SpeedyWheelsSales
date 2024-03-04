@@ -18,7 +18,7 @@ public class AdController : BaseApiController
     {
         return HandleResult(await Mediator.Send(new GetAdListQuery()));
     }
-
+    
     [HttpGet("{id}")]
     public async Task<IActionResult> GetAdDetails(int id)
     {
