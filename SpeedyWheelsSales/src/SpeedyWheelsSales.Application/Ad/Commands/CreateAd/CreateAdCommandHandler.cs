@@ -1,6 +1,12 @@
-﻿using AutoMapper;
+﻿using System.Security.Claims;
+using AutoMapper;
+using Domain.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using SpeedyWheelsSales.Application.Core;
+using SpeedyWheelsSales.Application.Interfaces;
 using SpeedyWheelsSales.Infrastructure.Data;
 
 namespace SpeedyWheelsSales.Application.Ad.Commands.CreateAd;
@@ -9,17 +15,32 @@ public class CreateAdCommandHandler : IRequestHandler<CreateAdCommand, Result<Un
 {
     private readonly DataContext _context;
     private readonly IMapper _mapper;
+    private readonly IUserAccessor _userAccessor;
+    private readonly UserManager<AppUser> _userManager;
 
-    public CreateAdCommandHandler(DataContext context, IMapper mapper)
+    public CreateAdCommandHandler(DataContext context, IMapper mapper, IUserAccessor userAccessor,
+        UserManager<AppUser> userManager)
     {
         _context = context;
         _mapper = mapper;
+        _userAccessor = userAccessor;
+        _userManager = userManager;
     }
 
     public async Task<Result<Unit>> Handle(CreateAdCommand request, CancellationToken cancellationToken)
     {
         var ad = _mapper.Map<Domain.Ad>(request.CreateAdDto);
-        
+
+        var currUserUsername = _userAccessor.GetUsername();
+        if (currUserUsername is null)
+            return null;
+
+        var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == currUserUsername);
+        if (user is null)
+            return null;
+
+        ad.AppUser = user;
+
         _context.Add(ad);
         var result = await _context.SaveChangesAsync() > 0;
 

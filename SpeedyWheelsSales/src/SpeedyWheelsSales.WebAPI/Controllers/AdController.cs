@@ -24,7 +24,7 @@ public class AdController : BaseApiController
         return HandleResult(await Mediator.Send(new GetAdDetailsQuery { Id = id }));
     }
 
-    //[Authorize]
+    [Authorize]
     [HttpPost]
     public async Task<IActionResult> CreateAd(CreateAdDto createAdDto)
     {

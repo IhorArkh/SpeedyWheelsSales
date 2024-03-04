@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SpeedyWheelsSales.Application.Ad.Queries.GetAdList;
 using SpeedyWheelsSales.Application.Core;
+using SpeedyWheelsSales.Application.Interfaces;
+using SpeedyWheelsSales.Infrastructure;
 using SpeedyWheelsSales.Infrastructure.Data;
 using SpeedyWheelsSales.WebAPI.Extensions;
 using SpeedyWheelsSales.WebAPI.Middlewares;
@@ -28,6 +30,8 @@ builder.Services.AddCors(x => x.AddPolicy("CorsPolicy", policy =>
     policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
     //TODO Need to add specific origin in future.
 }));
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<IUserAccessor, UserAccessor>();
 
 var app = builder.Build();
 
