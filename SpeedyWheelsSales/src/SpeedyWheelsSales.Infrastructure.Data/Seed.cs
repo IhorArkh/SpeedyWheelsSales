@@ -48,7 +48,9 @@ public class Seed
                         EngineType = EngineType.Diesel,
                         Transmission = Transmission.Automatic,
                         TypeOfDrive = Domain.Enums.TypeOfDrive.Fwd,
-                        Color = Colors.Blue
+                        Color = Colors.Blue,
+                        Vin = "vin1",
+                        Plates = "AX7777AX"
                     },
                     AppUser = user1,
                     Photo = new List<Photo>
@@ -74,7 +76,9 @@ public class Seed
                         EngineType = EngineType.Diesel,
                         Transmission = Transmission.Manual,
                         TypeOfDrive = Domain.Enums.TypeOfDrive.Rwd,
-                        Color = Colors.Red
+                        Color = Colors.Red,
+                        Vin = "vin2",
+                        Plates = "AX1777AX"
                     },
                     AppUser = user2,
                     Photo = new List<Photo>
@@ -99,7 +103,9 @@ public class Seed
                         EngineType = EngineType.Electric,
                         Transmission = Transmission.Automatic,
                         TypeOfDrive = Domain.Enums.TypeOfDrive.Rwd,
-                        Color = Colors.Silver
+                        Color = Colors.Silver,
+                        Vin = "vin3",
+                        Plates = "AI7777AX"
                     },
                     AppUser = user1,
                     Photo = new List<Photo>
@@ -124,7 +130,9 @@ public class Seed
                         EngineType = EngineType.Electric,
                         Transmission = Transmission.Automatic,
                         TypeOfDrive = Domain.Enums.TypeOfDrive.Fwd,
-                        Color = Colors.Black
+                        Color = Colors.Black,
+                        Vin = "vin4",
+                        Plates = "AX7757AX"
                     },
                     AppUser = user2,
                     Photo = new List<Photo>
@@ -149,7 +157,9 @@ public class Seed
                         EngineType = EngineType.Gas,
                         Transmission = Transmission.Automatic,
                         TypeOfDrive = Domain.Enums.TypeOfDrive.Awd,
-                        Color = Colors.White
+                        Color = Colors.White,
+                        Vin = "vin6",
+                        Plates = "AX7777YX"
                     },
                     AppUser = user1,
                     Photo = new List<Photo>

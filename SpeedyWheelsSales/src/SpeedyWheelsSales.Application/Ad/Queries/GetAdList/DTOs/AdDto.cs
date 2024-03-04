@@ -1,6 +1,7 @@
-﻿using SpeedyWheelsSales.Application.Ad.Queries.GetAdDetails.DTOs;
+﻿
+using SpeedyWheelsSales.Application.Ad.Queries.GetAdDetails.DTOs;
 
-namespace SpeedyWheelsSales.Application.Ad.Queries.GetAdList;
+namespace SpeedyWheelsSales.Application.Ad.Queries.GetAdList.DTOs;
 
 public class AdDto
 {

@@ -9,6 +9,8 @@ public class CreateAdCarDto
     public int Mileage { get; set; }
     public decimal EngineSize { get; set; }
     public double FuelConsumption { get; set; }
+    public string Vin { get; set; }
+    public string Plates { get; set; }
     public DateTime ManufactureDate { get; set; }
     public EngineType EngineType { get; set; }
     public Transmission Transmission { get; set; }
