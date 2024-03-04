@@ -2,6 +2,6 @@
 
 public class LoginDto
 {
-    public string Email { get; set; }
+    public string EmailOrUserName { get; set; } // TODO need to change it by "PhoneOrUserName"
     public string Password { get; set; }
 }

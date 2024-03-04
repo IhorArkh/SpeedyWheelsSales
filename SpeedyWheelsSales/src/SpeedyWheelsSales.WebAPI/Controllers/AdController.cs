@@ -14,7 +14,6 @@ namespace SpeedyWheelsSales.WebAPI.Controllers;
 
 public class AdController : BaseApiController
 {
-    [Authorize]
     [HttpGet]
     public async Task<ActionResult<List<Ad>>> GetAds()
     {
@@ -27,12 +26,14 @@ public class AdController : BaseApiController
         return HandleResult(await Mediator.Send(new GetAdDetailsQuery { Id = id }));
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<IActionResult> CreateAd(Ad ad)
     {
         return HandleResult(await Mediator.Send(new CreateAdCommand { Ad = ad }));
     }
 
+    [Authorize]
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateAd(int id, Ad ad)
     {
@@ -41,6 +42,7 @@ public class AdController : BaseApiController
         return HandleResult(await Mediator.Send(new UpdateAdCommand { Ad = ad }));
     }
 
+    [Authorize]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteAd(int id)
     {

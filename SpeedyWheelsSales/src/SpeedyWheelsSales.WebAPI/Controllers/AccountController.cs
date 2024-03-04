@@ -24,8 +24,9 @@ public class AccountController : ControllerBase
     [HttpPost("login")]
     public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
     {
-        var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Email == loginDto.Email);
-
+        var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Email == loginDto.EmailOrUserName) ?? 
+                   await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == loginDto.EmailOrUserName);
+        
         if (user is null)
             return Unauthorized();
 
@@ -60,8 +61,6 @@ public class AccountController : ControllerBase
     [HttpPost("register")]
     public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
     {
-        var email = await _userManager.Users.FirstOrDefaultAsync(x => x.Email == registerDto.Email);
-        
         var user = new AppUser()
         {
             Name = registerDto.Name,
