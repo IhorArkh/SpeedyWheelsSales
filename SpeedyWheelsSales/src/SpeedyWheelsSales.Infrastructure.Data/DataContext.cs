@@ -2,6 +2,7 @@
 using Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using SpeedyWheelsSales.Infrastructure.Data.EntityConfigurations;
 
 namespace SpeedyWheelsSales.Infrastructure.Data;
 
@@ -22,18 +23,11 @@ public class DataContext : IdentityDbContext
     {
         base.OnModelCreating(builder);
 
-        builder.Entity<FavouriteAd>()
-            .HasOne(x => x.AppUser)
-            .WithMany(x => x.FavouriteAds)
-            .HasForeignKey(x => x.AppUserId)
-            .OnDelete(DeleteBehavior.NoAction);
-
-        builder.Entity<Car>()
-            .Property(c => c.Price)
-            .HasColumnType("decimal(18, 2)");
-
-        builder.Entity<Car>()
-            .Property(c => c.EngineSize)
-            .HasColumnType("decimal(18, 2)");
+        builder.ApplyConfiguration(new AppUserConfiguration());
+        builder.ApplyConfiguration(new AdConfiguration());
+        builder.ApplyConfiguration(new CarConfiguration());
+        builder.ApplyConfiguration(new FavouriteAdConfiguration());
+        builder.ApplyConfiguration(new PhotoConfiguration());
+        builder.ApplyConfiguration(new SavedSearchConfiguration());
     }
 }

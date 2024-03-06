@@ -17,7 +17,6 @@ public class Car
     public Transmission Transmission { get; set; }
     public TypeOfDrive TypeOfDrive { get; set; }
     public Colors Color { get; set; }
-
     public int AdId { get; set; }
     
     public Ad Ad { get; set; }

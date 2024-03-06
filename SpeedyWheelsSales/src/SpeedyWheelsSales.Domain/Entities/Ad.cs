@@ -11,7 +11,6 @@ public class Ad // TODO Need to add logic for IsDeleted and IsSold. Also for Cre
     public bool IsDeleted { get; set; }
     public bool IsSold { get; set; }
     public DateTime? SoldAt { get; set; }
-    
     public string AppUserId { get; set; }
 
     public ICollection<FavouriteAd> FavouriteAds { get; set; }

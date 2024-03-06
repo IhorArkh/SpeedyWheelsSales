@@ -5,7 +5,6 @@ namespace Domain;
 public class FavouriteAd
 {
     public int Id { get; set; }
-    
     public int AdId { get; set; }
     public string AppUserId { get; set; }
     
