@@ -22,31 +22,23 @@ public class UpdateAdCommandHandler : IRequestHandler<UpdateAdCommand, Result<Un
 
     public async Task<Result<Unit>> Handle(UpdateAdCommand request, CancellationToken cancellationToken)
     {
-        try
-        {
-            var ad = await _context.Ads
-                .Include(x => x.AppUser)
-                .Include(x => x.Car)
-                .FirstOrDefaultAsync(x => x.Id == request.Id);
-            if (ad is null)
-                return null;
+        var ad = await _context.Ads
+            .Include(x => x.AppUser)
+            .Include(x => x.Car)
+            .FirstOrDefaultAsync(x => x.Id == request.Id);
+        if (ad is null)
+            return null;
 
-            if (ad.AppUser.UserName != _userAccessor.GetUsername())
-                return Result<Unit>.Failure("Users can update only their own ads.");
+        if (ad.AppUser.UserName != _userAccessor.GetUsername())
+            return Result<Unit>.Failure("Users can update only their own ads.");
 
-            _mapper.Map(request.UpdateAdDto, ad);
+        _mapper.Map(request.UpdateAdDto, ad);
             
-            var result = await _context.SaveChangesAsync() > 0;
+        var result = await _context.SaveChangesAsync() > 0;
 
-            if (!result)
-                return Result<Unit>.Failure("Failed to update ad.");
+        if (!result)
+            return Result<Unit>.Failure("Failed to update ad.");
 
-            return Result<Unit>.Success(Unit.Value);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.ToString());
-            return Result<Unit>.Failure("An error occurred while updating the ad.");
-        }
+        return Result<Unit>.Success(Unit.Value);
     }
 }

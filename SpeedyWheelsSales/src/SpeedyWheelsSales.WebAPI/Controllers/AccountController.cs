@@ -23,9 +23,9 @@ public class AccountController : ControllerBase
     [HttpPost("login")]
     public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
     {
-        var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Email == loginDto.EmailOrUserName) ?? 
-                   await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == loginDto.EmailOrUserName);
-        
+        var user = await _userManager.Users.FirstOrDefaultAsync(x => x.PhoneNumber == loginDto.PhoneOrUserName) ??
+                   await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == loginDto.PhoneOrUserName);
+
         if (user is null)
             return Unauthorized();
 
@@ -37,7 +37,7 @@ public class AccountController : ControllerBase
             {
                 new Claim(ClaimTypes.Name, user.UserName),
             };
-            
+
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
@@ -45,12 +45,14 @@ public class AccountController : ControllerBase
                 {
                     IsPersistent = true
                 });
-            
+
             return new UserDto()
             {
                 Name = user.Name,
                 UserName = user.UserName,
-                PhotoUrl = user.PhotoUrl
+                PhotoUrl = user.PhotoUrl,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber
             };
         }
 
@@ -64,35 +66,35 @@ public class AccountController : ControllerBase
         {
             Name = registerDto.Name,
             UserName = registerDto.UserName,
-            Email = registerDto.Email
+            Email = registerDto.Email,
+            PhoneNumber = registerDto.PhoneNumber
         };
-        
+
         var result = await _userManager.CreateAsync(user, registerDto.Password);
 
-        if (result.Succeeded)
+        if (!result.Succeeded)
+            return BadRequest(result.Errors);
+
+        var claims = new List<Claim>
         {
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, user.UserName),
-            };
-            
-            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            new Claim(ClaimTypes.Name, user.UserName),
+        };
 
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity), new AuthenticationProperties()
-                {
-                    IsPersistent = true
-                });
-            
-            return new UserDto()
-            {
-                Name = user.Name,
-                UserName = user.UserName,
-                Email = user.Email,
-            };
-        }
+        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-        return BadRequest(result.Errors);
+        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+            new ClaimsPrincipal(claimsIdentity), new AuthenticationProperties()
+            {
+                IsPersistent = true
+            });
+
+        return new UserDto()
+        {
+            Name = user.Name,
+            UserName = user.UserName,
+            Email = user.Email,
+            PhoneNumber = user.PhoneNumber
+        };
     }
 
     [HttpGet("logout")]
@@ -101,5 +103,4 @@ public class AccountController : ControllerBase
         await HttpContext.SignOutAsync();
         return Ok();
     }
-    
 }
