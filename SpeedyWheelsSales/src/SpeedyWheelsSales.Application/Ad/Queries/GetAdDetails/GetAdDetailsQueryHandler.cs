@@ -20,18 +20,11 @@ public class GetAdDetailsQueryHandler : IRequestHandler<GetAdDetailsQuery, Resul
     
     public async Task<Result<AdDetailsDto>> Handle(GetAdDetailsQuery request, CancellationToken cancellationToken)
     {
-        // var ad = await _context.Ads
-        //     .Where(x => x.Id == request.Id)
-        //     .ProjectTo<AdDetailsDto>(_mapper.ConfigurationProvider)
-        //     .FirstOrDefaultAsync();
-
         var ad = await _context.Ads
             .Include(x => x.AppUser)
             .Include(x => x.Photo)
             .Include(x => x.Car)
             .FirstOrDefaultAsync(x => x.Id == request.Id);
-        
-        // Which approach is better?
 
         var adDetailsDto = _mapper.Map<AdDetailsDto>(ad);
         

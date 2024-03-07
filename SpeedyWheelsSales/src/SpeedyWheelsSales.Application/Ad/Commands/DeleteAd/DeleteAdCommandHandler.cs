@@ -23,9 +23,9 @@ public class DeleteAdCommandHandler : IRequestHandler<DeleteAdCommand, Result<Un
         var ad = await _context.Ads
             .Include(x => x.AppUser)
             .FirstOrDefaultAsync(x => x.Id == request.Id);
-        
+
         if (ad is null)
-            return null;
+            return Result<Unit>.Empty();
 
         if (ad.AppUser.UserName != _userAccessor.GetUsername())
             return Result<Unit>.Failure("Users can delete only their own ads.");

@@ -33,11 +33,11 @@ public class CreateAdCommandHandler : IRequestHandler<CreateAdCommand, Result<Un
 
         var currUserUsername = _userAccessor.GetUsername();
         if (currUserUsername is null)
-            return null;
+            return Result<Unit>.Empty();
 
         var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == currUserUsername);
         if (user is null)
-            return null;
+            return Result<Unit>.Empty();
 
         ad.AppUser = user;
 

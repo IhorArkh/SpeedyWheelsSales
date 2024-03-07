@@ -27,13 +27,13 @@ public class UpdateAdCommandHandler : IRequestHandler<UpdateAdCommand, Result<Un
             .Include(x => x.Car)
             .FirstOrDefaultAsync(x => x.Id == request.Id);
         if (ad is null)
-            return null;
+            return Result<Unit>.Empty();
 
         if (ad.AppUser.UserName != _userAccessor.GetUsername())
             return Result<Unit>.Failure("Users can update only their own ads.");
 
         _mapper.Map(request.UpdateAdDto, ad);
-            
+
         var result = await _context.SaveChangesAsync() > 0;
 
         if (!result)

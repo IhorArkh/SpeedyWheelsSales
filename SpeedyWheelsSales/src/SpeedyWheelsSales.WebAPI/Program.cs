@@ -19,8 +19,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers()
     .AddJsonOptions(opt => { opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); });
 
-//TODO delete comment below
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection"); // Am I do it right?
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDataServices(connectionString);
 builder.Services.AddIdentityServices(builder.Configuration);
 
