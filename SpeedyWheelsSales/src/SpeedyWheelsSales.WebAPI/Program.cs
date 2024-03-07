@@ -1,7 +1,10 @@
 using System.Text.Json.Serialization;
 using Domain.Entities;
+using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using SpeedyWheelsSales.Application.Ad.Commands.CreateAd;
+using SpeedyWheelsSales.Application.Ad.Commands.CreateAd.DTOs;
 using SpeedyWheelsSales.Application.Ad.Queries.GetAdList;
 using SpeedyWheelsSales.Application.Core;
 using SpeedyWheelsSales.Application.Interfaces;
@@ -33,6 +36,7 @@ builder.Services.AddCors(x => x.AddPolicy("CorsPolicy", policy =>
 }));
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IUserAccessor, UserAccessor>();
+builder.Services.AddScoped<IValidator<CreateAdDto>, CreateAdCommandValidator>();
 
 var app = builder.Build();
 

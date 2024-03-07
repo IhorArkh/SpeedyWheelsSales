@@ -1,10 +1,13 @@
 ﻿using System.Security.Claims;
+using System.Text;
 using AutoMapper;
 using Domain.Entities;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using SpeedyWheelsSales.Application.Ad.Commands.CreateAd.DTOs;
 using SpeedyWheelsSales.Application.Core;
 using SpeedyWheelsSales.Application.Interfaces;
 using SpeedyWheelsSales.Infrastructure.Data;
@@ -17,18 +20,24 @@ public class CreateAdCommandHandler : IRequestHandler<CreateAdCommand, Result<Un
     private readonly IMapper _mapper;
     private readonly IUserAccessor _userAccessor;
     private readonly UserManager<AppUser> _userManager;
+    private readonly IValidator<CreateAdDto> _validator;
 
     public CreateAdCommandHandler(DataContext context, IMapper mapper, IUserAccessor userAccessor,
-        UserManager<AppUser> userManager)
+        UserManager<AppUser> userManager, IValidator<CreateAdDto> validator)
     {
         _context = context;
         _mapper = mapper;
         _userAccessor = userAccessor;
         _userManager = userManager;
+        _validator = validator;
     }
 
     public async Task<Result<Unit>> Handle(CreateAdCommand request, CancellationToken cancellationToken)
     {
+        var validationResult = await _validator.ValidateAsync(request.CreateAdDto);
+        if (!validationResult.IsValid)
+            return Result<Unit>.ValidationError(validationResult.Errors);
+
         var ad = _mapper.Map<Domain.Ad>(request.CreateAdDto);
 
         var currUserUsername = _userAccessor.GetUsername();
