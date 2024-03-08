@@ -16,19 +16,10 @@ public class BaseApiController : ControllerBase
     {
         if (result.ValidationErrors != null)
         {
-            var errorMessages = new List<ValidationError>();
-
-            foreach (var error in result.ValidationErrors)
+            return BadRequest(new
             {
-                errorMessages.Add(new ValidationError()
-                {
-                    AttemptedValue = error.AttemptedValue.ToString(),
-                    ErrorMessage = error.ErrorMessage,
-                    PropertyName = error.PropertyName.Split('.').LastOrDefault()
-                });
-            }
-
-            return BadRequest(errorMessages);
+                errors = result.ValidationErrors.Select(x => new { x.AttemptedValue, x.ErrorMessage })
+            });
         }
 
         if (result.IsEmpty)

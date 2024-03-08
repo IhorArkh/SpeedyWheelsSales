@@ -4,7 +4,6 @@ using Domain.Entities;
 using SpeedyWheelsSales.Application.Ad.Commands.CreateAd.DTOs;
 using SpeedyWheelsSales.Application.Ad.Commands.UpdateAd.DTOs;
 using SpeedyWheelsSales.Application.Ad.Queries.GetAdDetails.DTOs;
-using SpeedyWheelsSales.Application.Ad.Queries.GetAdList;
 using SpeedyWheelsSales.Application.Ad.Queries.GetAdList.DTOs;
 
 

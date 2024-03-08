@@ -1,5 +1,4 @@
 ﻿using Domain.Enums;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace SpeedyWheelsSales.Application.Ad.Commands.UpdateAd.DTOs;
 
