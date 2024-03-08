@@ -53,20 +53,20 @@ public class UpdateAdCommandValidator : AbstractValidator<UpdateAdDto>
             .MaximumLength(15)
             .WithMessage("Plates must be less than 15 characters.");
 
-        RuleFor(x => x.UpdateAdCarDto.EngineType)
-            .NotEmpty()
-            .WithMessage("EngineType is required.");
-
-        RuleFor(x => x.UpdateAdCarDto.Transmission)
-            .NotEmpty()
-            .WithMessage("Transmission is required.");
-
-        RuleFor(x => x.UpdateAdCarDto.TypeOfDrive)
-            .NotEmpty()
-            .WithMessage("TypeOfDrive is required.");
-
-        RuleFor(x => x.UpdateAdCarDto.Color)
-            .NotEmpty()
-            .WithMessage("Color is required.");
+        // RuleFor(x => x.UpdateAdCarDto.EngineType)
+        //     .NotEmpty()
+        //     .WithMessage("EngineType is required.");
+        //
+        // RuleFor(x => x.UpdateAdCarDto.Transmission)
+        //     .NotEmpty()
+        //     .WithMessage("Transmission is required.");
+        //
+        // RuleFor(x => x.UpdateAdCarDto.TypeOfDrive)
+        //     .NotEmpty()
+        //     .WithMessage("TypeOfDrive is required.");
+        //
+        // RuleFor(x => x.UpdateAdCarDto.Color)
+        //     .NotEmpty()
+        //     .WithMessage("Color is required.");
     }
 }

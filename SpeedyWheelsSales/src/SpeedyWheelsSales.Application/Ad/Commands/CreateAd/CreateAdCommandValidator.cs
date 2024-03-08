@@ -63,20 +63,21 @@ public class CreateAdCommandValidator : AbstractValidator<CreateAdDto>
             .NotEmpty()
             .WithMessage("ManufactureDate is required.");
         
-        RuleFor(x => x.CreateAdCarDto.EngineType)
-            .NotEmpty()
-            .WithMessage("EngineType is required.");
-        
-        RuleFor(x => x.CreateAdCarDto.Transmission)
-            .NotEmpty()
-            .WithMessage("Transmission is required.");
-        
-        RuleFor(x => x.CreateAdCarDto.TypeOfDrive)
-            .NotEmpty()
-            .WithMessage("TypeOfDrive is required.");
-
-        RuleFor(x => x.CreateAdCarDto.Color)
-            .NotEmpty()
-            .WithMessage("Color is required.");
+        // RuleFor(x => x.CreateAdCarDto.EngineType)
+        //     .IsInEnum()
+        //     .WithMessage("EngineType is required.");
+        //
+        // RuleFor(x => x.CreateAdCarDto.Transmission)
+        //     .IsInEnum()
+        //     .WithMessage("Transmission is required.");
+        //
+        // RuleFor(x => x.CreateAdCarDto.TypeOfDrive)
+        //     .IsInEnum()
+        //     .WithMessage("TypeOfDrive is required.");
+        //
+        // RuleFor(x => x.CreateAdCarDto.Color)
+        //     .IsInEnum()
+        //     .WithMessage("Color is required.");
+        //TODO create custom enums validator
     }
 }

@@ -14,7 +14,7 @@ public class BaseApiController : ControllerBase
 
     protected ActionResult HandleResult<T>(Result<T> result)
     {
-        if (result.ValidationErrors != null)
+        if (result.ValidationErrors.Count != default)
         {
             return BadRequest(new
             {
