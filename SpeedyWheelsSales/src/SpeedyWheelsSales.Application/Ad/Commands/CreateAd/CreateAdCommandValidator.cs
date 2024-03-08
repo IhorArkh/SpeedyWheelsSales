@@ -74,5 +74,9 @@ public class CreateAdCommandValidator : AbstractValidator<CreateAdDto>
         RuleFor(x => x.CreateAdCarDto.TypeOfDrive)
             .NotEmpty()
             .WithMessage("TypeOfDrive is required.");
+
+        RuleFor(x => x.CreateAdCarDto.Color)
+            .NotEmpty()
+            .WithMessage("Color is required.");
     }
 }
