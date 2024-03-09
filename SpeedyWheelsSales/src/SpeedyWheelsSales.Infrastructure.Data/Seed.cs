@@ -13,20 +13,24 @@ public class Seed
             var user1 = new AppUser
             {
                 UserName = "user1",
+                Email = "mail@test.com",
+                PhoneNumber = "380500813839",
                 Name = "John Doe",
                 Location = "City1",
                 Bio = "Lorem Ipsum",
-                PhotoUrl = "https://example.com/photo1.jpg"
+                PhotoUrl = "https://www.shutterstock.com/shutterstock/photos/1669189411/display_1500/stock-photo-gardening-home-girl-replanting-green-pasture-in-home-garden-indoor-garden-room-with-plants-banner-1669189411.jpg"
             };
             await userManager.CreateAsync(user1, "Password123");
 
             var user2 = new AppUser
             {
                 UserName = "user2",
+                Email = "mail2@test.com",
+                PhoneNumber = "380500813838",
                 Name = "Jane Smith",
                 Location = "City2",
                 Bio = "Dolor Sit Amet",
-                PhotoUrl = "https://example.com/photo2.jpg"
+                PhotoUrl = "https://www.shutterstock.com/shutterstock/photos/577183882/display_1500/stock-photo-software-developer-programming-code-abstract-computer-script-code-programming-code-screen-of-577183882.jpg"
             };
             await userManager.CreateAsync(user2, "Password123");
 
@@ -55,8 +59,8 @@ public class Seed
                     AppUser = user1,
                     Photo = new List<Photo>
                     {
-                        new Photo { Url = "https://example.com/photo1_1.jpg", IsMain = 1 },
-                        new Photo { Url = "https://example.com/photo1_2.jpg", IsMain = 0 },
+                        new Photo { Url = "https://www.shutterstock.com/shutterstock/photos/577183882/display_1500/stock-photo-software-developer-programming-code-abstract-computer-script-code-programming-code-screen-of-577183882.jpg", IsMain = 1 },
+                        new Photo { Url = "https://www.shutterstock.com/shutterstock/photos/1669189411/display_1500/stock-photo-gardening-home-girl-replanting-green-pasture-in-home-garden-indoor-garden-room-with-plants-banner-1669189411.jpg", IsMain = 0 },
                     }
                 },
                 new Ad
@@ -83,8 +87,8 @@ public class Seed
                     AppUser = user2,
                     Photo = new List<Photo>
                     {
-                        new Photo { Url = "https://example.com/photo2_1.jpg", IsMain = 1 },
-                        new Photo { Url = "https://example.com/photo2_2.jpg", IsMain = 0 },
+                        new Photo { Url = "https://www.shutterstock.com/shutterstock/photos/577183882/display_1500/stock-photo-software-developer-programming-code-abstract-computer-script-code-programming-code-screen-of-577183882.jpg", IsMain = 1 },
+                        new Photo { Url = "https://www.shutterstock.com/shutterstock/photos/1669189411/display_1500/stock-photo-gardening-home-girl-replanting-green-pasture-in-home-garden-indoor-garden-room-with-plants-banner-1669189411.jpg", IsMain = 0 },
                     }
                 },
                 new Ad
@@ -110,8 +114,8 @@ public class Seed
                     AppUser = user1,
                     Photo = new List<Photo>
                     {
-                        new Photo { Url = "https://example.com/photo3_1.jpg", IsMain = 1 },
-                        new Photo { Url = "https://example.com/photo3_2.jpg", IsMain = 0 },
+                        new Photo { Url = "https://www.shutterstock.com/shutterstock/photos/577183882/display_1500/stock-photo-software-developer-programming-code-abstract-computer-script-code-programming-code-screen-of-577183882.jpg", IsMain = 1 },
+                        new Photo { Url = "https://www.shutterstock.com/shutterstock/photos/1669189411/display_1500/stock-photo-gardening-home-girl-replanting-green-pasture-in-home-garden-indoor-garden-room-with-plants-banner-1669189411.jpg", IsMain = 0 },
                     }
                 },
                 new Ad
@@ -137,8 +141,8 @@ public class Seed
                     AppUser = user2,
                     Photo = new List<Photo>
                     {
-                        new Photo { Url = "https://example.com/photo4_1.jpg", IsMain = 1 },
-                        new Photo { Url = "https://example.com/photo4_2.jpg", IsMain = 0 },
+                        new Photo { Url = "https://www.shutterstock.com/shutterstock/photos/577183882/display_1500/stock-photo-software-developer-programming-code-abstract-computer-script-code-programming-code-screen-of-577183882.jpg", IsMain = 1 },
+                        new Photo { Url = "https://www.shutterstock.com/shutterstock/photos/1669189411/display_1500/stock-photo-gardening-home-girl-replanting-green-pasture-in-home-garden-indoor-garden-room-with-plants-banner-1669189411.jpg", IsMain = 0 },
                     }
                 },
                 new Ad
@@ -164,8 +168,8 @@ public class Seed
                     AppUser = user1,
                     Photo = new List<Photo>
                     {
-                        new Photo { Url = "https://example.com/photo5_1.jpg", IsMain = 1 },
-                        new Photo { Url = "https://example.com/photo5_2.jpg", IsMain = 0 },
+                        new Photo { Url = "https://www.shutterstock.com/shutterstock/photos/577183882/display_1500/stock-photo-software-developer-programming-code-abstract-computer-script-code-programming-code-screen-of-577183882.jpg", IsMain = 1 },
+                        new Photo { Url = "https://www.shutterstock.com/shutterstock/photos/1669189411/display_1500/stock-photo-gardening-home-girl-replanting-green-pasture-in-home-garden-indoor-garden-room-with-plants-banner-1669189411.jpg", IsMain = 0 },
                     }
                 }
             };
