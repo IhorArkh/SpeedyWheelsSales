@@ -5,11 +5,11 @@ using SpeedyWheelsSales.Application.Ad.Queries.GetAdList.DTOs;
 
 namespace SpeedyWheelsSales.WebUI.Controllers;
 
-public class AdMvcController : Controller
+public class AdController : Controller
 {
     private readonly HttpClient _httpClient;
 
-    public AdMvcController(IHttpClientFactory httpClientFactory)
+    public AdController(IHttpClientFactory httpClientFactory)
     {
         _httpClient = httpClientFactory.CreateClient("MyWebApi");
     }

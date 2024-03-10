@@ -1,3 +1,6 @@
+using SpeedyWheelsSales.Infrastructure.Data;
+using SpeedyWheelsSales.WebUI.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +9,10 @@ builder.Services.AddHttpClient("MyWebApi", x =>
 {
     x.BaseAddress = new Uri("https://localhost:5001/api/");
 });
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDataServices(connectionString);
+builder.Services.AddIdentityServices(builder.Configuration);
 
 var app = builder.Build();
 
@@ -22,6 +29,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

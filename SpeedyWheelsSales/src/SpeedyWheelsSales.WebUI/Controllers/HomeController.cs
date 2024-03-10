@@ -15,7 +15,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        return RedirectToAction("ListAds", "AdMvc");
+        return RedirectToAction("ListAds", "Ad");
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

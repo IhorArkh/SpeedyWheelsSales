@@ -5,13 +5,11 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SpeedyWheelsSales.WebAPI.DTOs;
+using SpeedyWheelsSales.WebUI.Models;
 
-namespace SpeedyWheelsSales.WebAPI.Controllers;
+namespace SpeedyWheelsSales.WebUI.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
-public class AccountController : ControllerBase
+public class AccountController : Controller
 {
     private readonly UserManager<AppUser> _userManager;
 
@@ -20,16 +18,22 @@ public class AccountController : ControllerBase
         _userManager = userManager;
     }
 
-    [HttpPost("login")]
-    public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
+    [HttpGet]
+    public IActionResult Login()
     {
-        var user = await _userManager.Users.FirstOrDefaultAsync(x => x.PhoneNumber == loginDto.PhoneOrUserName) ??
-                   await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == loginDto.PhoneOrUserName);
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Login(LoginViewModel loginViewModel)
+    {
+        var user = await _userManager.Users.FirstOrDefaultAsync(x => x.PhoneNumber == loginViewModel.PhoneOrUserName) ??
+                   await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == loginViewModel.PhoneOrUserName);
 
         if (user is null)
             return Unauthorized();
 
-        var result = await _userManager.CheckPasswordAsync(user, loginDto.Password);
+        var result = await _userManager.CheckPasswordAsync(user, loginViewModel.Password);
 
         if (result)
         {
@@ -46,31 +50,30 @@ public class AccountController : ControllerBase
                     IsPersistent = true
                 });
 
-            return new UserDto()
-            {
-                Name = user.Name,
-                UserName = user.UserName,
-                PhotoUrl = user.PhotoUrl,
-                Email = user.Email,
-                PhoneNumber = user.PhoneNumber
-            };
+            return RedirectToAction("ListAds", "Ad");
         }
 
-        return Unauthorized();
+        return View();
     }
 
-    [HttpPost("register")]
-    public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
+    [HttpGet]
+    public IActionResult Register()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
     {
         var user = new AppUser()
         {
-            Name = registerDto.Name,
-            UserName = registerDto.UserName,
-            Email = registerDto.Email,
-            PhoneNumber = registerDto.PhoneNumber
+            Name = registerViewModel.Name,
+            UserName = registerViewModel.UserName,
+            Email = registerViewModel.Email,
+            PhoneNumber = registerViewModel.PhoneNumber
         };
 
-        var result = await _userManager.CreateAsync(user, registerDto.Password);
+        var result = await _userManager.CreateAsync(user, registerViewModel.Password);
 
         if (!result.Succeeded)
             return BadRequest(result.Errors);
@@ -88,19 +91,19 @@ public class AccountController : ControllerBase
                 IsPersistent = true
             });
 
-        return new UserDto()
-        {
-            Name = user.Name,
-            UserName = user.UserName,
-            Email = user.Email,
-            PhoneNumber = user.PhoneNumber
-        };
+        return RedirectToAction("ListAds", "Ad");
     }
 
-    [HttpGet("logout")]
-    public async Task<IActionResult> Logout()
+    [HttpGet]
+    public IActionResult Logout()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> LogoutConfirmed()
     {
         await HttpContext.SignOutAsync();
-        return Ok();
+        return RedirectToAction("ListAds", "Ad");
     }
 }
