@@ -9,14 +9,15 @@ using SpeedyWheelsSales.Infrastructure.Data;
 
 namespace SpeedyWheelsSales.Tests.Ad;
 
-public class GetAdDetailsTests
+public class GetAdDetailsQueryTests
 {
     private async Task<DataContext> GetDbContext()
     {
         var options = new DbContextOptionsBuilder<DataContext>()
-            .UseInMemoryDatabase(databaseName: "DbForGetAdDetails").Options;
+            .UseInMemoryDatabase(databaseName: "DbForGetAdDetailsQuery").Options;
 
         var databaseContext = new DataContext(options);
+        await databaseContext.Database.EnsureDeletedAsync();
         await databaseContext.Database.EnsureCreatedAsync();
 
         return databaseContext;
@@ -47,7 +48,6 @@ public class GetAdDetailsTests
         //Act
 
         var result = await handler.Handle(query, CancellationToken.None);
-        await context.Database.EnsureDeletedAsync();
 
         //Assert
         result.IsSuccess.Should().BeTrue();
@@ -82,7 +82,6 @@ public class GetAdDetailsTests
         //Act
 
         var result = await handler.Handle(query, CancellationToken.None);
-        await context.Database.EnsureDeletedAsync();
 
         //Assert
         result.IsSuccess.Should().BeTrue();
