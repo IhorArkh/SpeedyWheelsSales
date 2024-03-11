@@ -26,4 +26,6 @@ Welcome to SpeedyWheelsSales, the ultimate online marketplace for buying and sel
   -  The buyer clicks on a vehicle listing to view detailed information, including specifications, images, car history and the seller's contact details.
 - Personal messaging
   - Users can engage in private conversations to discuss vehicle details, negotiate prices and make an appointments.
-
+ 
+## Database schema
+![image](https://github.com/IhorArkh/SpeedyWheelsSales/assets/118860688/fd6d275d-eada-4873-b2a5-2aecd2b29763)
