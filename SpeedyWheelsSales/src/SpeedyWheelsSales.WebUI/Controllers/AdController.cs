@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using SpeedyWheelsSales.Application.Ad.Queries.GetAdDetails.DTOs;
-using SpeedyWheelsSales.Application.Ad.Queries.GetAdList.DTOs;
+using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdDetails.DTOs;
+using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdList.DTOs;
 
 namespace SpeedyWheelsSales.WebUI.Controllers;
 

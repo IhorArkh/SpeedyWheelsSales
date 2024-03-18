@@ -4,7 +4,7 @@ using FluentAssertions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Moq;
-using SpeedyWheelsSales.Application.Ad.Commands.DeleteAd;
+using SpeedyWheelsSales.Application.Features.Ad.Commands.DeleteAd;
 using SpeedyWheelsSales.Infrastructure.Data;
 
 namespace SpeedyWheelsSales.Tests.Ad;

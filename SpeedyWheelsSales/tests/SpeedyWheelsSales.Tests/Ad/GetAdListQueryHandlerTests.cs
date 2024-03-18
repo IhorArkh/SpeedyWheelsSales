@@ -2,8 +2,8 @@ using AutoFixture;
 using AutoMapper;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
-using SpeedyWheelsSales.Application.Ad.Queries.GetAdList;
 using SpeedyWheelsSales.Application.Core;
+using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdList;
 using SpeedyWheelsSales.Infrastructure.Data;
 
 namespace SpeedyWheelsSales.Tests.Ad;

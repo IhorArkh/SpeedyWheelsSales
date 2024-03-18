@@ -2,8 +2,8 @@
 using AutoMapper;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
-using SpeedyWheelsSales.Application.Ad.Queries.GetAdDetails;
 using SpeedyWheelsSales.Application.Core;
+using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdDetails;
 using SpeedyWheelsSales.Infrastructure.Data;
 
 namespace SpeedyWheelsSales.Tests.Ad;

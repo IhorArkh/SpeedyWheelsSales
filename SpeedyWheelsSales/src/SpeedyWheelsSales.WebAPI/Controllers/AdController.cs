@@ -1,13 +1,13 @@
 ﻿using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SpeedyWheelsSales.Application.Ad.Commands.CreateAd;
-using SpeedyWheelsSales.Application.Ad.Commands.CreateAd.DTOs;
-using SpeedyWheelsSales.Application.Ad.Commands.DeleteAd;
-using SpeedyWheelsSales.Application.Ad.Commands.UpdateAd;
-using SpeedyWheelsSales.Application.Ad.Commands.UpdateAd.DTOs;
-using SpeedyWheelsSales.Application.Ad.Queries.GetAdDetails;
-using SpeedyWheelsSales.Application.Ad.Queries.GetAdList;
+using SpeedyWheelsSales.Application.Features.Ad.Commands.CreateAd;
+using SpeedyWheelsSales.Application.Features.Ad.Commands.CreateAd.DTOs;
+using SpeedyWheelsSales.Application.Features.Ad.Commands.DeleteAd;
+using SpeedyWheelsSales.Application.Features.Ad.Commands.UpdateAd;
+using SpeedyWheelsSales.Application.Features.Ad.Commands.UpdateAd.DTOs;
+using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdDetails;
+using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdList;
 
 namespace SpeedyWheelsSales.WebAPI.Controllers;
 
