@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
+using Domain.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SpeedyWheelsSales.Application.Core;
-using SpeedyWheelsSales.Application.Interfaces;
 using SpeedyWheelsSales.Infrastructure.Data;
 
 namespace SpeedyWheelsSales.Application.Ad.Commands.UpdateAd;
@@ -11,13 +11,13 @@ public class UpdateAdCommandHandler : IRequestHandler<UpdateAdCommand, Result<Un
 {
     private readonly DataContext _context;
     private readonly IMapper _mapper;
-    private readonly IUserAccessor _userAccessor;
+    private readonly ICurrentUserAccessor _currentUserAccessor;
 
-    public UpdateAdCommandHandler(DataContext context, IMapper mapper, IUserAccessor userAccessor)
+    public UpdateAdCommandHandler(DataContext context, IMapper mapper, ICurrentUserAccessor currentUserAccessor)
     {
         _context = context;
         _mapper = mapper;
-        _userAccessor = userAccessor;
+        _currentUserAccessor = currentUserAccessor;
     }
 
     public async Task<Result<Unit>> Handle(UpdateAdCommand request, CancellationToken cancellationToken)
@@ -29,7 +29,7 @@ public class UpdateAdCommandHandler : IRequestHandler<UpdateAdCommand, Result<Un
         if (ad is null)
             return Result<Unit>.Empty();
 
-        if (ad.AppUser.UserName != _userAccessor.GetUsername())
+        if (ad.AppUser.UserName != _currentUserAccessor.GetCurrentUsername())
             return Result<Unit>.Failure("Users can update only their own ads.");
 
         _mapper.Map(request.UpdateAdDto, ad);

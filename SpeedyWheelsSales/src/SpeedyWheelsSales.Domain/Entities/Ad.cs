@@ -1,6 +1,4 @@
-﻿using Domain.Entities;
-
-namespace Domain;
+﻿namespace Domain.Entities;
 
 public class Ad // TODO Need to add logic for IsDeleted and IsSold. Also for CreatedAt.
 {

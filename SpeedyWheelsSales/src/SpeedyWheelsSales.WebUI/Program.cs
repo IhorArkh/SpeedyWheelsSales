@@ -1,5 +1,5 @@
 using SpeedyWheelsSales.Infrastructure.Data;
-using SpeedyWheelsSales.WebUI.Extensions;
+using SpeedyWheelsSales.WebUI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,11 +7,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient("MyWebApi", x =>
 {
-    x.BaseAddress = new Uri("https://localhost:5001/api/");
+    var webApiBaseAddress = builder.Configuration["WebApiBaseAddress"] ??
+                            throw new InvalidOperationException("Web Api base address not found.");
+    x.BaseAddress = new Uri(webApiBaseAddress);
 });
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDataServices(connectionString);
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
+                       throw new InvalidOperationException("Connection string not found.");
+builder.Services.AddDatabase(connectionString);
 builder.Services.AddIdentityServices(builder.Configuration);
 
 var app = builder.Build();

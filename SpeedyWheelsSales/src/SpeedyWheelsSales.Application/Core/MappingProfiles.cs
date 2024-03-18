@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Domain;
 using Domain.Entities;
 using SpeedyWheelsSales.Application.Ad.Commands.CreateAd.DTOs;
 using SpeedyWheelsSales.Application.Ad.Commands.UpdateAd.DTOs;
@@ -16,7 +15,7 @@ public class MappingProfiles : Profile
         CreateMap<Car, CarDetailsDto>();
         CreateMap<AppUser, AppUserDetailsDto>();
         CreateMap<Photo, PhotoDetailsDto>();
-        CreateMap<Domain.Ad, AdDetailsDto>()
+        CreateMap<Domain.Entities.Ad, AdDetailsDto>()
             .ForMember(dest => dest.CarDetailsDto, opt =>
                 opt.MapFrom(src => src.Car))
             .ForMember(dest => dest.AppUserDetailsDto, opt =>
@@ -24,7 +23,7 @@ public class MappingProfiles : Profile
             .ForMember(dest => dest.PhotoDetailsDtos, opt =>
                 opt.MapFrom(src => src.Photo));
 
-        CreateMap<Domain.Ad, AdDto>()
+        CreateMap<Domain.Entities.Ad, AdDto>()
             .ForMember(dest => dest.CarDetailsDto, opt =>
                 opt.MapFrom(src => src.Car))
             .ForMember(dest => dest.PhotoDetailsDtos, opt =>
@@ -32,19 +31,19 @@ public class MappingProfiles : Profile
 
         CreateMap<CreateAdCarDto, Car>();
         CreateMap<CreateAdPhotoDto, Photo>();
-        CreateMap<CreateAdDto, Domain.Ad>()
+        CreateMap<CreateAdDto, Domain.Entities.Ad>()
             .ForMember(dest => dest.Car, opt =>
                 opt.MapFrom(src => src.CreateAdCarDto))
             .ForMember(dest => dest.Photo, opt =>
                 opt.MapFrom(src => src.CreateAdPhotoDtos));
 
         CreateMap<UpdateAdCarDto, Car>();
-        CreateMap<UpdateAdDto, Domain.Ad>()
+        CreateMap<UpdateAdDto, Domain.Entities.Ad>()
             .ForMember(dest => dest.Car, opt =>
                 opt.MapFrom(src => src.UpdateAdCarDto));
 
         CreateMap<Car, CarListDto>();
-        CreateMap<Domain.Ad, AdDto>()
+        CreateMap<Domain.Entities.Ad, AdDto>()
             .ForMember(dest => dest.CarDetailsDto, opt =>
                 opt.MapFrom(src => src.Car))
             .ForMember(dest => dest.PhotoDetailsDtos, opt =>

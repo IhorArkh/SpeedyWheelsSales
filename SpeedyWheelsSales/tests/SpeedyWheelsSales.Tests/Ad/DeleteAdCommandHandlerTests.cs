@@ -1,20 +1,20 @@
 ﻿using AutoFixture;
+using Domain.Interfaces;
 using FluentAssertions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using SpeedyWheelsSales.Application.Ad.Commands.DeleteAd;
-using SpeedyWheelsSales.Application.Interfaces;
 using SpeedyWheelsSales.Infrastructure.Data;
 
 namespace SpeedyWheelsSales.Tests.Ad;
 
-public class DeleteAdCommandTests
+public class DeleteAdCommandHandlerTests
 {
     private async Task<DataContext> GetDbContext()
     {
         var options = new DbContextOptionsBuilder<DataContext>()
-            .UseInMemoryDatabase(databaseName: "DbForDeleteAdCommand").Options;
+            .UseInMemoryDatabase(databaseName: "DbForDeleteAdCommandHandler").Options;
 
         var databaseContext = new DataContext(options);
         await databaseContext.Database.EnsureDeletedAsync();
@@ -34,13 +34,13 @@ public class DeleteAdCommandTests
             .ForEach(b => fixture.Behaviors.Remove(b));
         fixture.Behaviors.Add(new OmitOnRecursionBehavior());
 
-        var ad = fixture.Create<Domain.Ad>();
+        var ad = fixture.Create<Domain.Entities.Ad>();
 
         context.Ads.Add(ad);
         await context.SaveChangesAsync();
 
-        var userAccessorMock = new Mock<IUserAccessor>();
-        userAccessorMock.Setup(x => x.GetUsername()).Returns(ad.AppUser.UserName);
+        var userAccessorMock = new Mock<ICurrentUserAccessor>();
+        userAccessorMock.Setup(x => x.GetCurrentUsername()).Returns(ad.AppUser.UserName);
 
         var command = new DeleteAdCommand { Id = ad.Id };
         var handler = new DeleteAdCommandHandler(context, userAccessorMock.Object);
@@ -64,7 +64,7 @@ public class DeleteAdCommandTests
         //Arrange
         var context = await GetDbContext();
 
-        var userAccessorMock = new Mock<IUserAccessor>();
+        var userAccessorMock = new Mock<ICurrentUserAccessor>();
 
         var random = new Random();
 
@@ -92,13 +92,13 @@ public class DeleteAdCommandTests
             .ForEach(b => fixture.Behaviors.Remove(b));
         fixture.Behaviors.Add(new OmitOnRecursionBehavior());
 
-        var ad = fixture.Create<Domain.Ad>();
+        var ad = fixture.Create<Domain.Entities.Ad>();
 
         context.Ads.Add(ad);
         await context.SaveChangesAsync();
 
-        var userAccessorMock = new Mock<IUserAccessor>();
-        userAccessorMock.Setup(x => x.GetUsername()).Returns("otherUsername");
+        var userAccessorMock = new Mock<ICurrentUserAccessor>();
+        userAccessorMock.Setup(x => x.GetCurrentUsername()).Returns("otherUsername");
 
         var command = new DeleteAdCommand { Id = ad.Id };
         var handler = new DeleteAdCommandHandler(context, userAccessorMock.Object);

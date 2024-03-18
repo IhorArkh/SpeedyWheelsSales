@@ -8,12 +8,12 @@ using SpeedyWheelsSales.Infrastructure.Data;
 
 namespace SpeedyWheelsSales.Tests.Ad;
 
-public class GetAdListQueryTests
+public class GetAdListQueryHandlerTests
 {
     private async Task<DataContext> GetDbContext()
     {
         var options = new DbContextOptionsBuilder<DataContext>()
-            .UseInMemoryDatabase(databaseName: "DbForGetAdListQuery").Options;
+            .UseInMemoryDatabase(databaseName: "DbForGetAdListQueryHandler").Options;
 
         var databaseContext = new DataContext(options);
         await databaseContext.Database.EnsureDeletedAsync();
@@ -33,7 +33,7 @@ public class GetAdListQueryTests
             .ForEach(b => fixture.Behaviors.Remove(b));
         fixture.Behaviors.Add(new OmitOnRecursionBehavior());
 
-        var ads = fixture.CreateMany<Domain.Ad>().ToList();
+        var ads = fixture.CreateMany<Domain.Entities.Ad>().ToList();
 
         context.Ads.AddRange(ads);
         await context.SaveChangesAsync();

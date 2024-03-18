@@ -3,18 +3,17 @@ using AutoMapper;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using SpeedyWheelsSales.Application.Ad.Queries.GetAdDetails;
-using SpeedyWheelsSales.Application.Ad.Queries.GetAdDetails.DTOs;
 using SpeedyWheelsSales.Application.Core;
 using SpeedyWheelsSales.Infrastructure.Data;
 
 namespace SpeedyWheelsSales.Tests.Ad;
 
-public class GetAdDetailsQueryTests
+public class GetAdDetailsQueryHandlerTests
 {
     private async Task<DataContext> GetDbContext()
     {
         var options = new DbContextOptionsBuilder<DataContext>()
-            .UseInMemoryDatabase(databaseName: "DbForGetAdDetailsQuery").Options;
+            .UseInMemoryDatabase(databaseName: "DbForGetAdDetailsQueryHandler").Options;
 
         var databaseContext = new DataContext(options);
         await databaseContext.Database.EnsureDeletedAsync();
@@ -34,7 +33,7 @@ public class GetAdDetailsQueryTests
             .ForEach(b => fixture.Behaviors.Remove(b));
         fixture.Behaviors.Add(new OmitOnRecursionBehavior());
 
-        var ad = fixture.Create<Domain.Ad>();
+        var ad = fixture.Create<Domain.Entities.Ad>();
 
         context.Ads.Add(ad);
         await context.SaveChangesAsync();
@@ -66,7 +65,7 @@ public class GetAdDetailsQueryTests
             .ForEach(b => fixture.Behaviors.Remove(b));
         fixture.Behaviors.Add(new OmitOnRecursionBehavior());
 
-        var ad = fixture.Create<Domain.Ad>();
+        var ad = fixture.Create<Domain.Entities.Ad>();
 
         context.Ads.Add(ad);
         await context.SaveChangesAsync();

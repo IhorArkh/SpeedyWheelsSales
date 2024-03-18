@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using Domain.Entities;
+using Domain.Interfaces;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -9,10 +10,9 @@ using SpeedyWheelsSales.Application.Ad.Commands.UpdateAd;
 using SpeedyWheelsSales.Application.Ad.Commands.UpdateAd.DTOs;
 using SpeedyWheelsSales.Application.Ad.Queries.GetAdList;
 using SpeedyWheelsSales.Application.Core;
-using SpeedyWheelsSales.Application.Interfaces;
 using SpeedyWheelsSales.Infrastructure;
 using SpeedyWheelsSales.Infrastructure.Data;
-using SpeedyWheelsSales.WebAPI.Extensions;
+using SpeedyWheelsSales.WebAPI;
 using SpeedyWheelsSales.WebAPI.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,8 +24,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers()
     .AddJsonOptions(opt => { opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); });
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDataServices(connectionString);
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
+                       throw new InvalidOperationException("Web Api base address not found.");
+builder.Services.AddDatabase(connectionString);
 builder.Services.AddIdentityServices(builder.Configuration);
 
 builder.Services.AddMediatR(x =>
@@ -37,7 +38,7 @@ builder.Services.AddCors(x => x.AddPolicy("CorsPolicy", policy =>
     //TODO Need to add specific origin in future.
 }));
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<IUserAccessor, UserAccessor>();
+builder.Services.AddScoped<ICurrentUserAccessor, CurrentUserAccessor>();
 builder.Services.AddScoped<IValidator<CreateAdDto>, CreateAdCommandValidator>();
 builder.Services.AddScoped<IValidator<UpdateAdDto>, UpdateAdCommandValidator>();
 

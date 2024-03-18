@@ -1,5 +1,4 @@
-﻿using Domain;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Enums;
 using Microsoft.AspNetCore.Identity;
 using SpeedyWheelsSales.Infrastructure.Data;

@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using Domain.Entities;
+using Domain.Interfaces;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SpeedyWheelsSales.Application.Ad.Commands.CreateAd.DTOs;
 using SpeedyWheelsSales.Application.Core;
-using SpeedyWheelsSales.Application.Interfaces;
 using SpeedyWheelsSales.Infrastructure.Data;
 
 namespace SpeedyWheelsSales.Application.Ad.Commands.CreateAd;
@@ -15,16 +15,16 @@ public class CreateAdCommandHandler : IRequestHandler<CreateAdCommand, Result<Un
 {
     private readonly DataContext _context;
     private readonly IMapper _mapper;
-    private readonly IUserAccessor _userAccessor;
+    private readonly ICurrentUserAccessor _currentUserAccessor;
     private readonly UserManager<AppUser> _userManager;
     private readonly IValidator<CreateAdDto> _validator;
 
-    public CreateAdCommandHandler(DataContext context, IMapper mapper, IUserAccessor userAccessor,
+    public CreateAdCommandHandler(DataContext context, IMapper mapper, ICurrentUserAccessor currentUserAccessor,
         UserManager<AppUser> userManager, IValidator<CreateAdDto> validator)
     {
         _context = context;
         _mapper = mapper;
-        _userAccessor = userAccessor;
+        _currentUserAccessor = currentUserAccessor;
         _userManager = userManager;
         _validator = validator;
     }
@@ -35,13 +35,14 @@ public class CreateAdCommandHandler : IRequestHandler<CreateAdCommand, Result<Un
         if (!validationResult.IsValid)
             return Result<Unit>.ValidationError(validationResult.Errors);
 
-        var ad = _mapper.Map<Domain.Ad>(request.CreateAdDto);
+        var ad = _mapper.Map<Domain.Entities.Ad>(request.CreateAdDto);
 
-        var currUserUsername = _userAccessor.GetUsername();
+        var currUserUsername = _currentUserAccessor.GetCurrentUsername();
         if (currUserUsername is null)
             return Result<Unit>.Empty();
 
         var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == currUserUsername);
+        // var user = await _userManager.FindByNameAsync(currUserUsername);
         if (user is null)
             return Result<Unit>.Empty();
 

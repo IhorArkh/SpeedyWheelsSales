@@ -1,7 +1,7 @@
-﻿using MediatR;
+﻿using Domain.Interfaces;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SpeedyWheelsSales.Application.Core;
-using SpeedyWheelsSales.Application.Interfaces;
 using SpeedyWheelsSales.Infrastructure.Data;
 
 namespace SpeedyWheelsSales.Application.Ad.Commands.DeleteAd;
@@ -9,12 +9,12 @@ namespace SpeedyWheelsSales.Application.Ad.Commands.DeleteAd;
 public class DeleteAdCommandHandler : IRequestHandler<DeleteAdCommand, Result<Unit>>
 {
     private readonly DataContext _context;
-    private readonly IUserAccessor _userAccessor;
+    private readonly ICurrentUserAccessor _currentUserAccessor;
 
-    public DeleteAdCommandHandler(DataContext context, IUserAccessor userAccessor)
+    public DeleteAdCommandHandler(DataContext context, ICurrentUserAccessor currentUserAccessor)
     {
         _context = context;
-        _userAccessor = userAccessor;
+        _currentUserAccessor = currentUserAccessor;
     }
 
     public async Task<Result<Unit>> Handle(DeleteAdCommand request, CancellationToken cancellationToken)
@@ -26,7 +26,9 @@ public class DeleteAdCommandHandler : IRequestHandler<DeleteAdCommand, Result<Un
         if (ad is null)
             return Result<Unit>.Empty();
 
-        if (ad.AppUser.UserName != _userAccessor.GetUsername())
+        var currUsername = _currentUserAccessor.GetCurrentUsername();
+        
+        if (ad.AppUser.UserName != currUsername)
             return Result<Unit>.Failure("Users can delete only their own ads.");
 
         _context.Remove(ad);

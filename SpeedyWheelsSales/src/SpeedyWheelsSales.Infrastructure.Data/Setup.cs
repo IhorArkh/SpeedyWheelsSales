@@ -3,9 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace SpeedyWheelsSales.Infrastructure.Data;
 
-public static class DataServiceExtensions
+public static class Setup
 {
-    public static IServiceCollection AddDataServices(this IServiceCollection services, string connectionString)
+    public static IServiceCollection AddDatabase(this IServiceCollection services, string connectionString)
     {
         services.AddDbContext<DataContext>(opt =>
         {
