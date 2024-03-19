@@ -5,29 +5,18 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.DeleteAd;
-using SpeedyWheelsSales.Infrastructure.Data;
 
-namespace SpeedyWheelsSales.Tests.Ad;
+namespace SpeedyWheelsSales.Tests.Ad.Commands;
 
 public class DeleteAdCommandHandlerTests
 {
-    private async Task<DataContext> GetDbContext()
-    {
-        var options = new DbContextOptionsBuilder<DataContext>()
-            .UseInMemoryDatabase(databaseName: "DbForDeleteAdCommandHandler").Options;
-
-        var databaseContext = new DataContext(options);
-        await databaseContext.Database.EnsureDeletedAsync();
-        await databaseContext.Database.EnsureCreatedAsync();
-
-        return databaseContext;
-    }
+    private const string ContextName = "DbForDeleteAdCommandHandler";
 
     [Fact]
     public async Task Handle_ShouldDeleteAd_WhenAdExistsAndUserIsCreator()
     {
         //Arrange
-        var context = await GetDbContext();
+        var context = await InMemoryDbContextProvider.GetDbContext(ContextName);
         var fixture = new Fixture();
 
         fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
@@ -62,7 +51,7 @@ public class DeleteAdCommandHandlerTests
     public async Task Handle_ShouldReturnEmptyResult_WhenAdDoesNotExists()
     {
         //Arrange
-        var context = await GetDbContext();
+        var context = await InMemoryDbContextProvider.GetDbContext(ContextName);
 
         var userAccessorMock = new Mock<ICurrentUserAccessor>();
 
@@ -85,7 +74,7 @@ public class DeleteAdCommandHandlerTests
     public async Task Handle_ShouldReturnFailureResult_WhenAdExistsAndUserIsNotCreator()
     {
         //Arrange
-        var context = await GetDbContext();
+        var context = await InMemoryDbContextProvider.GetDbContext(ContextName);
         var fixture = new Fixture();
 
         fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()

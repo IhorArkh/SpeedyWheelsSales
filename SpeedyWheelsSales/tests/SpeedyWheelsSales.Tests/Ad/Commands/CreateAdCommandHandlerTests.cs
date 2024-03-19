@@ -12,29 +12,18 @@ using Moq;
 using SpeedyWheelsSales.Application.Core;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.CreateAd;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.CreateAd.DTOs;
-using SpeedyWheelsSales.Infrastructure.Data;
 
-namespace SpeedyWheelsSales.Tests.Ad;
+namespace SpeedyWheelsSales.Tests.Ad.Commands;
 
 public class CreateAdCommandHandlerTests
 {
-    private async Task<DataContext> GetDbContext()
-    {
-        var options = new DbContextOptionsBuilder<DataContext>()
-            .UseInMemoryDatabase(databaseName: "DbForCreateAdCommandHandler").Options;
-
-        var databaseContext = new DataContext(options);
-        await databaseContext.Database.EnsureDeletedAsync();
-        await databaseContext.Database.EnsureCreatedAsync();
-
-        return databaseContext;
-    }
+    private const string ContextName = "DbForCreateAdCommandHandler";
 
     [Fact]
     public async Task Handler_ShouldCreateAd_WhenUserExistsAndValidationPassed()
     {
         //Arrange
-        var context = await GetDbContext();
+        var context = await InMemoryDbContextProvider.GetDbContext(ContextName);
         var fixture = new Fixture();
 
         fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
@@ -82,7 +71,7 @@ public class CreateAdCommandHandlerTests
     public async Task Handler_ShouldReturnResultWithValidationErrors_WhenValidationIsNotPassed()
     {
         //Arrange
-        var context = await GetDbContext();
+        var context = await InMemoryDbContextProvider.GetDbContext(ContextName);
         var fixture = new Fixture();
 
         var mapper = new Mapper(new MapperConfiguration(cfg =>
@@ -112,12 +101,12 @@ public class CreateAdCommandHandlerTests
         result.Value.Should().Be(Unit.Value);
         result.Error.Should().BeNullOrEmpty();
     }
-    
+
     [Fact]
     public async Task Handler_ShouldReturnEmptyResult_WhenUserDoesNotExists()
     {
         //Arrange
-        var context = await GetDbContext();
+        var context = await InMemoryDbContextProvider.GetDbContext(ContextName);
         var fixture = new Fixture();
 
         fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
@@ -158,12 +147,12 @@ public class CreateAdCommandHandlerTests
         result.Error.Should().BeNullOrEmpty();
         result.ValidationErrors.Should().BeNullOrEmpty();
     }
-    
+
     [Fact]
     public async Task Handler_ShouldReturnEmptyResult_WhenCurrentUserAccessorReturnsNull()
     {
         //Arrange
-        var context = await GetDbContext();
+        var context = await InMemoryDbContextProvider.GetDbContext(ContextName);
         var fixture = new Fixture();
 
         var mapper = new Mapper(new MapperConfiguration(cfg =>

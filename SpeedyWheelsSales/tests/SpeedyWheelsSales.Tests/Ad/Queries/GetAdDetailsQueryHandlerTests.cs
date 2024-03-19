@@ -1,32 +1,20 @@
 ﻿using AutoFixture;
 using AutoMapper;
 using FluentAssertions;
-using Microsoft.EntityFrameworkCore;
 using SpeedyWheelsSales.Application.Core;
 using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdDetails;
-using SpeedyWheelsSales.Infrastructure.Data;
 
-namespace SpeedyWheelsSales.Tests.Ad;
+namespace SpeedyWheelsSales.Tests.Ad.Queries;
 
 public class GetAdDetailsQueryHandlerTests
 {
-    private async Task<DataContext> GetDbContext()
-    {
-        var options = new DbContextOptionsBuilder<DataContext>()
-            .UseInMemoryDatabase(databaseName: "DbForGetAdDetailsQueryHandler").Options;
-
-        var databaseContext = new DataContext(options);
-        await databaseContext.Database.EnsureDeletedAsync();
-        await databaseContext.Database.EnsureCreatedAsync();
-
-        return databaseContext;
-    }
+    private const string ContextName = "DbForGetAdDetailsQueryHandler";
 
     [Fact]
     public async Task Handle_ShouldSuccessfullyReturnAdDetailsDto_WhenAdExists()
     {
         //Arrange
-        var context = await GetDbContext();
+        var context = await InMemoryDbContextProvider.GetDbContext(ContextName);
         var fixture = new Fixture();
 
         fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
@@ -58,7 +46,7 @@ public class GetAdDetailsQueryHandlerTests
     public async Task Handle_ShouldReturnSuccessWithNullValue_WhenAdDoesNotExists()
     {
         //Arrange
-        var context = await GetDbContext();
+        var context = await InMemoryDbContextProvider.GetDbContext(ContextName);
         var fixture = new Fixture();
 
         fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
