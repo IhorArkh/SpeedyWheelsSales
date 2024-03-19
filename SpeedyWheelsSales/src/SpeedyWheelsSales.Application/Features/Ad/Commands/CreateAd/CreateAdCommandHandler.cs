@@ -41,8 +41,8 @@ public class CreateAdCommandHandler : IRequestHandler<CreateAdCommand, Result<Un
         if (currUserUsername is null)
             return Result<Unit>.Empty();
 
-        var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == currUserUsername);
-        // var user = await _userManager.FindByNameAsync(currUserUsername);
+        // var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == currUserUsername);
+        var user = await _userManager.FindByNameAsync(currUserUsername);
         if (user is null)
             return Result<Unit>.Empty();
 
