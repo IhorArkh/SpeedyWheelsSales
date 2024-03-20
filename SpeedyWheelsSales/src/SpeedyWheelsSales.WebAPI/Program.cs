@@ -4,7 +4,9 @@ using Domain.Interfaces;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using SpeedyWheelsSales.Application.Core;
+using SpeedyWheelsSales.Application.Core.Behaviors;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.CreateAd;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.CreateAd.DTOs;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.UpdateAd;
@@ -18,6 +20,9 @@ using SpeedyWheelsSales.WebAPI.Middlewares;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Host.UseSerilog((context, loggerConfig) =>
+    loggerConfig.ReadFrom.Configuration(context.Configuration));
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -29,8 +34,12 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDatabase(connectionString);
 builder.Services.AddIdentityServices(builder.Configuration);
 
-builder.Services.AddMediatR(x =>
-    x.RegisterServicesFromAssembly(typeof(GetAdListQueryHandler).Assembly));
+builder.Services.AddMediatR(config =>
+{
+    config.RegisterServicesFromAssembly(typeof(GetAdListQueryHandler).Assembly);
+    config.AddOpenBehavior(typeof(RequestLoggingPipelineBehavior<,>));
+});
+
 builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 builder.Services.AddCors(x => x.AddPolicy("CorsPolicy", policy =>
 {
@@ -54,7 +63,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("CorsPolicy");
+
 app.UseHttpsRedirection();
+
+app.UseMiddleware<RequestContextLoggingMiddleware>();
+app.UseSerilogRequestLogging();
 
 app.UseAuthentication();
 app.UseAuthorization();

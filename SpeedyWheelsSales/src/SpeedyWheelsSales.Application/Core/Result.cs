@@ -1,8 +1,9 @@
 ﻿using FluentValidation.Results;
+using SpeedyWheelsSales.Application.Interfaces;
 
 namespace SpeedyWheelsSales.Application.Core;
 
-public class Result<T>
+public class Result<T> : IResult
 {
     public bool IsSuccess { get; set; }
     public T Value { get; set; }
