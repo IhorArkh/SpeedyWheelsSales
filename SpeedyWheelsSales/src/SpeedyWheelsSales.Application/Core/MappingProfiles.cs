@@ -4,6 +4,7 @@ using SpeedyWheelsSales.Application.Features.Ad.Commands.CreateAd.DTOs;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.UpdateAd.DTOs;
 using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdDetails.DTOs;
 using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdList.DTOs;
+using SpeedyWheelsSales.Application.Features.Profile.Queries.GetCurrUserProfileQuery.DTOs;
 
 
 namespace SpeedyWheelsSales.Application.Core;
@@ -12,41 +13,40 @@ public class MappingProfiles : Profile
 {
     public MappingProfiles()
     {
-        CreateMap<Car, CarDetailsDto>();
-        CreateMap<AppUser, AppUserDetailsDto>();
-        CreateMap<Photo, PhotoDetailsDto>();
+        // GetAdDetails
         CreateMap<Domain.Entities.Ad, AdDetailsDto>()
-            .ForMember(dest => dest.CarDetailsDto, opt =>
+            .ForMember(dest => dest.CarDto, opt =>
                 opt.MapFrom(src => src.Car))
-            .ForMember(dest => dest.AppUserDetailsDto, opt =>
+            .ForMember(dest => dest.AppUserDtos, opt =>
                 opt.MapFrom(src => src.AppUser))
-            .ForMember(dest => dest.PhotoDetailsDtos, opt =>
+            .ForMember(dest => dest.PhotoDtos, opt =>
                 opt.MapFrom(src => src.Photo));
+        CreateMap<Car, AdDetailsCarDto>();
+        CreateMap<AppUser, AdDetailsAppUserDto>();
+        CreateMap<Photo, AdDetailsPhotoDto>();
 
-        CreateMap<Domain.Entities.Ad, AdDto>()
-            .ForMember(dest => dest.CarDetailsDto, opt =>
+        // GetAdList
+        CreateMap<Domain.Entities.Ad, AdListDto>()
+            .ForMember(dest => dest.CarDto, opt =>
                 opt.MapFrom(src => src.Car))
-            .ForMember(dest => dest.PhotoDetailsDtos, opt =>
+            .ForMember(dest => dest.PhotoDtos, opt =>
                 opt.MapFrom(src => src.Photo));
+        CreateMap<Photo, AdListPhotoDto>();
+        CreateMap<Car, AdListCarDto>();
 
-        CreateMap<CreateAdCarDto, Car>();
-        CreateMap<CreateAdPhotoDto, Photo>();
+        // CreateAd
         CreateMap<CreateAdDto, Domain.Entities.Ad>()
             .ForMember(dest => dest.Car, opt =>
                 opt.MapFrom(src => src.CreateAdCarDto))
             .ForMember(dest => dest.Photo, opt =>
                 opt.MapFrom(src => src.CreateAdPhotoDtos));
+        CreateMap<CreateAdCarDto, Car>();
+        CreateMap<CreateAdPhotoDto, Photo>();
 
-        CreateMap<UpdateAdCarDto, Car>();
+        // UpdateAd
         CreateMap<UpdateAdDto, Domain.Entities.Ad>()
             .ForMember(dest => dest.Car, opt =>
                 opt.MapFrom(src => src.UpdateAdCarDto));
-
-        CreateMap<Car, CarListDto>();
-        CreateMap<Domain.Entities.Ad, AdDto>()
-            .ForMember(dest => dest.CarDetailsDto, opt =>
-                opt.MapFrom(src => src.Car))
-            .ForMember(dest => dest.PhotoDetailsDtos, opt =>
-                opt.MapFrom(src => src.Photo));
+        CreateMap<UpdateAdCarDto, Car>();
     }
 }

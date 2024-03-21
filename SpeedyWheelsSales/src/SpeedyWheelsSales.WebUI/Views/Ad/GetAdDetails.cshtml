@@ -10,7 +10,7 @@
         <div class="col-md-8">
             <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
-                    @foreach (var photo in Model.PhotoDetailsDtos)
+                    @foreach (var photo in Model.PhotoDtos)
                     {
                         <div class="carousel-item @(photo.IsMain ? "active" : "")">
                             <img src="@photo.Url" class="d-block w-100" alt="Car Photo">
@@ -30,10 +30,10 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">@Model.CarDetailsDto.Model</h5>
-                    <p class="card-text">Price: $@Model.CarDetailsDto.Price</p>
-                    <p class="card-text">Mileage: @Model.CarDetailsDto.Mileage miles</p>
-                    <p class="card-text">Engine Size: @Model.CarDetailsDto.EngineSize</p>
+                    <h5 class="card-title">@Model.CarDto.Model</h5>
+                    <p class="card-text">Price: $@Model.CarDto.Price</p>
+                    <p class="card-text">Mileage: @Model.CarDto.Mileage miles</p>
+                    <p class="card-text">Engine Size: @Model.CarDto.EngineSize</p>
                     <!-- Add other fields as needed -->
                 </div>
             </div>
@@ -51,13 +51,13 @@
             <div class="card mt-3">
                 <div class="card-body">
                     <h5 class="card-title">Seller Details</h5>
-                    <p class="card-text">Name: @Model.AppUserDetailsDto.Name</p>
-                    <p class="card-text">Location: @Model.AppUserDetailsDto.Location</p>
-                    <p class="card-text">Bio: @Model.AppUserDetailsDto.Bio</p>
-                    <img src="@Model.AppUserDetailsDto.PhotoUrl" class="img-fluid" alt="Seller Photo">
-                    <p class="card-text">Register Date: @Model.AppUserDetailsDto.RegisterDate</p>
-                    <p class="card-text">Username: @Model.AppUserDetailsDto.UserName</p>
-                    <p class="card-text">Phone Number: @Model.AppUserDetailsDto.PhoneNumber</p>
+                    <p class="card-text">Name: @Model.AppUserDtos.Name</p>
+                    <p class="card-text">Location: @Model.AppUserDtos.Location</p>
+                    <p class="card-text">Bio: @Model.AppUserDtos.Bio</p>
+                    <img src="@Model.AppUserDtos.PhotoUrl" class="img-fluid" alt="Seller Photo">
+                    <p class="card-text">Register Date: @Model.AppUserDtos.RegisterDate</p>
+                    <p class="card-text">Username: @Model.AppUserDtos.UserName</p>
+                    <p class="card-text">Phone Number: @Model.AppUserDtos.PhoneNumber</p>
                 </div>
             </div>
         </div>

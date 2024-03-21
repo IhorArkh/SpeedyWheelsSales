@@ -3,7 +3,7 @@ using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdDetails.DTOs;
 
 namespace SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdList.DTOs;
 
-public class AdDto
+public class AdListDto
 {
     public int Id { get; set; }
     public string City { get; set; }
@@ -11,6 +11,6 @@ public class AdDto
     public bool IsDeleted { get; set; }
     public bool IsSold { get; set; }
     public DateTime? SoldAt { get; set; }
-    public CarDetailsDto CarDetailsDto { get; set; }
-    public ICollection<PhotoDetailsDto> PhotoDetailsDtos { get; set; } = new List<PhotoDetailsDto>();
+    public AdListCarDto CarDto { get; set; }
+    public ICollection<AdListPhotoDto> PhotoDtos { get; set; } = new List<AdListPhotoDto>();
 }

@@ -7,7 +7,7 @@ using SpeedyWheelsSales.Infrastructure.Data;
 
 namespace SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdList;
 
-public class GetAdListQueryHandler : IRequestHandler<GetAdListQuery, Result<List<AdDto>>>
+public class GetAdListQueryHandler : IRequestHandler<GetAdListQuery, Result<List<AdListDto>>>
 {
     private readonly DataContext _context;
     private readonly IMapper _mapper;
@@ -18,15 +18,15 @@ public class GetAdListQueryHandler : IRequestHandler<GetAdListQuery, Result<List
         _mapper = mapper;
     }
     
-    public async Task<Result<List<AdDto>>> Handle(GetAdListQuery request, CancellationToken cancellationToken)
+    public async Task<Result<List<AdListDto>>> Handle(GetAdListQuery request, CancellationToken cancellationToken)
     {
         var ads = await _context.Ads
             .Include(x => x.Car)
             .Include(x => x.Photo)
             .ToListAsync();
 
-        var adDtos = _mapper.Map<List<AdDto>>(ads);
+        var adDtos = _mapper.Map<List<AdListDto>>(ads);
         
-        return Result<List<AdDto>>.Success(adDtos);
+        return Result<List<AdListDto>>.Success(adDtos);
     }
 }
