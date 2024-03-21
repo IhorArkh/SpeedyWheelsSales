@@ -20,7 +20,7 @@ public class MappingProfiles : Profile
             .ForMember(dest => dest.AppUserDtos, opt =>
                 opt.MapFrom(src => src.AppUser))
             .ForMember(dest => dest.PhotoDtos, opt =>
-                opt.MapFrom(src => src.Photo));
+                opt.MapFrom(src => src.Photos));
         CreateMap<Car, AdDetailsCarDto>();
         CreateMap<AppUser, AdDetailsAppUserDto>();
         CreateMap<Photo, AdDetailsPhotoDto>();
@@ -30,7 +30,7 @@ public class MappingProfiles : Profile
             .ForMember(dest => dest.CarDto, opt =>
                 opt.MapFrom(src => src.Car))
             .ForMember(dest => dest.PhotoDtos, opt =>
-                opt.MapFrom(src => src.Photo));
+                opt.MapFrom(src => src.Photos));
         CreateMap<Photo, AdListPhotoDto>();
         CreateMap<Car, AdListCarDto>();
 
@@ -38,7 +38,7 @@ public class MappingProfiles : Profile
         CreateMap<CreateAdDto, Domain.Entities.Ad>()
             .ForMember(dest => dest.Car, opt =>
                 opt.MapFrom(src => src.CreateAdCarDto))
-            .ForMember(dest => dest.Photo, opt =>
+            .ForMember(dest => dest.Photos, opt =>
                 opt.MapFrom(src => src.CreateAdPhotoDtos));
         CreateMap<CreateAdCarDto, Car>();
         CreateMap<CreateAdPhotoDto, Photo>();
@@ -54,7 +54,7 @@ public class MappingProfiles : Profile
             .ForMember(dest => dest.CarDto, opt =>
                 opt.MapFrom(src => src.Car))
             .ForMember(dest => dest.PhotoDtos, opt =>
-                opt.MapFrom(src => src.Photo));
+                opt.MapFrom(src => src.Photos));
         CreateMap<AppUser, CurrUserProfileDto>()
             .ForMember(dest => dest.AdDtos, opt =>
                 opt.MapFrom(src => src.Ads));

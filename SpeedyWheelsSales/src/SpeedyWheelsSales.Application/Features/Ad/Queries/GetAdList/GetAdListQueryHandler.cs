@@ -22,7 +22,7 @@ public class GetAdListQueryHandler : IRequestHandler<GetAdListQuery, Result<List
     {
         var ads = await _context.Ads
             .Include(x => x.Car)
-            .Include(x => x.Photo)
+            .Include(x => x.Photos)
             .ToListAsync();
 
         var adDtos = _mapper.Map<List<AdListDto>>(ads);

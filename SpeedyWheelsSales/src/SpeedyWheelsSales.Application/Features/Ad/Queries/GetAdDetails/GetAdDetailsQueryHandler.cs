@@ -22,7 +22,7 @@ public class GetAdDetailsQueryHandler : IRequestHandler<GetAdDetailsQuery, Resul
     {
         var ad = await _context.Ads
             .Include(x => x.AppUser)
-            .Include(x => x.Photo)
+            .Include(x => x.Photos)
             .Include(x => x.Car)
             .FirstOrDefaultAsync(x => x.Id == request.Id);
 

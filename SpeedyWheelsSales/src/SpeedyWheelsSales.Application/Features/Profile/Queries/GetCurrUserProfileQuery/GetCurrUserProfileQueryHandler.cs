@@ -32,7 +32,7 @@ public class GetCurrUserProfileQueryHandler : IRequestHandler<GetCurrUserProfile
             .Include(x => x.Ads)
             .ThenInclude(x => x.Car)
             .Include(x => x.Ads)
-            .ThenInclude(x => x.Photo)
+            .ThenInclude(x => x.Photos)
             .FirstOrDefaultAsync(x => x.UserName == currUserUsername);
 
         if (appUser is null)
