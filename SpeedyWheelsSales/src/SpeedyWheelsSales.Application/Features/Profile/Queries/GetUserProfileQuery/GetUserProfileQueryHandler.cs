@@ -8,38 +8,39 @@ using SpeedyWheelsSales.Infrastructure.Data;
 
 namespace SpeedyWheelsSales.Application.Features.Profile.Queries.GetCurrUserProfileQuery;
 
-public class GetCurrUserProfileQueryHandler : IRequestHandler<GetCurrUserProfileQuery, Result<CurrUserProfileDto>>
+public class GetUserProfileQueryHandler : IRequestHandler<GetUserProfileQuery, Result<UserProfileDto>>
 {
     private readonly DataContext _context;
     private readonly ICurrentUserAccessor _currentUserAccessor;
     private readonly IMapper _mapper;
 
-    public GetCurrUserProfileQueryHandler(DataContext context, ICurrentUserAccessor currentUserAccessor, IMapper mapper)
+    public GetUserProfileQueryHandler(DataContext context, ICurrentUserAccessor currentUserAccessor, IMapper mapper)
     {
         _context = context;
         _currentUserAccessor = currentUserAccessor;
         _mapper = mapper;
     }
 
-    public async Task<Result<CurrUserProfileDto>> Handle(GetCurrUserProfileQuery request,
+    public async Task<Result<UserProfileDto>> Handle(GetUserProfileQuery request,
         CancellationToken cancellationToken)
     {
-        var currUserUsername = _currentUserAccessor.GetCurrentUsername();
-        if (currUserUsername is null)
-            return Result<CurrUserProfileDto>.Empty();
+        var username = request.Username ?? _currentUserAccessor.GetCurrentUsername();
+
+        if (username is null)
+            return Result<UserProfileDto>.Empty();
 
         var appUser = await _context.AppUsers
             .Include(x => x.Ads)
             .ThenInclude(x => x.Car)
             .Include(x => x.Ads)
             .ThenInclude(x => x.Photos)
-            .FirstOrDefaultAsync(x => x.UserName == currUserUsername);
+            .FirstOrDefaultAsync(x => x.UserName == username);
 
         if (appUser is null)
-            return Result<CurrUserProfileDto>.Empty();
+            return Result<UserProfileDto>.Empty();
 
-        var currUserProfileDto = _mapper.Map<CurrUserProfileDto>(appUser);
+        var currUserProfileDto = _mapper.Map<UserProfileDto>(appUser);
 
-        return Result<CurrUserProfileDto>.Success(currUserProfileDto);
+        return Result<UserProfileDto>.Success(currUserProfileDto);
     }
 }

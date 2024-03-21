@@ -2,7 +2,7 @@
 
 namespace SpeedyWheelsSales.Application.Features.Profile.Queries.GetCurrUserProfileQuery.DTOs;
 
-public class CurrUserAdDto
+public class UserAdDto
 {
     public int Id { get; set; }
     public string Description { get; set; }
@@ -12,6 +12,6 @@ public class CurrUserAdDto
     public bool IsSold { get; set; }
     public DateTime? SoldAt { get; set; }
 
-    public CurrUserCarDto CarDto { get; set; }
-    public ICollection<CurrUserPhotoDto> PhotoDtos { get; set; }
+    public UserCarDto CarDto { get; set; }
+    public ICollection<UserPhotoDto> PhotoDtos { get; set; }
 }

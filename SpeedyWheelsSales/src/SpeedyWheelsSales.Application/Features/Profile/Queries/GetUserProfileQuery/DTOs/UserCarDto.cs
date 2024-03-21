@@ -2,7 +2,7 @@
 
 namespace SpeedyWheelsSales.Application.Features.Profile.Queries.GetCurrUserProfileQuery.DTOs;
 
-public class CurrUserCarDto
+public class UserCarDto
 {
     public string Model { get; set; }
     public decimal Price { get; set; }

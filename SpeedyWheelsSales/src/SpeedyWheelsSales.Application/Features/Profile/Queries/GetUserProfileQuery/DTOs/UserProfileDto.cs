@@ -2,7 +2,7 @@
 
 namespace SpeedyWheelsSales.Application.Features.Profile.Queries.GetCurrUserProfileQuery.DTOs;
 
-public class CurrUserProfileDto
+public class UserProfileDto
 {
     public string Id { get; set; }
     public string Name { get; set; }
@@ -11,5 +11,5 @@ public class CurrUserProfileDto
     public string? PhotoUrl { get; set; }
     public DateTime RegisterDate { get; set; } = DateTime.UtcNow;
 
-    public ICollection<CurrUserAdDto> AdDtos { get; set; } = new List<CurrUserAdDto>();
+    public ICollection<UserAdDto> AdDtos { get; set; } = new List<UserAdDto>();
 }

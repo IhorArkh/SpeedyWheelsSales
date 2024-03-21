@@ -4,6 +4,7 @@ using SpeedyWheelsSales.Application.Features.Profile.Queries.GetCurrUserProfileQ
 
 namespace SpeedyWheelsSales.Application.Features.Profile.Queries.GetCurrUserProfileQuery;
 
-public record GetCurrUserProfileQuery : IRequest<Result<CurrUserProfileDto>>
+public record GetUserProfileQuery : IRequest<Result<UserProfileDto>>
 {
+    public string? Username { get; set; }
 }

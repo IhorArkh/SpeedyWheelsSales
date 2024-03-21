@@ -50,15 +50,15 @@ public class MappingProfiles : Profile
         CreateMap<UpdateAdCarDto, Car>();
 
         // GetCurrUserProfile
-        CreateMap<Ad, CurrUserAdDto>()
+        CreateMap<Ad, UserAdDto>()
             .ForMember(dest => dest.CarDto, opt =>
                 opt.MapFrom(src => src.Car))
             .ForMember(dest => dest.PhotoDtos, opt =>
                 opt.MapFrom(src => src.Photos));
-        CreateMap<AppUser, CurrUserProfileDto>()
+        CreateMap<AppUser, UserProfileDto>()
             .ForMember(dest => dest.AdDtos, opt =>
                 opt.MapFrom(src => src.Ads));
-        CreateMap<Car, CurrUserCarDto>();
-        CreateMap<Photo, CurrUserPhotoDto>();
+        CreateMap<Car, UserCarDto>();
+        CreateMap<Photo, UserPhotoDto>();
     }
 }

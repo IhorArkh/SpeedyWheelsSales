@@ -11,12 +11,12 @@ using SpeedyWheelsSales.Application.Features.Profile.Queries.GetCurrUserProfileQ
 
 namespace SpeedyWheelsSales.Tests.Profile.Queries;
 
-public class GetCurrUserProfileQueryHandlerTests
+public class GetUserProfileQueryHandlerTests
 {
     private const string ContextName = "DbForGetCurrUserProfileQueryHandler";
 
     [Fact]
-    public async Task Handle_ShouldReturnSuccessResultWithCurrUserProfileDto_WhenUserExists()
+    public async Task Handle_ShouldReturnSuccessResultWithCurrUserProfileDto_WhenUsernameNotProvided()
     {
         //Arrange
         var context = await InMemoryDbContextProvider.GetDbContext(ContextName);
@@ -37,8 +37,8 @@ public class GetCurrUserProfileQueryHandlerTests
         var userAccessorMock = new Mock<ICurrentUserAccessor>();
         userAccessorMock.Setup(x => x.GetCurrentUsername()).Returns(user.UserName);
 
-        var query = new GetCurrUserProfileQuery();
-        var handler = new GetCurrUserProfileQueryHandler(context, userAccessorMock.Object, mapper);
+        var query = new GetUserProfileQuery();
+        var handler = new GetUserProfileQueryHandler(context, userAccessorMock.Object, mapper);
 
         //Act
         var result = await handler.Handle(query, CancellationToken.None);
@@ -53,7 +53,44 @@ public class GetCurrUserProfileQueryHandlerTests
     }
 
     [Fact]
-    public async Task Handle_ShouldReturnEmptyResult_WhenCouldNotGetCurrUserUsername()
+    public async Task Handle_ShouldReturnSuccessResultWithUserProfileDto_WhenUsernameProvided()
+    {
+        //Arrange
+        var context = await InMemoryDbContextProvider.GetDbContext(ContextName);
+        var fixture = new Fixture();
+
+        fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
+            .ForEach(b => fixture.Behaviors.Remove(b));
+        fixture.Behaviors.Add(new OmitOnRecursionBehavior());
+
+        var user = fixture.Create<AppUser>();
+
+        context.AppUsers.Add(user);
+        await context.SaveChangesAsync();
+
+        var mapper = new Mapper(new MapperConfiguration(cfg =>
+            cfg.AddProfile<MappingProfiles>()));
+
+        var userAccessorMock = new Mock<ICurrentUserAccessor>();
+        userAccessorMock.Setup(x => x.GetCurrentUsername()).Returns("OtherUsername");
+
+        var query = new GetUserProfileQuery { Username = user.UserName };
+        var handler = new GetUserProfileQueryHandler(context, userAccessorMock.Object, mapper);
+
+        //Act
+        var result = await handler.Handle(query, CancellationToken.None);
+        var userFromDb = await context.AppUsers.SingleOrDefaultAsync();
+
+        //Assert
+        result.IsSuccess.Should().BeTrue();
+        result.Value.Should().BeEquivalentTo(user, opt => opt.ExcludingMissingMembers());
+        result.IsEmpty.Should().BeFalse();
+        result.Error.Should().BeNullOrEmpty();
+        userFromDb.Should().BeEquivalentTo(user);
+    }
+
+    [Fact]
+    public async Task Handle_ShouldReturnEmptyResult_WhenUsernameNotProvidedAndCantFigureOutCurrUserUsername()
     {
         //Arrange
         var context = await InMemoryDbContextProvider.GetDbContext(ContextName);
@@ -64,8 +101,8 @@ public class GetCurrUserProfileQueryHandlerTests
         var userAccessorMock = new Mock<ICurrentUserAccessor>();
         userAccessorMock.Setup(x => x.GetCurrentUsername()).Returns(() => null);
 
-        var query = new GetCurrUserProfileQuery();
-        var handler = new GetCurrUserProfileQueryHandler(context, userAccessorMock.Object, mapper);
+        var query = new GetUserProfileQuery();
+        var handler = new GetUserProfileQueryHandler(context, userAccessorMock.Object, mapper);
 
         //Act
         var result = await handler.Handle(query, CancellationToken.None);
@@ -100,8 +137,8 @@ public class GetCurrUserProfileQueryHandlerTests
         var userAccessorMock = new Mock<ICurrentUserAccessor>();
         userAccessorMock.Setup(x => x.GetCurrentUsername()).Returns("otherUsername");
 
-        var query = new GetCurrUserProfileQuery();
-        var handler = new GetCurrUserProfileQueryHandler(context, userAccessorMock.Object, mapper);
+        var query = new GetUserProfileQuery();
+        var handler = new GetUserProfileQueryHandler(context, userAccessorMock.Object, mapper);
 
         //Act
         var result = await handler.Handle(query, CancellationToken.None);
