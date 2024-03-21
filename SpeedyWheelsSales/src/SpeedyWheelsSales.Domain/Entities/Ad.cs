@@ -13,6 +13,6 @@ public class Ad
 
     public ICollection<FavouriteAd> FavouriteAds { get; set; }
     public Car Car { get; set; }
-    public ICollection<Photo> Photo { get; set; } = new List<Photo>();
+    public ICollection<Photo> Photo { get; set; } = new List<Photo>(); // TODO Need to change it to "Photos"
     public AppUser AppUser { get; set; }
 }

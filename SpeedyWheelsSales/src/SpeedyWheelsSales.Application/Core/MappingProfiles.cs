@@ -48,5 +48,17 @@ public class MappingProfiles : Profile
             .ForMember(dest => dest.Car, opt =>
                 opt.MapFrom(src => src.UpdateAdCarDto));
         CreateMap<UpdateAdCarDto, Car>();
+
+        // GetCurrUserProfile
+        CreateMap<Ad, CurrUserAdDto>()
+            .ForMember(dest => dest.CarDto, opt =>
+                opt.MapFrom(src => src.Car))
+            .ForMember(dest => dest.PhotoDtos, opt =>
+                opt.MapFrom(src => src.Photo));
+        CreateMap<AppUser, CurrUserProfileDto>()
+            .ForMember(dest => dest.AdDtos, opt =>
+                opt.MapFrom(src => src.Ads));
+        CreateMap<Car, CurrUserCarDto>();
+        CreateMap<Photo, CurrUserPhotoDto>();
     }
 }

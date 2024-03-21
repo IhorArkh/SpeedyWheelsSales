@@ -1,6 +1,8 @@
-﻿namespace SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdDetails.DTOs;
+﻿using System.Collections;
 
-public class AppUserDetailsDto
+namespace SpeedyWheelsSales.Application.Features.Profile.Queries.GetCurrUserProfileQuery.DTOs;
+
+public class CurrUserProfileDto
 {
     public string Id { get; set; }
     public string Name { get; set; }
@@ -8,6 +10,6 @@ public class AppUserDetailsDto
     public string? Bio { get; set; }
     public string? PhotoUrl { get; set; }
     public DateTime RegisterDate { get; set; } = DateTime.UtcNow;
-    public string UserName { get; set; }
-    public string PhoneNumber { get; set; }
+
+    public ICollection<CurrUserAdDto> AdDtos { get; set; } = new List<CurrUserAdDto>();
 }

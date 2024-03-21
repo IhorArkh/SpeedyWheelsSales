@@ -20,7 +20,7 @@ public class AdController : Controller
 
         string responseData = await response.Content.ReadAsStringAsync();
 
-        var adList = JsonConvert.DeserializeObject<List<AdDto>>(responseData);
+        var adList = JsonConvert.DeserializeObject<List<AdListDto>>(responseData);
 
         return View(adList);
     }
@@ -28,11 +28,11 @@ public class AdController : Controller
     public async Task<IActionResult> GetAdDetails(int id)
     {
         var response = await _httpClient.GetAsync($"Ad/{id}");
-        
+
         string responseData = await response.Content.ReadAsStringAsync();
-        
+
         var adDetails = JsonConvert.DeserializeObject<AdDetailsDto>(responseData);
-        
+
         return View(adDetails);
     }
 }

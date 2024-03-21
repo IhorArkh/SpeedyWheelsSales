@@ -9,7 +9,7 @@ public class AdDetailsDto
     public bool IsDeleted { get; set; }
     public bool IsSold { get; set; }
     public DateTime? SoldAt { get; set; }
-    public CarDetailsDto CarDetailsDto { get; set; }
-    public ICollection<PhotoDetailsDto> PhotoDetailsDtos { get; set; } = new List<PhotoDetailsDto>();
-    public AppUserDetailsDto AppUserDetailsDto { get; set; }
+    public AdDetailsCarDto CarDto { get; set; }
+    public ICollection<AdDetailsPhotoDto> PhotoDtos { get; set; } = new List<AdDetailsPhotoDto>();
+    public AdDetailsAppUserDto AppUserDtos { get; set; }
 }
