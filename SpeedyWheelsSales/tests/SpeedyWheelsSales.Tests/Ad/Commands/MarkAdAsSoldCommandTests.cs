@@ -5,15 +5,16 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.DeleteAd;
+using SpeedyWheelsSales.Application.Features.Ad.Commands.MarkAdAsSold;
 
 namespace SpeedyWheelsSales.Tests.Ad.Commands;
 
-public class DeleteAdCommandHandlerTests
+public class MarkAdAsSoldCommandTests
 {
-    private const string ContextName = "DbForDeleteAdCommandHandler";
+    private const string ContextName = "DbForMarkAdAsSoldCommandHandler";
 
     [Fact]
-    public async Task Handle_ShouldDeleteAd_WhenAdExistsAndUserIsCreator()
+    public async Task Handle_ShouldMarkAdAsSold_WhenAdExistsAndUserIsCreator()
     {
         //Arrange
         var context = await InMemoryDbContextProvider.GetDbContext(ContextName);
@@ -24,7 +25,8 @@ public class DeleteAdCommandHandlerTests
         fixture.Behaviors.Add(new OmitOnRecursionBehavior());
 
         var ad = fixture.Create<Domain.Entities.Ad>();
-        ad.IsDeleted = false;
+        ad.IsSold = false;
+        ad.SoldAt = null;
 
         context.Ads.Add(ad);
         await context.SaveChangesAsync();
@@ -32,22 +34,23 @@ public class DeleteAdCommandHandlerTests
         var userAccessorMock = new Mock<ICurrentUserAccessor>();
         userAccessorMock.Setup(x => x.GetCurrentUsername()).Returns(ad.AppUser.UserName);
 
-        var command = new DeleteAdCommand { Id = ad.Id };
-        var handler = new DeleteAdCommandHandler(context, userAccessorMock.Object);
+        var command = new MarkAdAsSoldCommand { Id = ad.Id };
+        var handler = new MarkAdAsSoldCommandHandler(context, userAccessorMock.Object);
 
         //Act
 
         var result = await handler.Handle(command, CancellationToken.None);
 
-        var adAfterDeletion = await context.Ads
+        var adAfterMarking = await context.Ads
             .FirstOrDefaultAsync(x => x.Id == ad.Id);
 
         //Assert
         result.IsSuccess.Should().BeTrue();
         result.Value.Should().Be(Unit.Value);
-        adAfterDeletion.IsDeleted.Should().BeTrue();
-        adAfterDeletion.Should().BeEquivalentTo(ad, opt =>
-            opt.ExcludingMissingMembers().Excluding(x => x.IsDeleted));
+        adAfterMarking.IsSold.Should().BeTrue();
+        adAfterMarking.SoldAt.Value.Date.Should().Be(DateTime.UtcNow.Date);
+        adAfterMarking.Should().BeEquivalentTo(ad, opt =>
+            opt.ExcludingMissingMembers().Excluding(x => x.IsSold).Excluding(x => x.SoldAt));
     }
 
     [Fact]
@@ -60,8 +63,8 @@ public class DeleteAdCommandHandlerTests
 
         var random = new Random();
 
-        var command = new DeleteAdCommand { Id = random.Next() };
-        var handler = new DeleteAdCommandHandler(context, userAccessorMock.Object);
+        var command = new MarkAdAsSoldCommand() { Id = random.Next() };
+        var handler = new MarkAdAsSoldCommandHandler(context, userAccessorMock.Object);
 
         //Act
 
@@ -92,8 +95,8 @@ public class DeleteAdCommandHandlerTests
         var userAccessorMock = new Mock<ICurrentUserAccessor>();
         userAccessorMock.Setup(x => x.GetCurrentUsername()).Returns("otherUsername");
 
-        var command = new DeleteAdCommand { Id = ad.Id };
-        var handler = new DeleteAdCommandHandler(context, userAccessorMock.Object);
+        var command = new MarkAdAsSoldCommand() { Id = ad.Id };
+        var handler = new MarkAdAsSoldCommandHandler(context, userAccessorMock.Object);
 
         //Act
 
@@ -104,7 +107,7 @@ public class DeleteAdCommandHandlerTests
         //Assert
         result.IsSuccess.Should().BeFalse();
         result.Value.Should().Be(Unit.Value);
-        result.Error.Should().Be("Users can delete only their own ads.");
+        result.Error.Should().Be("Users can mark as sold only their own ads.");
         adAfterDeletion.Should().BeEquivalentTo(ad);
     }
 }

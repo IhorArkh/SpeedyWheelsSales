@@ -65,6 +65,7 @@ public class CreateAdCommandHandlerTests
         result.Error.Should().BeNullOrEmpty();
         result.ValidationErrors.Should().BeNullOrEmpty();
         ad.Should().BeEquivalentTo(createAdDto, opt => opt.ExcludingMissingMembers());
+        ad.CreatedAt.Date.Should().Be(DateTime.UtcNow.Date);
     }
 
     [Fact]

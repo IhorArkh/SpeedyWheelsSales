@@ -1,11 +1,11 @@
 ﻿namespace Domain.Entities;
 
-public class Ad // TODO Need to add logic for IsDeleted and IsSold. Also for CreatedAt.
+public class Ad
 {
     public int Id { get; set; }
     public string Description { get; set; }
     public string City { get; set; }
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; set; }
     public bool IsDeleted { get; set; }
     public bool IsSold { get; set; }
     public DateTime? SoldAt { get; set; }

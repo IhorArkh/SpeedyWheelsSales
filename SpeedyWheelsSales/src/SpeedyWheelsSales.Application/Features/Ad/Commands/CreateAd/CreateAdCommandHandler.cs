@@ -4,7 +4,6 @@ using Domain.Interfaces;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using SpeedyWheelsSales.Application.Core;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.CreateAd.DTOs;
 using SpeedyWheelsSales.Infrastructure.Data;
@@ -47,6 +46,7 @@ public class CreateAdCommandHandler : IRequestHandler<CreateAdCommand, Result<Un
             return Result<Unit>.Empty();
 
         ad.AppUser = user;
+        ad.CreatedAt = DateTime.UtcNow;
 
         _context.Add(ad);
         var result = await _context.SaveChangesAsync() > 0;
