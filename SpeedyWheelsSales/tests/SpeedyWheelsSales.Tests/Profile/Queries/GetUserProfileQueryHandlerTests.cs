@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Moq;
 using SpeedyWheelsSales.Application.Core;
 using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdList;
-using SpeedyWheelsSales.Application.Features.Profile.Queries.GetCurrUserProfileQuery;
+using SpeedyWheelsSales.Application.Features.Profile.Queries.GetUserProfile;
 
 namespace SpeedyWheelsSales.Tests.Profile.Queries;
 

@@ -1,6 +1,6 @@
 ﻿using Domain.Enums;
 
-namespace SpeedyWheelsSales.Application.Features.Profile.Queries.GetCurrUserProfileQuery.DTOs;
+namespace SpeedyWheelsSales.Application.Features.Profile.Queries.GetUserProfile.DTOs;
 
 public class UserCarDto
 {

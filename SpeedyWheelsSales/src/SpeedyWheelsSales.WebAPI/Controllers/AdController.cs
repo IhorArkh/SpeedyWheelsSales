@@ -79,7 +79,7 @@ public class AdController : BaseApiController
     /// If failed to update ad.
     /// </response>
     [Authorize]
-    [HttpPut("delete/{id}")]
+    [HttpDelete("delete/{id}")]
     public async Task<IActionResult> DeleteAd(int id)
     {
         return HandleResult(await Mediator.Send(new DeleteAdCommand { Id = id }));

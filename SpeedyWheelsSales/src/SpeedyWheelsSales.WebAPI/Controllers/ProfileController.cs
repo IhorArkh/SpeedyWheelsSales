@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SpeedyWheelsSales.Application.Features.Profile.Queries.GetCurrUserProfileQuery;
-using SpeedyWheelsSales.Application.Features.Profile.Queries.GetCurrUserProfileQuery.DTOs;
+using SpeedyWheelsSales.Application.Features.Profile.Queries.GetUserProfile;
+using SpeedyWheelsSales.Application.Features.Profile.Queries.GetUserProfile.DTOs;
 
 namespace SpeedyWheelsSales.WebAPI.Controllers;
 

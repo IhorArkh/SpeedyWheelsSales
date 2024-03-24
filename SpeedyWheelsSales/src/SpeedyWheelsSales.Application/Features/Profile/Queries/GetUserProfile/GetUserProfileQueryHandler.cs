@@ -3,10 +3,10 @@ using Domain.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SpeedyWheelsSales.Application.Core;
-using SpeedyWheelsSales.Application.Features.Profile.Queries.GetCurrUserProfileQuery.DTOs;
+using SpeedyWheelsSales.Application.Features.Profile.Queries.GetUserProfile.DTOs;
 using SpeedyWheelsSales.Infrastructure.Data;
 
-namespace SpeedyWheelsSales.Application.Features.Profile.Queries.GetCurrUserProfileQuery;
+namespace SpeedyWheelsSales.Application.Features.Profile.Queries.GetUserProfile;
 
 public class GetUserProfileQueryHandler : IRequestHandler<GetUserProfileQuery, Result<UserProfileDto>>
 {
