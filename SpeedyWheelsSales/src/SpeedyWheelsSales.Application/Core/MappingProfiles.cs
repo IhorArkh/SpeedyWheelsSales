@@ -4,6 +4,7 @@ using SpeedyWheelsSales.Application.Features.Ad.Commands.CreateAd.DTOs;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.UpdateAd.DTOs;
 using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdDetails.DTOs;
 using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdList.DTOs;
+using SpeedyWheelsSales.Application.Features.Profile.Commands.UpdateUserProfile.DTOs;
 using SpeedyWheelsSales.Application.Features.Profile.Queries.GetUserProfile.DTOs;
 
 
@@ -60,5 +61,8 @@ public class MappingProfiles : Profile
                 opt.MapFrom(src => src.Ads));
         CreateMap<Car, UserCarDto>();
         CreateMap<Photo, UserPhotoDto>();
+
+        // UpdateUserProfile
+        CreateMap<UpdateUserProfileDto, AppUser>();
     }
 }

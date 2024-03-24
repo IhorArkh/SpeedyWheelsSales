@@ -46,7 +46,6 @@ public class UpdateAdCommandHandler : IRequestHandler<UpdateAdCommand, Result<Un
         _mapper.Map(request.UpdateAdDto, ad);
 
         var result = await _context.SaveChangesAsync() > 0;
-
         if (!result)
             return Result<Unit>.Failure("Failed to update ad.");
 

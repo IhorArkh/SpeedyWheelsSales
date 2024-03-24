@@ -14,6 +14,8 @@ using SpeedyWheelsSales.Application.Features.Ad.Commands.CreateAd.DTOs;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.UpdateAd;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.UpdateAd.DTOs;
 using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdList;
+using SpeedyWheelsSales.Application.Features.Profile.Commands.UpdateUserProfile;
+using SpeedyWheelsSales.Application.Features.Profile.Commands.UpdateUserProfile.DTOs;
 using SpeedyWheelsSales.Infrastructure;
 using SpeedyWheelsSales.Infrastructure.Data;
 using SpeedyWheelsSales.WebAPI;
@@ -64,6 +66,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICurrentUserAccessor, CurrentUserAccessor>();
 builder.Services.AddScoped<IValidator<CreateAdDto>, CreateAdCommandValidator>();
 builder.Services.AddScoped<IValidator<UpdateAdDto>, UpdateAdCommandValidator>();
+builder.Services.AddScoped<IValidator<UpdateUserProfileDto>, UpdateUserProfileValidator>();
 
 var app = builder.Build();
 
