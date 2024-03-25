@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SpeedyWheelsSales.Application.Core;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.CreateAd;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.CreateAd.DTOs;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.DeleteAd;
@@ -15,13 +16,13 @@ namespace SpeedyWheelsSales.WebAPI.Controllers;
 public class AdController : BaseApiController
 {
     /// <summary>
-    /// Get all ads.
+    /// Get paginated ads.
     /// </summary>
-    /// <response code="200">Returns list of all ads.</response>
+    /// <response code="200">Returns list of paginated ads.</response>
     [HttpGet]
-    public async Task<ActionResult<List<Ad>>> GetAds()
+    public async Task<IActionResult> GetAds([FromQuery] PagingParams pagingParams)
     {
-        return HandleResult(await Mediator.Send(new GetAdListQuery()));
+        return HandlePagedResult(await Mediator.Send(new GetAdListQuery { PagingParams = pagingParams }));
     }
 
     /// <summary>

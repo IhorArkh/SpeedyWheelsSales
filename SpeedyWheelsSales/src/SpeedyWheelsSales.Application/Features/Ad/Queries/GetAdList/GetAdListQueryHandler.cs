@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SpeedyWheelsSales.Application.Core;
@@ -7,7 +8,7 @@ using SpeedyWheelsSales.Infrastructure.Data;
 
 namespace SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdList;
 
-public class GetAdListQueryHandler : IRequestHandler<GetAdListQuery, Result<List<AdListDto>>>
+public class GetAdListQueryHandler : IRequestHandler<GetAdListQuery, Result<PagedList<AdListDto>>>
 {
     private readonly DataContext _context;
     private readonly IMapper _mapper;
@@ -17,16 +18,19 @@ public class GetAdListQueryHandler : IRequestHandler<GetAdListQuery, Result<List
         _context = context;
         _mapper = mapper;
     }
-    
-    public async Task<Result<List<AdListDto>>> Handle(GetAdListQuery request, CancellationToken cancellationToken)
+
+    public async Task<Result<PagedList<AdListDto>>> Handle(GetAdListQuery request, CancellationToken cancellationToken)
     {
-        var ads = await _context.Ads
+        var query = _context.Ads
             .Include(x => x.Car)
             .Include(x => x.Photos)
-            .ToListAsync();
+            .OrderBy(x => x.CreatedAt)
+            .ProjectTo<AdListDto>(_mapper.ConfigurationProvider)
+            .AsQueryable();
 
-        var adDtos = _mapper.Map<List<AdListDto>>(ads);
-        
-        return Result<List<AdListDto>>.Success(adDtos);
+        return Result<PagedList<AdListDto>>.Success(
+            await PagedList<AdListDto>.CreateAsync(query, request.PagingParams.PageNumber,
+                request.PagingParams.PageSize)
+        );
     }
 }

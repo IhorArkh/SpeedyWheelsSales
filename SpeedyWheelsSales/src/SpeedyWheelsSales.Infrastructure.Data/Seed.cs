@@ -18,7 +18,8 @@ public class Seed
                 Name = "John Doe",
                 Location = "City1",
                 Bio = "Lorem Ipsum",
-                PhotoUrl = "https://www.shutterstock.com/shutterstock/photos/1669189411/display_1500/stock-photo-gardening-home-girl-replanting-green-pasture-in-home-garden-indoor-garden-room-with-plants-banner-1669189411.jpg"
+                PhotoUrl =
+                    "https://www.shutterstock.com/shutterstock/photos/1669189411/display_1500/stock-photo-gardening-home-girl-replanting-green-pasture-in-home-garden-indoor-garden-room-with-plants-banner-1669189411.jpg"
             };
             await userManager.CreateAsync(user1, "Password123");
 
@@ -30,7 +31,8 @@ public class Seed
                 Name = "Jane Smith",
                 Location = "City2",
                 Bio = "Dolor Sit Amet",
-                PhotoUrl = "https://www.shutterstock.com/shutterstock/photos/577183882/display_1500/stock-photo-software-developer-programming-code-abstract-computer-script-code-programming-code-screen-of-577183882.jpg"
+                PhotoUrl =
+                    "https://www.shutterstock.com/shutterstock/photos/577183882/display_1500/stock-photo-software-developer-programming-code-abstract-computer-script-code-programming-code-screen-of-577183882.jpg"
             };
             await userManager.CreateAsync(user2, "Password123");
 
@@ -59,8 +61,18 @@ public class Seed
                     AppUser = user1,
                     Photos = new List<Photo>
                     {
-                        new Photo { Url = "https://www.shutterstock.com/shutterstock/photos/577183882/display_1500/stock-photo-software-developer-programming-code-abstract-computer-script-code-programming-code-screen-of-577183882.jpg", IsMain = 1 },
-                        new Photo { Url = "https://www.shutterstock.com/shutterstock/photos/1669189411/display_1500/stock-photo-gardening-home-girl-replanting-green-pasture-in-home-garden-indoor-garden-room-with-plants-banner-1669189411.jpg", IsMain = 0 },
+                        new Photo
+                        {
+                            Url =
+                                "https://www.shutterstock.com/shutterstock/photos/577183882/display_1500/stock-photo-software-developer-programming-code-abstract-computer-script-code-programming-code-screen-of-577183882.jpg",
+                            IsMain = true
+                        },
+                        new Photo
+                        {
+                            Url =
+                                "https://www.shutterstock.com/shutterstock/photos/1669189411/display_1500/stock-photo-gardening-home-girl-replanting-green-pasture-in-home-garden-indoor-garden-room-with-plants-banner-1669189411.jpg",
+                            IsMain = false
+                        },
                     }
                 },
                 new Ad
@@ -87,8 +99,18 @@ public class Seed
                     AppUser = user2,
                     Photos = new List<Photo>
                     {
-                        new Photo { Url = "https://www.shutterstock.com/shutterstock/photos/577183882/display_1500/stock-photo-software-developer-programming-code-abstract-computer-script-code-programming-code-screen-of-577183882.jpg", IsMain = 1 },
-                        new Photo { Url = "https://www.shutterstock.com/shutterstock/photos/1669189411/display_1500/stock-photo-gardening-home-girl-replanting-green-pasture-in-home-garden-indoor-garden-room-with-plants-banner-1669189411.jpg", IsMain = 0 },
+                        new Photo
+                        {
+                            Url =
+                                "https://www.shutterstock.com/shutterstock/photos/577183882/display_1500/stock-photo-software-developer-programming-code-abstract-computer-script-code-programming-code-screen-of-577183882.jpg",
+                            IsMain = true
+                        },
+                        new Photo
+                        {
+                            Url =
+                                "https://www.shutterstock.com/shutterstock/photos/1669189411/display_1500/stock-photo-gardening-home-girl-replanting-green-pasture-in-home-garden-indoor-garden-room-with-plants-banner-1669189411.jpg",
+                            IsMain = false
+                        },
                     }
                 },
                 new Ad
@@ -114,8 +136,18 @@ public class Seed
                     AppUser = user1,
                     Photos = new List<Photo>
                     {
-                        new Photo { Url = "https://www.shutterstock.com/shutterstock/photos/577183882/display_1500/stock-photo-software-developer-programming-code-abstract-computer-script-code-programming-code-screen-of-577183882.jpg", IsMain = 1 },
-                        new Photo { Url = "https://www.shutterstock.com/shutterstock/photos/1669189411/display_1500/stock-photo-gardening-home-girl-replanting-green-pasture-in-home-garden-indoor-garden-room-with-plants-banner-1669189411.jpg", IsMain = 0 },
+                        new Photo
+                        {
+                            Url =
+                                "https://www.shutterstock.com/shutterstock/photos/577183882/display_1500/stock-photo-software-developer-programming-code-abstract-computer-script-code-programming-code-screen-of-577183882.jpg",
+                            IsMain = true
+                        },
+                        new Photo
+                        {
+                            Url =
+                                "https://www.shutterstock.com/shutterstock/photos/1669189411/display_1500/stock-photo-gardening-home-girl-replanting-green-pasture-in-home-garden-indoor-garden-room-with-plants-banner-1669189411.jpg",
+                            IsMain = false
+                        },
                     }
                 },
                 new Ad
@@ -141,8 +173,18 @@ public class Seed
                     AppUser = user2,
                     Photos = new List<Photo>
                     {
-                        new Photo { Url = "https://www.shutterstock.com/shutterstock/photos/577183882/display_1500/stock-photo-software-developer-programming-code-abstract-computer-script-code-programming-code-screen-of-577183882.jpg", IsMain = 1 },
-                        new Photo { Url = "https://www.shutterstock.com/shutterstock/photos/1669189411/display_1500/stock-photo-gardening-home-girl-replanting-green-pasture-in-home-garden-indoor-garden-room-with-plants-banner-1669189411.jpg", IsMain = 0 },
+                        new Photo
+                        {
+                            Url =
+                                "https://www.shutterstock.com/shutterstock/photos/577183882/display_1500/stock-photo-software-developer-programming-code-abstract-computer-script-code-programming-code-screen-of-577183882.jpg",
+                            IsMain = true
+                        },
+                        new Photo
+                        {
+                            Url =
+                                "https://www.shutterstock.com/shutterstock/photos/1669189411/display_1500/stock-photo-gardening-home-girl-replanting-green-pasture-in-home-garden-indoor-garden-room-with-plants-banner-1669189411.jpg",
+                            IsMain = false
+                        },
                     }
                 },
                 new Ad
@@ -168,8 +210,18 @@ public class Seed
                     AppUser = user1,
                     Photos = new List<Photo>
                     {
-                        new Photo { Url = "https://www.shutterstock.com/shutterstock/photos/577183882/display_1500/stock-photo-software-developer-programming-code-abstract-computer-script-code-programming-code-screen-of-577183882.jpg", IsMain = 1 },
-                        new Photo { Url = "https://www.shutterstock.com/shutterstock/photos/1669189411/display_1500/stock-photo-gardening-home-girl-replanting-green-pasture-in-home-garden-indoor-garden-room-with-plants-banner-1669189411.jpg", IsMain = 0 },
+                        new Photo
+                        {
+                            Url =
+                                "https://www.shutterstock.com/shutterstock/photos/577183882/display_1500/stock-photo-software-developer-programming-code-abstract-computer-script-code-programming-code-screen-of-577183882.jpg",
+                            IsMain = true
+                        },
+                        new Photo
+                        {
+                            Url =
+                                "https://www.shutterstock.com/shutterstock/photos/1669189411/display_1500/stock-photo-gardening-home-girl-replanting-green-pasture-in-home-garden-indoor-garden-room-with-plants-banner-1669189411.jpg",
+                            IsMain = false
+                        },
                     }
                 }
             };
