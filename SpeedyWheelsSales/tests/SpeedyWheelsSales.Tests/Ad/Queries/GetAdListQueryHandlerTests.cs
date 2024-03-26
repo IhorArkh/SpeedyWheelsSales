@@ -7,7 +7,7 @@ using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdList;
 
 namespace SpeedyWheelsSales.Tests.Ad.Queries;
 
-public class GetAdListQueryHandlerTests
+public class GetAdListQueryHandlerTests // TODO Need to update tests for GetAdList
 {
     private const string ContextName = "DbForGetAdListQueryHandler";
 
@@ -30,15 +30,15 @@ public class GetAdListQueryHandlerTests
         var mapper = new Mapper(new MapperConfiguration(cfg =>
             cfg.AddProfile<MappingProfiles>()));
 
-        var pagingParams = new PagingParams();
+        var adParams = new AdParams();
 
-        var query = new GetAdListQuery { PagingParams = pagingParams };
+        var query = new GetAdListQuery { AdParams = adParams };
         var handler = new GetAdListQueryHandler(context, mapper);
 
         //Act
         var result = await handler.Handle(query, CancellationToken.None);
         var adsFromDb = await context.Ads
-            .OrderBy(x => x.CreatedAt)
+            .OrderByDescending(x => x.CreatedAt)
             .Take(10)
             .ToListAsync();
 
@@ -69,15 +69,15 @@ public class GetAdListQueryHandlerTests
         var mapper = new Mapper(new MapperConfiguration(cfg =>
             cfg.AddProfile<MappingProfiles>()));
 
-        var pagingParams = new PagingParams { PageNumber = 2, PageSize = 2 };
+        var adParams = new AdParams { PageNumber = 2, PageSize = 2 };
 
-        var query = new GetAdListQuery { PagingParams = pagingParams };
+        var query = new GetAdListQuery { AdParams = adParams };
         var handler = new GetAdListQueryHandler(context, mapper);
 
         //Act
         var result = await handler.Handle(query, CancellationToken.None);
         var adsFromDb = await context.Ads
-            .OrderBy(x => x.CreatedAt)
+            .OrderByDescending(x => x.CreatedAt)
             .Skip(2)
             .Take(2)
             .ToListAsync();

@@ -6,5 +6,5 @@ namespace SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdList;
 
 public record GetAdListQuery : IRequest<Result<PagedList<AdListDto>>>
 {
-    public PagingParams PagingParams { get; set; }
+    public AdParams AdParams { get; set; }
 }

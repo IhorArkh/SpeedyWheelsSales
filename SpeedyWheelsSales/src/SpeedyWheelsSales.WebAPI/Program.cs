@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using System.Reflection;
 using System.Text.Json.Serialization;
 using Domain.Entities;
@@ -16,6 +17,8 @@ using SpeedyWheelsSales.Application.Features.Ad.Commands.UpdateAd.DTOs;
 using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdList;
 using SpeedyWheelsSales.Application.Features.Profile.Commands.UpdateUserProfile;
 using SpeedyWheelsSales.Application.Features.Profile.Commands.UpdateUserProfile.DTOs;
+using SpeedyWheelsSales.Application.Interfaces;
+using SpeedyWheelsSales.Application.Services;
 using SpeedyWheelsSales.Infrastructure;
 using SpeedyWheelsSales.Infrastructure.Data;
 using SpeedyWheelsSales.WebAPI;
@@ -64,6 +67,7 @@ builder.Services.AddCors(x => x.AddPolicy("CorsPolicy", policy =>
 }));
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICurrentUserAccessor, CurrentUserAccessor>();
+builder.Services.AddScoped<IFilteringService, FilteringService>();
 builder.Services.AddScoped<IValidator<CreateAdDto>, CreateAdCommandValidator>();
 builder.Services.AddScoped<IValidator<UpdateAdDto>, UpdateAdCommandValidator>();
 builder.Services.AddScoped<IValidator<UpdateUserProfileDto>, UpdateUserProfileValidator>();

@@ -16,13 +16,13 @@ namespace SpeedyWheelsSales.WebAPI.Controllers;
 public class AdController : BaseApiController
 {
     /// <summary>
-    /// Get paginated ads.
+    /// Get sorted, filtered and paginated ads.
     /// </summary>
-    /// <response code="200">Returns list of paginated ads.</response>
+    /// <response code="200">Returns list of sorted, filtered and paginated ads.</response>
     [HttpGet]
-    public async Task<IActionResult> GetAds([FromQuery] PagingParams pagingParams)
+    public async Task<IActionResult> GetAds([FromQuery] AdParams adParams)
     {
-        return HandlePagedResult(await Mediator.Send(new GetAdListQuery { PagingParams = pagingParams }));
+        return HandlePagedResult(await Mediator.Send(new GetAdListQuery { AdParams = adParams }));
     }
 
     /// <summary>
