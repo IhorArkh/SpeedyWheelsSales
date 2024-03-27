@@ -6,6 +6,7 @@ using SpeedyWheelsSales.Application.Features.Ad.Commands.CreateAd;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.CreateAd.DTOs;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.DeleteAd;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.MarkAdAsSold;
+using SpeedyWheelsSales.Application.Features.Ad.Commands.ToggleFavouriteAd;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.UpdateAd;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.UpdateAd.DTOs;
 using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdDetails;
@@ -100,5 +101,21 @@ public class AdController : BaseApiController
     public async Task<IActionResult> MarkAsSold(int id)
     {
         return HandleResult(await Mediator.Send(new MarkAdAsSoldCommand { Id = id }));
+    }
+
+    /// <summary>
+    /// Add or remove ad from favourites.(authorized)
+    /// </summary>
+    /// <response code="200">If added/removed successfully.</response>
+    /// <response code="400">
+    /// If ad was not found in Db.
+    /// If failed to get user username.
+    /// If failed to add/remove ad.
+    /// </response>
+    [Authorize]
+    [HttpPut("toggleFavourite/{id}")]
+    public async Task<IActionResult> ToggleFavourite(int id)
+    {
+        return HandleResult(await Mediator.Send(new ToggleFavouriteAdCommand() { AdId = id }));
     }
 }

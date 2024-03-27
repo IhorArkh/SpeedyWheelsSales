@@ -64,5 +64,8 @@ public class MappingProfiles : Profile
 
         // UpdateUserProfile
         CreateMap<UpdateUserProfileDto, AppUser>();
+
+        // ToggleFavouriteAd
+        CreateMap<Ad, FavouriteAd>();
     }
 }
