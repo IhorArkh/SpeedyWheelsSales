@@ -4,6 +4,7 @@ using SpeedyWheelsSales.Application.Features.Ad.Commands.CreateAd.DTOs;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.UpdateAd.DTOs;
 using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdDetails.DTOs;
 using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdList.DTOs;
+using SpeedyWheelsSales.Application.Features.Ad.Queries.GetFavouriteAds.DTOs;
 using SpeedyWheelsSales.Application.Features.Profile.Commands.UpdateUserProfile.DTOs;
 using SpeedyWheelsSales.Application.Features.Profile.Queries.GetUserProfile.DTOs;
 
@@ -67,5 +68,14 @@ public class MappingProfiles : Profile
 
         // ToggleFavouriteAd
         CreateMap<Ad, FavouriteAd>();
+
+        // GetFavouriteAds
+        CreateMap<FavouriteAd, FavouriteAdDto>()
+            .ForMember(dest => dest.CarDto, opt =>
+                opt.MapFrom(src => src.Ad.Car))
+            .ForMember(dest => dest.PhotoDtos, opt =>
+                opt.MapFrom(src => src.Ad.Photos));
+        CreateMap<Car, FavouriteAdCarDto>();
+        CreateMap<Photo, FavouriteAdPhotoDto>();
     }
 }

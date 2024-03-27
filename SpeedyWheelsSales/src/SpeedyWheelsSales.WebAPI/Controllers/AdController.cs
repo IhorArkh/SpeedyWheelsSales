@@ -11,6 +11,7 @@ using SpeedyWheelsSales.Application.Features.Ad.Commands.UpdateAd;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.UpdateAd.DTOs;
 using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdDetails;
 using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdList;
+using SpeedyWheelsSales.Application.Features.Ad.Queries.GetFavouriteAds;
 
 namespace SpeedyWheelsSales.WebAPI.Controllers;
 
@@ -117,5 +118,17 @@ public class AdController : BaseApiController
     public async Task<IActionResult> ToggleFavourite(int id)
     {
         return HandleResult(await Mediator.Send(new ToggleFavouriteAdCommand() { AdId = id }));
+    }
+
+    /// <summary>
+    /// Get favourite ads for current user.
+    /// </summary>
+    /// <response code="200">Returns favourite ads of current user.</response>
+    /// <response code="404">If couldn't get current user username.</response>
+    [Authorize]
+    [HttpGet("favourites")]
+    public async Task<IActionResult> GetFavouriteAds([FromQuery] PagingParams pagingParams)
+    {
+        return HandleResult(await Mediator.Send(new GetFavouriteAdsQuery { PagingParams = pagingParams }));
     }
 }
