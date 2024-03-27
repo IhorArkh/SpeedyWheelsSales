@@ -5,7 +5,7 @@ namespace Domain.Entities;
 public class Car
 {
     public int Id { get; set; }
-    public string Model { get; set; }
+    public string Model { get; set; } // TODO split it to brand and model
     public decimal Price { get; set; }
     public int Mileage { get; set; }
     public double EngineSize { get; set; }
@@ -18,6 +18,6 @@ public class Car
     public TypeOfDrive TypeOfDrive { get; set; }
     public Colors Color { get; set; }
     public int AdId { get; set; }
-    
+
     public Ad Ad { get; set; }
 }
