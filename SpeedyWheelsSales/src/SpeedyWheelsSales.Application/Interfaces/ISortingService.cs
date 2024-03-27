@@ -3,7 +3,7 @@ using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdList.DTOs;
 
 namespace SpeedyWheelsSales.Application.Interfaces;
 
-public interface IFilteringService
+public interface ISortingService
 {
-    IQueryable<AdListDto> FilterAds(IQueryable<AdListDto> query, AdParams adParams);
+    IQueryable<AdListDto> SortAds(IQueryable<AdListDto> query, AdParams adParams);
 }

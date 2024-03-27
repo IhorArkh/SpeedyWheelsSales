@@ -4,6 +4,10 @@ namespace SpeedyWheelsSales.Application.Core;
 
 public class AdParams : PagingParams
 {
+    // Sorting params
+    public string? SortColumn { get; set; }
+    public string? SortOrder { get; set; }
+
     // Ad params
     public string? City { get; set; }
 

@@ -68,6 +68,7 @@ builder.Services.AddCors(x => x.AddPolicy("CorsPolicy", policy =>
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICurrentUserAccessor, CurrentUserAccessor>();
 builder.Services.AddScoped<IFilteringService, FilteringService>();
+builder.Services.AddScoped<ISortingService, SortingService>();
 builder.Services.AddScoped<IValidator<CreateAdDto>, CreateAdCommandValidator>();
 builder.Services.AddScoped<IValidator<UpdateAdDto>, UpdateAdCommandValidator>();
 builder.Services.AddScoped<IValidator<UpdateUserProfileDto>, UpdateUserProfileValidator>();

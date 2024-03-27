@@ -14,12 +14,15 @@ public class GetAdListQueryHandler : IRequestHandler<GetAdListQuery, Result<Page
     private readonly DataContext _context;
     private readonly IMapper _mapper;
     private readonly IFilteringService _filteringService;
+    private readonly ISortingService _sortingService;
 
-    public GetAdListQueryHandler(DataContext context, IMapper mapper, IFilteringService filteringService)
+    public GetAdListQueryHandler(DataContext context, IMapper mapper, IFilteringService filteringService,
+        ISortingService sortingService)
     {
         _context = context;
         _mapper = mapper;
         _filteringService = filteringService;
+        _sortingService = sortingService;
     }
 
     public async Task<Result<PagedList<AdListDto>>> Handle(GetAdListQuery request, CancellationToken cancellationToken)
@@ -27,10 +30,10 @@ public class GetAdListQueryHandler : IRequestHandler<GetAdListQuery, Result<Page
         var adsQuery = _context.Ads
             .Include(x => x.Car)
             .Include(x => x.Photos)
-            .OrderByDescending(x => x.CreatedAt)
             .ProjectTo<AdListDto>(_mapper.ConfigurationProvider)
             .AsQueryable();
 
+        adsQuery = _sortingService.SortAds(adsQuery, request.AdParams);
         adsQuery = _filteringService.FilterAds(adsQuery, request.AdParams);
 
         return Result<PagedList<AdListDto>>.Success(
