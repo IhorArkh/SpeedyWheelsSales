@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using FluentValidation.Results;
 using SpeedyWheelsSales.Application.Interfaces;
 
 namespace SpeedyWheelsSales.Application.Core.Behaviors;
@@ -9,7 +8,7 @@ public sealed class RequestLoggingPipelineBehavior<TRequest, TResponse>
     : IPipelineBehavior<TRequest, TResponse>
     where TRequest : class
 {
-    private readonly ILogger<TRequest> _logger; // Use ILogger<TRequest> for specific logging
+    private readonly ILogger<TRequest> _logger;
 
     public RequestLoggingPipelineBehavior(ILogger<TRequest> logger)
     {
