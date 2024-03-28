@@ -114,7 +114,7 @@ public class AdController : BaseApiController
     /// If failed to add/remove ad.
     /// </response>
     [Authorize]
-    [HttpPut("toggleFavourite/{id}")]
+    [HttpPost("toggleFavourite/{id}")]
     public async Task<IActionResult> ToggleFavourite(int id)
     {
         return HandleResult(await Mediator.Send(new ToggleFavouriteAdCommand() { AdId = id }));

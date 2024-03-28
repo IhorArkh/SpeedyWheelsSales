@@ -8,6 +8,7 @@ using SpeedyWheelsSales.Application.Features.Ad.Queries.GetFavouriteAds.DTOs;
 using SpeedyWheelsSales.Application.Features.Profile.Commands.UpdateUserProfile.DTOs;
 using SpeedyWheelsSales.Application.Features.Profile.Queries.GetUserProfile.DTOs;
 using SpeedyWheelsSales.Application.Features.SavedSearch.Commands.SaveSearch;
+using SpeedyWheelsSales.Application.Features.SavedSearch.Queries.GetSavedSearches;
 
 
 namespace SpeedyWheelsSales.Application.Core;
@@ -81,5 +82,8 @@ public class MappingProfiles : Profile
 
         // SaveSearch
         CreateMap<SaveSearchParams, SavedSearch>();
+
+        // GetSavedSearches
+        CreateMap<SavedSearch, SavedSearchDto>();
     }
 }

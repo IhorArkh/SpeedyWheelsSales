@@ -2,11 +2,26 @@
 using Microsoft.AspNetCore.Mvc;
 using SpeedyWheelsSales.Application.Features.SavedSearch.Commands.DeleteSearch;
 using SpeedyWheelsSales.Application.Features.SavedSearch.Commands.SaveSearch;
+using SpeedyWheelsSales.Application.Features.SavedSearch.Queries.GetSavedSearches;
 
 namespace SpeedyWheelsSales.WebAPI.Controllers;
 
 public class SavedSearchController : BaseApiController
 {
+    /// <summary>
+    /// Get saved searches.(authorized)
+    /// </summary>
+    /// <response code="200">Returns list of saved searches.</response>
+    /// <response code="400">
+    /// If can't find user in db.
+    /// </response>
+    [Authorize]
+    [HttpGet]
+    public async Task<IActionResult> GetSavedSearches()
+    {
+        return HandleResult(await Mediator.Send(new GetSavedSearchesQuery()));
+    }
+
     /// <summary>
     /// Save search.(authorized)
     /// </summary>
@@ -32,7 +47,7 @@ public class SavedSearchController : BaseApiController
     /// </response>
     [Authorize]
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteSearch(int id)
+    public async Task<IActionResult> DeleteSavedSearch(int id)
     {
         return HandleResult(await Mediator.Send(new DeleteSearchCommand { Id = id }));
     }
