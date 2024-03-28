@@ -4,6 +4,7 @@ namespace SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdList.DTOs;
 
 public class AdListCarDto
 {
+    public string Brand { get; set; }
     public string Model { get; set; }
     public decimal Price { get; set; }
     public int Mileage { get; set; }

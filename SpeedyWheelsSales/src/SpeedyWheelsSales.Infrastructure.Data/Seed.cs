@@ -45,6 +45,7 @@ public class Seed
                     IsSold = false,
                     Car = new Car
                     {
+                        Brand = "Brand1",
                         Model = "Model1",
                         Price = 15000,
                         Mileage = 50000,
@@ -83,6 +84,7 @@ public class Seed
                     SoldAt = DateTime.UtcNow.AddDays(-10),
                     Car = new Car
                     {
+                        Brand = "Brand2",
                         Model = "Model2",
                         Price = 20000,
                         Mileage = 30000,
@@ -120,6 +122,7 @@ public class Seed
                     IsSold = false,
                     Car = new Car
                     {
+                        Brand = "Brand3",
                         Model = "Model3",
                         Price = 18000,
                         Mileage = 40000,
@@ -157,6 +160,7 @@ public class Seed
                     IsSold = false,
                     Car = new Car
                     {
+                        Brand = "Brand4",
                         Model = "Model4",
                         Price = 22000,
                         Mileage = 35000,
@@ -194,6 +198,7 @@ public class Seed
                     IsSold = false,
                     Car = new Car
                     {
+                        Brand = "Brand5",
                         Model = "Model5",
                         Price = 25000,
                         Mileage = 30000,

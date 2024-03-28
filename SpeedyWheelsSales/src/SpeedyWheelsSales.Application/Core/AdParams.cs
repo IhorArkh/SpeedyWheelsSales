@@ -12,6 +12,7 @@ public class AdParams : PagingParams
     public string? City { get; set; }
 
     // Car params
+    public string? Brand { get; set; }
     public string? Model { get; set; }
     public decimal? MinPrice { get; set; }
     public decimal? MaxPrice { get; set; }

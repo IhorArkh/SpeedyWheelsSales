@@ -21,6 +21,12 @@ public class CreateAdCommandValidator : AbstractValidator<CreateAdDto>
             .WithMessage("Description must be less than 2000 characters.");
 
         //CreateAdCarDto
+        RuleFor(x => x.CreateAdCarDto.Brand)
+            .NotEmpty()
+            .WithMessage("Brand is required.")
+            .MaximumLength(50)
+            .WithMessage("Brand must be less than 50 characters.");
+        
         RuleFor(x => x.CreateAdCarDto.Model)
             .NotEmpty()
             .WithMessage("Model is required.")

@@ -11,6 +11,9 @@ public class FilteringService : IFilteringService
         if (!string.IsNullOrWhiteSpace(adParams.City))
             query = query.Where(x => x.City == adParams.City);
 
+        if (!string.IsNullOrWhiteSpace(adParams.Brand))
+            query = query.Where(x => x.CarDto.Brand.Contains(adParams.Brand));
+
         if (!string.IsNullOrWhiteSpace(adParams.Model))
             query = query.Where(x => x.CarDto.Model.Contains(adParams.Model));
 

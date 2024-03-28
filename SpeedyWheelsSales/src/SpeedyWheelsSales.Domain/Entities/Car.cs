@@ -5,7 +5,8 @@ namespace Domain.Entities;
 public class Car
 {
     public int Id { get; set; }
-    public string Model { get; set; } // TODO split it to brand and model
+    public string Brand { get; set; }
+    public string Model { get; set; }
     public decimal Price { get; set; }
     public int Mileage { get; set; }
     public double EngineSize { get; set; }

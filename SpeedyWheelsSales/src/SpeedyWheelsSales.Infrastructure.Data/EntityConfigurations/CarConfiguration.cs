@@ -11,6 +11,7 @@ public class CarConfiguration : IEntityTypeConfiguration<Car>
         builder.Property(c => c.Price).HasColumnType("decimal(18, 2)");
         builder.Property(c => c.EngineSize).HasColumnType("decimal(18, 2)");
 
+        builder.Property(x => x.Brand).IsRequired().HasMaxLength(50);
         builder.Property(x => x.Model).IsRequired().HasMaxLength(50);
         builder.Property(x => x.Price).IsRequired();
         builder.Property(x => x.Mileage).IsRequired();
