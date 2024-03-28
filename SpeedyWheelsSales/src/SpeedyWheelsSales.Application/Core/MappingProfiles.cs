@@ -7,7 +7,7 @@ using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdList.DTOs;
 using SpeedyWheelsSales.Application.Features.Ad.Queries.GetFavouriteAds.DTOs;
 using SpeedyWheelsSales.Application.Features.Profile.Commands.UpdateUserProfile.DTOs;
 using SpeedyWheelsSales.Application.Features.Profile.Queries.GetUserProfile.DTOs;
-using SpeedyWheelsSales.Application.Features.SavedSearch.SaveSearch;
+using SpeedyWheelsSales.Application.Features.SavedSearch.Commands.SaveSearch;
 
 
 namespace SpeedyWheelsSales.Application.Core;

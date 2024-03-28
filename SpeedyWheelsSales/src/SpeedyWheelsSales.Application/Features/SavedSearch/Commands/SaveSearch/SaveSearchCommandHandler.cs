@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Domain.Enums;
 using Domain.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -7,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using SpeedyWheelsSales.Application.Core;
 using SpeedyWheelsSales.Infrastructure.Data;
 
-namespace SpeedyWheelsSales.Application.Features.SavedSearch.SaveSearch;
+namespace SpeedyWheelsSales.Application.Features.SavedSearch.Commands.SaveSearch;
 
 public class SaveSearchCommandHandler : IRequestHandler<SaveSearchCommand, Result<Unit>>
 {

@@ -1,6 +1,6 @@
 ﻿using Domain.Enums;
 
-namespace SpeedyWheelsSales.Application.Features.SavedSearch.SaveSearch;
+namespace SpeedyWheelsSales.Application.Features.SavedSearch.Commands.SaveSearch;
 
 public class SaveSearchParams
 {
