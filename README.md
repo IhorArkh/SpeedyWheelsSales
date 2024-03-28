@@ -28,4 +28,5 @@ Welcome to SpeedyWheelsSales, the ultimate online marketplace for buying and sel
   - Users can engage in private conversations to discuss vehicle details, negotiate prices and make an appointments.
  
 ## Database schema
-![image](https://github.com/IhorArkh/SpeedyWheelsSales/assets/118860688/fd6d275d-eada-4873-b2a5-2aecd2b29763)
+![image](https://github.com/IhorArkh/SpeedyWheelsSales/assets/118860688/45c3beb8-b9e2-474f-b5ec-f6f8ee7e0a02)
+
