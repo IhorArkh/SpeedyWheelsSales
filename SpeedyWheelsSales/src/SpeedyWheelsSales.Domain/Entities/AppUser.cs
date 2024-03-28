@@ -11,6 +11,6 @@ public class AppUser : IdentityUser
     public DateTime RegisterDate { get; set; }
 
     public ICollection<Ad> Ads { get; set; } = new List<Ad>();
-    public ICollection<SavedSearch> FavouriteSearches { get; set; } = new List<SavedSearch>();
+    public ICollection<SavedSearch> SavedSearches { get; set; } = new List<SavedSearch>();
     public ICollection<FavouriteAd> FavouriteAds { get; set; } = new List<FavouriteAd>();
 }

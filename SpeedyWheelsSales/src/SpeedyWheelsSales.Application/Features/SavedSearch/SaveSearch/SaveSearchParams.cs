@@ -1,13 +1,9 @@
 ﻿using Domain.Enums;
 
-namespace Domain.Entities;
+namespace SpeedyWheelsSales.Application.Features.SavedSearch.SaveSearch;
 
-public class SavedSearch
+public class SaveSearchParams
 {
-    public int Id { get; set; }
-    public string Filters { get; set; }
-    public string AppUserId { get; set; }
-
     // Ad params
     public string? City { get; set; }
 
@@ -23,6 +19,4 @@ public class SavedSearch
     public Transmission? Transmission { get; set; }
     public TypeOfDrive? TypeOfDrive { get; set; }
     public Colors? Color { get; set; }
-
-    public AppUser AppUser { get; set; }
 }
