@@ -20,9 +20,9 @@ public class CarConfiguration : IEntityTypeConfiguration<Car>
         builder.Property(x => x.Vin).HasMaxLength(50);
         builder.Property(x => x.Plates).HasMaxLength(15);
         builder.Property(x => x.ManufactureDate).IsRequired();
-        builder.Property(x => x.EngineType).IsRequired();
-        builder.Property(x => x.Transmission).IsRequired();
-        builder.Property(x => x.TypeOfDrive).IsRequired();
+        builder.Property(x => x.EngineType).IsRequired().HasMaxLength(10);
+        builder.Property(x => x.Transmission).IsRequired().HasMaxLength(10);
+        builder.Property(x => x.TypeOfDrive).IsRequired().HasMaxLength(10);
         builder.Property(x => x.Color).IsRequired().HasMaxLength(20);
     }
 }

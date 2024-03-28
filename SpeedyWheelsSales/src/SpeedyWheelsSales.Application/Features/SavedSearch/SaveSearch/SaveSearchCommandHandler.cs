@@ -38,7 +38,7 @@ public class SaveSearchCommandHandler : IRequestHandler<SaveSearchCommand, Resul
             return Result<Unit>.Empty();
 
         var savedSearch = _mapper.Map<Domain.Entities.SavedSearch>(request.SaveSearchParams);
-        savedSearch.Filters = queryString;
+        savedSearch.QueryString = queryString;
 
         user.SavedSearches.Add(savedSearch);
         var result = await _context.SaveChangesAsync() > 0;
