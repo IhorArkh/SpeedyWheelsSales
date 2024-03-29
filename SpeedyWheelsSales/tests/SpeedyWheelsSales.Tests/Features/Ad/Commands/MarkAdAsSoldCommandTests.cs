@@ -4,10 +4,9 @@ using FluentAssertions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Moq;
-using SpeedyWheelsSales.Application.Features.Ad.Commands.DeleteAd;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.MarkAdAsSold;
 
-namespace SpeedyWheelsSales.Tests.Ad.Commands;
+namespace SpeedyWheelsSales.Tests.Features.Ad.Commands;
 
 public class MarkAdAsSoldCommandTests
 {

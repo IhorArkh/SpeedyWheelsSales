@@ -13,7 +13,7 @@ using SpeedyWheelsSales.Application.Core;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.CreateAd;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.CreateAd.DTOs;
 
-namespace SpeedyWheelsSales.Tests.Ad.Commands;
+namespace SpeedyWheelsSales.Tests.Features.Ad.Commands;
 
 public class CreateAdCommandHandlerTests
 {

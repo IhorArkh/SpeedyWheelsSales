@@ -9,7 +9,7 @@ using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdList;
 using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdList.DTOs;
 using SpeedyWheelsSales.Application.Interfaces;
 
-namespace SpeedyWheelsSales.Tests.Ad.Queries;
+namespace SpeedyWheelsSales.Tests.Features.Ad.Queries;
 
 public class GetAdListQueryHandlerTests
 {

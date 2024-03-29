@@ -4,7 +4,7 @@ using FluentAssertions;
 using SpeedyWheelsSales.Application.Core;
 using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdDetails;
 
-namespace SpeedyWheelsSales.Tests.Ad.Queries;
+namespace SpeedyWheelsSales.Tests.Features.Ad.Queries;
 
 public class GetAdDetailsQueryHandlerTests
 {

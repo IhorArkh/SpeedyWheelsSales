@@ -7,7 +7,7 @@ using Moq;
 using SpeedyWheelsSales.Application.Core;
 using SpeedyWheelsSales.Application.Features.Ad.Queries.GetFavouriteAds;
 
-namespace SpeedyWheelsSales.Tests.Ad.Queries;
+namespace SpeedyWheelsSales.Tests.Features.Ad.Queries;
 
 public class GetFavouriteAdsQueryHandlerTests
 {

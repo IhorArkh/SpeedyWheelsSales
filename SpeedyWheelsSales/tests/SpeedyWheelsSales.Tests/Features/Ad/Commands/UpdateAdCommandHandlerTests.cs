@@ -6,17 +6,18 @@ using FluentAssertions;
 using FluentValidation;
 using FluentValidation.Results;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using SpeedyWheelsSales.Application.Core;
-using SpeedyWheelsSales.Application.Features.Profile.Commands.UpdateUserProfile;
-using SpeedyWheelsSales.Application.Features.Profile.Commands.UpdateUserProfile.DTOs;
+using SpeedyWheelsSales.Application.Features.Ad.Commands.UpdateAd;
+using SpeedyWheelsSales.Application.Features.Ad.Commands.UpdateAd.DTOs;
 
-namespace SpeedyWheelsSales.Tests.Profile.Commands;
+namespace SpeedyWheelsSales.Tests.Features.Ad.Commands;
 
-public class UpdateUserProfileHandlerTests
+public class UpdateAdCommandHandlerTests
 {
-    private const string ContextName = "DbForUpdateUserProfileCommandHandler";
+    private const string ContextName = "DbForUpdateAdCommandHandler";
 
     [Fact]
     public async Task Handler_ShouldReturnResultWithValidationError_WhenValidationDoesNotPassed()
@@ -32,18 +33,16 @@ public class UpdateUserProfileHandlerTests
         var mapper = new Mapper(new MapperConfiguration(cfg =>
             cfg.AddProfile<MappingProfiles>()));
 
-        var validatorMock = new Mock<IValidator<UpdateUserProfileDto>>();
-        validatorMock.Setup(x =>
-                x.ValidateAsync(It.IsAny<UpdateUserProfileDto>(), CancellationToken.None))
+        var validatorMock = new Mock<IValidator<UpdateAdDto>>();
+        validatorMock.Setup(x => x.ValidateAsync(It.IsAny<UpdateAdDto>(), CancellationToken.None))
             .ReturnsAsync(new ValidationResult { Errors = fixture.CreateMany<ValidationFailure>(3).ToList() });
 
         var currUserAccessorMock = new Mock<ICurrentUserAccessor>();
 
-        var userProfileDto = new UpdateUserProfileDto();
+        var updateAdDto = new UpdateAdDto();
 
-        var command = new UpdateUserProfileCommand { UpdateUserProfileDto = userProfileDto };
-        var handler =
-            new UpdateUserProfileCommandHandler(context, mapper, currUserAccessorMock.Object, validatorMock.Object);
+        var command = new UpdateAdCommand { UpdateAdDto = updateAdDto, Id = 222 };
+        var handler = new UpdateAdCommandHandler(context, mapper, currUserAccessorMock.Object, validatorMock.Object);
 
         //Act
         var result = await handler.Handle(command, CancellationToken.None);
@@ -57,32 +56,24 @@ public class UpdateUserProfileHandlerTests
     }
 
     [Fact]
-    public async Task Handler_ShouldReturnEmptyResult_WhenCouldNotGetUsernameFromCookie()
+    public async Task Handler_ShouldReturnEmptyResult_WhenValidationPassedAndAdDoesNotExist()
     {
         //Arrange
         var context = await InMemoryDbContextProvider.GetDbContext(ContextName);
-        var fixture = new Fixture();
-
-        fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
-            .ForEach(b => fixture.Behaviors.Remove(b));
-        fixture.Behaviors.Add(new OmitOnRecursionBehavior());
 
         var mapper = new Mapper(new MapperConfiguration(cfg =>
             cfg.AddProfile<MappingProfiles>()));
 
-        var validatorMock = new Mock<IValidator<UpdateUserProfileDto>>();
-        validatorMock.Setup(x =>
-                x.ValidateAsync(It.IsAny<UpdateUserProfileDto>(), CancellationToken.None))
+        var validatorMock = new Mock<IValidator<UpdateAdDto>>();
+        validatorMock.Setup(x => x.ValidateAsync(It.IsAny<UpdateAdDto>(), CancellationToken.None))
             .ReturnsAsync(new ValidationResult { Errors = new List<ValidationFailure>() });
 
         var currUserAccessorMock = new Mock<ICurrentUserAccessor>();
-        currUserAccessorMock.Setup(x => x.GetCurrentUsername()).Returns(() => null);
 
-        var userProfileDto = new UpdateUserProfileDto();
+        var updateAdDto = new UpdateAdDto();
 
-        var command = new UpdateUserProfileCommand { UpdateUserProfileDto = userProfileDto };
-        var handler =
-            new UpdateUserProfileCommandHandler(context, mapper, currUserAccessorMock.Object, validatorMock.Object);
+        var command = new UpdateAdCommand { UpdateAdDto = updateAdDto, Id = 222 };
+        var handler = new UpdateAdCommandHandler(context, mapper, currUserAccessorMock.Object, validatorMock.Object);
 
         //Act
         var result = await handler.Handle(command, CancellationToken.None);
@@ -90,13 +81,13 @@ public class UpdateUserProfileHandlerTests
         //Assert
         result.IsSuccess.Should().BeFalse();
         result.IsEmpty.Should().BeTrue();
-        result.ValidationErrors.Count.Should().Be(0);
+        result.ValidationErrors.Should().BeNullOrEmpty();
         result.Value.Should().Be(Unit.Value);
         result.Error.Should().BeNullOrEmpty();
     }
 
     [Fact]
-    public async Task Handler_ShouldReturnEmptyResult_WhenUserNotFoundInDb()
+    public async Task Handler_ShouldReturnFailure_WhenUsernameFromAdNotEqualsCurrentUsername()
     {
         //Arrange
         var context = await InMemoryDbContextProvider.GetDbContext(ContextName);
@@ -109,33 +100,44 @@ public class UpdateUserProfileHandlerTests
         var mapper = new Mapper(new MapperConfiguration(cfg =>
             cfg.AddProfile<MappingProfiles>()));
 
-        var validatorMock = new Mock<IValidator<UpdateUserProfileDto>>();
-        validatorMock.Setup(x =>
-                x.ValidateAsync(It.IsAny<UpdateUserProfileDto>(), CancellationToken.None))
+        var validatorMock = new Mock<IValidator<UpdateAdDto>>();
+        validatorMock.Setup(x => x.ValidateAsync(It.IsAny<UpdateAdDto>(), CancellationToken.None))
             .ReturnsAsync(new ValidationResult { Errors = new List<ValidationFailure>() });
 
         var currUserAccessorMock = new Mock<ICurrentUserAccessor>();
-        currUserAccessorMock.Setup(x => x.GetCurrentUsername()).Returns("wrongUsername");
+        currUserAccessorMock.Setup(x => x.GetCurrentUsername()).Returns("otherUsername");
 
-        var userProfileDto = fixture.Create<UpdateUserProfileDto>();
+        var userManagerMock = new Mock<UserManager<AppUser>>(
+            Mock.Of<IUserStore<AppUser>>(), null, null, null, null, null, null, null, null);
 
-        var command = new UpdateUserProfileCommand { UpdateUserProfileDto = userProfileDto };
-        var handler =
-            new UpdateUserProfileCommandHandler(context, mapper, currUserAccessorMock.Object, validatorMock.Object);
+        var appUser = fixture.Create<AppUser>();
+        appUser.Ads = new List<Domain.Entities.Ad>();
+        appUser.FavouriteAds = new List<FavouriteAd>();
+
+        var ad = fixture.Create<Domain.Entities.Ad>();
+        ad.AppUser = appUser;
+
+        context.Ads.Add(ad);
+        await context.SaveChangesAsync();
+
+        var updateAdDto = fixture.Create<UpdateAdDto>();
+
+        var command = new UpdateAdCommand { UpdateAdDto = updateAdDto, Id = ad.Id };
+        var handler = new UpdateAdCommandHandler(context, mapper, currUserAccessorMock.Object, validatorMock.Object);
 
         //Act
         var result = await handler.Handle(command, CancellationToken.None);
 
         //Assert
         result.IsSuccess.Should().BeFalse();
-        result.IsEmpty.Should().BeTrue();
-        result.ValidationErrors.Count.Should().Be(0);
+        result.IsEmpty.Should().BeFalse();
         result.Value.Should().Be(Unit.Value);
-        result.Error.Should().BeNullOrEmpty();
+        result.Error.Should().BeEquivalentTo("Users can update only their own ads.");
+        result.ValidationErrors.Should().BeNullOrEmpty();
     }
 
     [Fact]
-    public async Task Handler_ShouldReturnSuccessfulResult_WhenUserProfileUpdatedSuccessfully()
+    public async Task Handler_ShouldReturnSuccess_WhenAdUpdatedSuccessfully()
     {
         //Arrange
         var context = await InMemoryDbContextProvider.GetDbContext(ContextName);
@@ -148,35 +150,42 @@ public class UpdateUserProfileHandlerTests
         var mapper = new Mapper(new MapperConfiguration(cfg =>
             cfg.AddProfile<MappingProfiles>()));
 
-        var validatorMock = new Mock<IValidator<UpdateUserProfileDto>>();
-        validatorMock.Setup(x =>
-                x.ValidateAsync(It.IsAny<UpdateUserProfileDto>(), CancellationToken.None))
+        var validatorMock = new Mock<IValidator<UpdateAdDto>>();
+        validatorMock.Setup(x => x.ValidateAsync(It.IsAny<UpdateAdDto>(), CancellationToken.None))
             .ReturnsAsync(new ValidationResult { Errors = new List<ValidationFailure>() });
 
-        var user = fixture.Create<AppUser>();
-        context.AppUsers.Add(user);
+        var appUser = fixture.Create<AppUser>();
+        appUser.Ads = new List<Domain.Entities.Ad>();
+        appUser.FavouriteAds = new List<FavouriteAd>();
+
+        var ad = fixture.Create<Domain.Entities.Ad>();
+        ad.AppUser = appUser;
+
+        context.Ads.Add(ad);
         await context.SaveChangesAsync();
 
         var currUserAccessorMock = new Mock<ICurrentUserAccessor>();
-        currUserAccessorMock.Setup(x => x.GetCurrentUsername()).Returns(user.UserName);
+        currUserAccessorMock.Setup(x => x.GetCurrentUsername()).Returns(appUser.UserName);
 
-        var userProfileDto = fixture.Create<UpdateUserProfileDto>();
+        var userManagerMock = new Mock<UserManager<AppUser>>(
+            Mock.Of<IUserStore<AppUser>>(), null, null, null, null, null, null, null, null);
 
-        var command = new UpdateUserProfileCommand { UpdateUserProfileDto = userProfileDto };
-        var handler =
-            new UpdateUserProfileCommandHandler(context, mapper, currUserAccessorMock.Object, validatorMock.Object);
+        var updateAdDto = fixture.Create<UpdateAdDto>();
+
+        var command = new UpdateAdCommand { UpdateAdDto = updateAdDto, Id = ad.Id };
+        var handler = new UpdateAdCommandHandler(context, mapper, currUserAccessorMock.Object, validatorMock.Object);
 
         //Act
         var result = await handler.Handle(command, CancellationToken.None);
-        var updatedUser = await context.AppUsers.SingleOrDefaultAsync();
+        var adFromDb = await context.Ads.SingleOrDefaultAsync();
 
         //Assert
         result.IsSuccess.Should().BeTrue();
         result.IsEmpty.Should().BeFalse();
-        result.ValidationErrors.Count.Should().Be(0);
         result.Value.Should().Be(Unit.Value);
         result.Error.Should().BeNullOrEmpty();
-        updatedUser.Should()
-            .BeEquivalentTo(userProfileDto, x => x.ExcludingMissingMembers());
+        result.ValidationErrors.Should().BeNullOrEmpty();
+
+        adFromDb.Should().BeEquivalentTo(ad, opt => opt.ExcludingMissingMembers());
     }
 }

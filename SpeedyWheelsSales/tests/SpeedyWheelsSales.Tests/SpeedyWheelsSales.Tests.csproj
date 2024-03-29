@@ -32,4 +32,8 @@
       <ProjectReference Include="..\..\src\SpeedyWheelsSales.Domain\SpeedyWheelsSales.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Features\SavedSearch\Commands\" />
+    </ItemGroup>
+
 </Project>

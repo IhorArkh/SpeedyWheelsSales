@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Moq;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.DeleteAd;
 
-namespace SpeedyWheelsSales.Tests.Ad.Commands;
+namespace SpeedyWheelsSales.Tests.Features.Ad.Commands;
 
 public class DeleteAdCommandHandlerTests
 {
