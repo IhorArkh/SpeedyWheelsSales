@@ -11,7 +11,7 @@ using SpeedyWheelsSales.Application.Features.Ad.Commands.ToggleFavouriteAd;
 
 namespace SpeedyWheelsSales.Tests.Ad.Commands;
 
-public class ToggleFavouriteAdCommandTests
+public class ToggleFavouriteAdCommandHandlerTests
 {
     private const string ContextName = "DbForToggleFavouriteAdCommandHandler";
 

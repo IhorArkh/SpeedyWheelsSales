@@ -11,7 +11,7 @@ using SpeedyWheelsSales.Application.Interfaces;
 
 namespace SpeedyWheelsSales.Tests.Ad.Queries;
 
-public class GetAdListQueryHandlerTests // TODO Need to write tests for sorting and filtering
+public class GetAdListQueryHandlerTests
 {
     private const string ContextName = "DbForGetAdListQueryHandler";
 
