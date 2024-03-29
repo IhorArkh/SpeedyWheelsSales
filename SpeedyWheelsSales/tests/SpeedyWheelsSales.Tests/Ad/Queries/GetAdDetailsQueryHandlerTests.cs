@@ -11,7 +11,7 @@ public class GetAdDetailsQueryHandlerTests
     private const string ContextName = "DbForGetAdDetailsQueryHandler";
 
     [Fact]
-    public async Task Handle_ShouldSuccessfullyReturnAdDetailsDto_WhenAdExists()
+    public async Task Handler_ShouldSuccessfullyReturnAdDetailsDto_WhenAdExists()
     {
         //Arrange
         var context = await InMemoryDbContextProvider.GetDbContext(ContextName);
@@ -43,7 +43,7 @@ public class GetAdDetailsQueryHandlerTests
     }
 
     [Fact]
-    public async Task Handle_ShouldReturnSuccessWithNullValue_WhenAdDoesNotExists()
+    public async Task Handler_ShouldReturnSuccessWithNullValue_WhenAdDoesNotExists()
     {
         //Arrange
         var context = await InMemoryDbContextProvider.GetDbContext(ContextName);

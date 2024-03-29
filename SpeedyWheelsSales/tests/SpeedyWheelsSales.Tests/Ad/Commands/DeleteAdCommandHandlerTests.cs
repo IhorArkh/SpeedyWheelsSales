@@ -13,7 +13,7 @@ public class DeleteAdCommandHandlerTests
     private const string ContextName = "DbForDeleteAdCommandHandler";
 
     [Fact]
-    public async Task Handle_ShouldDeleteAd_WhenAdExistsAndUserIsCreator()
+    public async Task Handler_ShouldDeleteAd_WhenAdExistsAndUserIsCreator()
     {
         //Arrange
         var context = await InMemoryDbContextProvider.GetDbContext(ContextName);
@@ -51,7 +51,7 @@ public class DeleteAdCommandHandlerTests
     }
 
     [Fact]
-    public async Task Handle_ShouldReturnEmptyResult_WhenAdDoesNotExists()
+    public async Task Handler_ShouldReturnEmptyResult_WhenAdDoesNotExists()
     {
         //Arrange
         var context = await InMemoryDbContextProvider.GetDbContext(ContextName);
@@ -74,7 +74,7 @@ public class DeleteAdCommandHandlerTests
     }
 
     [Fact]
-    public async Task Handle_ShouldReturnFailureResult_WhenAdExistsAndUserIsNotCreator()
+    public async Task Handler_ShouldReturnFailureResult_WhenAdExistsAndUserIsNotCreator()
     {
         //Arrange
         var context = await InMemoryDbContextProvider.GetDbContext(ContextName);

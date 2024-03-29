@@ -68,9 +68,6 @@ public class MappingProfiles : Profile
         // UpdateUserProfile
         CreateMap<UpdateUserProfileDto, AppUser>();
 
-        // ToggleFavouriteAd
-        CreateMap<Ad, FavouriteAd>();
-
         // GetFavouriteAds
         CreateMap<FavouriteAd, FavouriteAdDto>()
             .ForMember(dest => dest.CarDto, opt =>

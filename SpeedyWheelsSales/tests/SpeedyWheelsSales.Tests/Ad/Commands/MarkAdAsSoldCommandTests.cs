@@ -14,7 +14,7 @@ public class MarkAdAsSoldCommandTests
     private const string ContextName = "DbForMarkAdAsSoldCommandHandler";
 
     [Fact]
-    public async Task Handle_ShouldMarkAdAsSold_WhenAdExistsAndUserIsCreator()
+    public async Task Handler_ShouldMarkAdAsSold_WhenAdExistsAndUserIsCreator()
     {
         //Arrange
         var context = await InMemoryDbContextProvider.GetDbContext(ContextName);
@@ -54,7 +54,7 @@ public class MarkAdAsSoldCommandTests
     }
 
     [Fact]
-    public async Task Handle_ShouldReturnEmptyResult_WhenAdDoesNotExists()
+    public async Task Handler_ShouldReturnEmptyResult_WhenAdDoesNotExists()
     {
         //Arrange
         var context = await InMemoryDbContextProvider.GetDbContext(ContextName);
@@ -77,7 +77,7 @@ public class MarkAdAsSoldCommandTests
     }
 
     [Fact]
-    public async Task Handle_ShouldReturnFailureResult_WhenAdExistsAndUserIsNotCreator()
+    public async Task Handler_ShouldReturnFailureResult_WhenAdExistsAndUserIsNotCreator()
     {
         //Arrange
         var context = await InMemoryDbContextProvider.GetDbContext(ContextName);

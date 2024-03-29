@@ -16,7 +16,7 @@ public class GetAdListQueryHandlerTests // TODO Need to write tests for sorting 
     private const string ContextName = "DbForGetAdListQueryHandler";
 
     [Fact]
-    public async Task Handle_ShouldReturnSuccessResultWithPagedAdDtos_WhenAdsExistAndPaginationParamsNotProvided()
+    public async Task Handler_ShouldReturnSuccessResultWithPagedAdDtos_WhenAdsExistAndPaginationParamsNotProvided()
     {
         //Arrange
         var context = await InMemoryDbContextProvider.GetDbContext(ContextName);
@@ -70,7 +70,7 @@ public class GetAdListQueryHandlerTests // TODO Need to write tests for sorting 
     }
 
     [Fact]
-    public async Task Handle_ShouldReturnSuccessResultWithPagedAdDtos_WhenAdsExistAndPaginationParamsProvided()
+    public async Task Handler_ShouldReturnSuccessResultWithPagedAdDtos_WhenAdsExistAndPaginationParamsProvided()
     {
         //Arrange
         var context = await InMemoryDbContextProvider.GetDbContext(ContextName);

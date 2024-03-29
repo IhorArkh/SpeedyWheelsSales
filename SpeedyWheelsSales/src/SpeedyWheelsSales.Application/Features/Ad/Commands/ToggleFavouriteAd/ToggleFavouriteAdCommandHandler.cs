@@ -12,19 +12,17 @@ public class ToggleFavouriteAdCommandHandler : IRequestHandler<ToggleFavouriteAd
 {
     private readonly DataContext _context;
     private readonly ICurrentUserAccessor _currentUserAccessor;
-    private readonly IMapper _mapper;
 
-    public ToggleFavouriteAdCommandHandler(DataContext context, ICurrentUserAccessor currentUserAccessor,
-        IMapper mapper)
+    public ToggleFavouriteAdCommandHandler(DataContext context, ICurrentUserAccessor currentUserAccessor)
     {
         _context = context;
         _currentUserAccessor = currentUserAccessor;
-        _mapper = mapper;
     }
 
     public async Task<Result<Unit>> Handle(ToggleFavouriteAdCommand request, CancellationToken cancellationToken)
     {
-        var ad = await _context.Ads.FirstOrDefaultAsync(x => x.Id == request.AdId);
+        var ad = await _context.Ads
+            .FirstOrDefaultAsync(x => x.Id == request.AdId);
         if (ad is null)
             return Result<Unit>.Empty();
 
@@ -32,15 +30,26 @@ public class ToggleFavouriteAdCommandHandler : IRequestHandler<ToggleFavouriteAd
 
         var user = await _context.AppUsers
             .Include(x => x.FavouriteAds)
+            .Include(x => x.Ads)
             .FirstOrDefaultAsync(x => x.UserName == currUsername);
         if (user is null)
             return Result<Unit>.Empty();
 
-        var existingFavAd = user.FavouriteAds.FirstOrDefault(x => x.Id == ad.Id);
+        var isUserCreator = user.Ads.FirstOrDefault(x => x.Id == ad.Id);
+        if (isUserCreator != null)
+            return Result<Unit>.Failure("You can't add your own add to favourites.");
+
+        var existingFavAd = user.FavouriteAds.FirstOrDefault(x => x.AdId == ad.Id);
 
         if (existingFavAd == null)
         {
-            var favAd = _mapper.Map<FavouriteAd>(ad);
+            var favAd = new FavouriteAd()
+            {
+                AdId = ad.Id,
+                AppUserId = user.Id,
+                Ad = ad
+            };
+
             user.FavouriteAds.Add(favAd);
         }
         else

@@ -16,7 +16,7 @@ public class GetUserProfileQueryHandlerTests
     private const string ContextName = "DbForGetCurrUserProfileQueryHandler";
 
     [Fact]
-    public async Task Handle_ShouldReturnSuccessResultWithCurrUserProfileDto_WhenUsernameNotProvided()
+    public async Task Handler_ShouldReturnSuccessResultWithCurrUserProfileDto_WhenUsernameNotProvided()
     {
         //Arrange
         var context = await InMemoryDbContextProvider.GetDbContext(ContextName);
@@ -53,7 +53,7 @@ public class GetUserProfileQueryHandlerTests
     }
 
     [Fact]
-    public async Task Handle_ShouldReturnSuccessResultWithUserProfileDto_WhenUsernameProvided()
+    public async Task Handler_ShouldReturnSuccessResultWithUserProfileDto_WhenUsernameProvided()
     {
         //Arrange
         var context = await InMemoryDbContextProvider.GetDbContext(ContextName);
@@ -90,7 +90,7 @@ public class GetUserProfileQueryHandlerTests
     }
 
     [Fact]
-    public async Task Handle_ShouldReturnEmptyResult_WhenUsernameNotProvidedAndCantFigureOutCurrUserUsername()
+    public async Task Handler_ShouldReturnEmptyResult_WhenUsernameNotProvidedAndCantFigureOutCurrUserUsername()
     {
         //Arrange
         var context = await InMemoryDbContextProvider.GetDbContext(ContextName);
@@ -116,7 +116,7 @@ public class GetUserProfileQueryHandlerTests
     }
 
     [Fact]
-    public async Task Handle_ShouldReturnEmptyResult_UserWithCurrUsernameWasNotFoundInDb()
+    public async Task Handler_ShouldReturnEmptyResult_UserWithCurrUsernameWasNotFoundInDb()
     {
         //Arrange
         var context = await InMemoryDbContextProvider.GetDbContext(ContextName);
