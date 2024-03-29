@@ -129,6 +129,6 @@ public class AdController : BaseApiController
     [HttpGet("favourites")]
     public async Task<IActionResult> GetFavouriteAds([FromQuery] PagingParams pagingParams)
     {
-        return HandleResult(await Mediator.Send(new GetFavouriteAdsQuery { PagingParams = pagingParams }));
+        return HandlePagedResult(await Mediator.Send(new GetFavouriteAdsQuery { PagingParams = pagingParams }));
     }
 }

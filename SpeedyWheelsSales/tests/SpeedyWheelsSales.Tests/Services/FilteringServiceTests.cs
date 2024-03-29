@@ -9,7 +9,7 @@ namespace SpeedyWheelsSales.Tests.Services;
 public class FilteringServiceTests
 {
     [Fact]
-    public void FilteringService_ShouldReturnQueryWithoutChanges_WhenAdParamsNotProvided()
+    public void FilterAds_ShouldReturnQueryWithoutChanges_WhenAdParamsNotProvided()
     {
         //Arrange
         var fixture = new Fixture();
@@ -32,7 +32,7 @@ public class FilteringServiceTests
     }
 
     [Fact]
-    public void FilteringService_ShouldReturnFilteredQuery_WhenFilteringParamsProvided()
+    public void FilterAds_ShouldReturnFilteredQuery_WhenFilteringParamsProvided()
     {
         //Arrange
         var fixture = new Fixture();

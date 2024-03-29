@@ -9,7 +9,7 @@ namespace SpeedyWheelsSales.Tests.Services;
 public class SortingServiceTests
 {
     [Fact]
-    public void SortingService_ShouldReturnAdsSortedByCreatedDateDesc_WhenParamsNotProvided()
+    public void SortAds_ShouldReturnAdsSortedByCreatedDateDesc_WhenParamsNotProvided()
     {
         //Arrange
         var fixture = new Fixture();
@@ -32,7 +32,7 @@ public class SortingServiceTests
     }
 
     [Fact]
-    public void SortingService_ShouldReturnAdsSortedByPriceAscending_WhenSortingParamsProvidedInAnyCase()
+    public void SortAds_ShouldReturnAdsSortedByPriceAscending_WhenSortingParamsProvidedInAnyCase()
     {
         //Arrange
         var fixture = new Fixture();
@@ -59,7 +59,7 @@ public class SortingServiceTests
     }
 
     [Fact]
-    public void SortingService_ShouldReturnAdsSortedByCreatedDateDesc_WhenWrongParamsProvided()
+    public void SortAds_ShouldReturnAdsSortedByCreatedDateDesc_WhenWrongParamsProvided()
     {
         //Arrange
         var fixture = new Fixture();
@@ -86,7 +86,7 @@ public class SortingServiceTests
     }
 
     [Fact]
-    public void SortingService_ShouldReturnAdsSortedByDescending_WhenNoSortingOrderParamProvided()
+    public void SortAds_ShouldReturnAdsSortedByDescending_WhenNoSortingOrderParamProvided()
     {
         //Arrange
         var fixture = new Fixture();
