@@ -32,9 +32,14 @@ public class SaveSearchCommandHandler : IRequestHandler<SaveSearchCommand, Resul
 
         var currUserUsername = _currentUserAccessor.GetCurrentUsername();
 
-        var user = await _context.AppUsers.FirstOrDefaultAsync(x => x.UserName == currUserUsername);
+        var user = await _context.AppUsers
+            .Include(x => x.SavedSearches)
+            .FirstOrDefaultAsync(x => x.UserName == currUserUsername);
         if (user is null)
             return Result<Unit>.Empty();
+
+        if (user.SavedSearches.Any(x => x.QueryString == queryString))
+            return Result<Unit>.Failure("You have already added the same search.");
 
         var savedSearch = _mapper.Map<Domain.Entities.SavedSearch>(request.SaveSearchParams);
         savedSearch.QueryString = queryString;
