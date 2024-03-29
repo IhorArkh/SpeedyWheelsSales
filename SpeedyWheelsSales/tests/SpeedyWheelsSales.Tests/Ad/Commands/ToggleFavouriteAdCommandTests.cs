@@ -41,11 +41,8 @@ public class ToggleFavouriteAdCommandTests
         var userAccessorMock = new Mock<ICurrentUserAccessor>();
         userAccessorMock.Setup(x => x.GetCurrentUsername()).Returns(user.UserName);
 
-        var mapper = new Mapper(new MapperConfiguration(cfg =>
-            cfg.AddProfile<MappingProfiles>()));
-
         var command = new ToggleFavouriteAdCommand() { AdId = ad.Id };
-        var handler = new ToggleFavouriteAdCommandHandler(context, userAccessorMock.Object, mapper);
+        var handler = new ToggleFavouriteAdCommandHandler(context, userAccessorMock.Object);
 
         var favAdsCountBeforeAdding = user.FavouriteAds.Count;
 
@@ -87,14 +84,11 @@ public class ToggleFavouriteAdCommandTests
         var userAccessorMock = new Mock<ICurrentUserAccessor>();
         userAccessorMock.Setup(x => x.GetCurrentUsername()).Returns(user.UserName);
 
-        var mapper = new Mapper(new MapperConfiguration(cfg =>
-            cfg.AddProfile<MappingProfiles>()));
-
         var favAd = user.FavouriteAds.FirstOrDefault();
         var favAdsCountBeforeRemoving = user.FavouriteAds.Count;
 
         var command = new ToggleFavouriteAdCommand() { AdId = favAd.AdId };
-        var handler = new ToggleFavouriteAdCommandHandler(context, userAccessorMock.Object, mapper);
+        var handler = new ToggleFavouriteAdCommandHandler(context, userAccessorMock.Object);
 
         // Act
         var result = await handler.Handle(command, CancellationToken.None);
@@ -138,11 +132,8 @@ public class ToggleFavouriteAdCommandTests
         var userAccessorMock = new Mock<ICurrentUserAccessor>();
         userAccessorMock.Setup(x => x.GetCurrentUsername()).Returns(user.UserName);
 
-        var mapper = new Mapper(new MapperConfiguration(cfg =>
-            cfg.AddProfile<MappingProfiles>()));
-
         var command = new ToggleFavouriteAdCommand() { AdId = -1 }; // wrong id
-        var handler = new ToggleFavouriteAdCommandHandler(context, userAccessorMock.Object, mapper);
+        var handler = new ToggleFavouriteAdCommandHandler(context, userAccessorMock.Object);
 
         var favAdsCountBeforeAdding = user.FavouriteAds.Count;
 
@@ -188,11 +179,8 @@ public class ToggleFavouriteAdCommandTests
         var userAccessorMock = new Mock<ICurrentUserAccessor>();
         userAccessorMock.Setup(x => x.GetCurrentUsername()).Returns("wrongUsername");
 
-        var mapper = new Mapper(new MapperConfiguration(cfg =>
-            cfg.AddProfile<MappingProfiles>()));
-
         var command = new ToggleFavouriteAdCommand() { AdId = ad.Id };
-        var handler = new ToggleFavouriteAdCommandHandler(context, userAccessorMock.Object, mapper);
+        var handler = new ToggleFavouriteAdCommandHandler(context, userAccessorMock.Object);
 
         var favAdsCountBeforeAdding = user.FavouriteAds.Count;
 
@@ -231,11 +219,8 @@ public class ToggleFavouriteAdCommandTests
         var userAccessorMock = new Mock<ICurrentUserAccessor>();
         userAccessorMock.Setup(x => x.GetCurrentUsername()).Returns(user.UserName);
 
-        var mapper = new Mapper(new MapperConfiguration(cfg =>
-            cfg.AddProfile<MappingProfiles>()));
-
         var command = new ToggleFavouriteAdCommand() { AdId = user.Ads.FirstOrDefault().Id };
-        var handler = new ToggleFavouriteAdCommandHandler(context, userAccessorMock.Object, mapper);
+        var handler = new ToggleFavouriteAdCommandHandler(context, userAccessorMock.Object);
 
         var favAdsCountBeforeAdding = user.FavouriteAds.Count;
 
