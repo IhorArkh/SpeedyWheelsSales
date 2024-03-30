@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SpeedyWheelsSales.Application.Core;
 using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdDetails.DTOs;
 using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdList.DTOs;
@@ -32,6 +33,12 @@ public class AdController : Controller
             Ads = adList,
             AdParams = adParams
         };
+
+        var paginationData = JObject.Parse(response.Headers.GetValues("pagination").First());
+        viewModel.CurrentPage = paginationData.Value<int>("currentPage");
+        viewModel.ItemsPerPage = paginationData.Value<int>("itemsPerPage");
+        viewModel.TotalItems = paginationData.Value<int>("totalItems");
+        viewModel.TotalPages = paginationData.Value<int>("totalPages");
 
         return View(viewModel);
     }

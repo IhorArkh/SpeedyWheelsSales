@@ -135,4 +135,22 @@
             </div>
         }
     </div>
+
+    <div class="pagination justify-content-center">
+        @if (Model.TotalPages > 1)
+        {
+            <ul class="pagination">
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    Model.AdParams.PageNumber = @i;
+                    Model.AdParams.PageSize = Model.ItemsPerPage;
+                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                        <a class="page-link" href="@Url.Action("ListAds", "Ad", Model.AdParams)">
+                            @i
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
 </div>
