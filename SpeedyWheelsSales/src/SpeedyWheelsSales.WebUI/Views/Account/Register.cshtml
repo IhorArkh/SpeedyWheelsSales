@@ -1,27 +1,67 @@
 ﻿@model RegisterViewModel
 
-<h2>Register</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
 
-<form asp-action="Register" method="post">
-    <div class="form-group">
-        <label asp-for="Name"></label>
-        <input asp-for="Name" class="form-control"/>
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center">Register</h2>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Register" method="post">
+                        <div class="form-floating">
+                            <input asp-for="Name" class="form-control" id="floatingName" placeholder="Name">
+                            <label for="floatingName">Name</label>
+                        </div>
+                        <div class="form-floating">
+                            <input asp-for="UserName" class="form-control" id="floatingUserName" placeholder="Username">
+                            <label for="floatingUserName">Username</label>
+                        </div>
+                        <div class="form-floating">
+                            <input asp-for="Email" class="form-control" id="floatingEmail" placeholder="Email">
+                            <label for="floatingEmail">Email</label>
+                        </div>
+                        <div class="form-floating">
+                            <input asp-for="PhoneNumber" class="form-control" id="floatingPhoneNumber" placeholder="Phone Number">
+                            <label for="floatingPhoneNumber">Phone Number</label>
+                        </div>
+                        <div class="form-floating">
+                            <input asp-for="Password" type="password" class="form-control" id="password" placeholder="Password">
+                            <label for="password">Password</label>
+                            <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Register</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="UserName"></label>
-        <input asp-for="UserName" class="form-control"/>
-    </div>
-    <div class="form-group">
-        <label asp-for="Email"></label>
-        <input asp-for="Email" class="form-control"/>
-    </div>
-    <div class="form-group">
-        <label asp-for="PhoneNumber"></label>
-        <input asp-for="PhoneNumber" class="form-control"/>
-    </div>
-    <div class="form-group">
-        <label asp-for="Password"></label>
-        <input asp-for="Password" class="form-control"/>
-    </div>
-    <button type="submit" class="btn btn-primary">Register</button>
-</form>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $("#togglePassword").mousedown(function(){
+            var x = document.getElementById("password");
+            x.type = "text";
+        });
+
+        $("#togglePassword").mouseup(function(){
+            var x = document.getElementById("password");
+            x.type = "password";
+        });
+    });
+</script>
+
+</body>
+</html>

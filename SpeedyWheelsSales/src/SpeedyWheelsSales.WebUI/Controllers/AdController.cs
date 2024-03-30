@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
+using SpeedyWheelsSales.Application.Core;
 using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdDetails.DTOs;
 using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdList.DTOs;
+using SpeedyWheelsSales.WebUI.Models;
 
 namespace SpeedyWheelsSales.WebUI.Controllers;
 
@@ -14,15 +17,23 @@ public class AdController : Controller
         _httpClient = httpClientFactory.CreateClient("MyWebApi");
     }
 
-    public async Task<IActionResult> ListAds()
+    public async Task<IActionResult> ListAds(AdParams adParams)
     {
-        var response = await _httpClient.GetAsync("Ad");
+        var queryString = QueryHelpers.AddQueryString("", adParams.ToDictionary());
+
+        var response = await _httpClient.GetAsync($"Ad{queryString}");
 
         string responseData = await response.Content.ReadAsStringAsync();
 
         var adList = JsonConvert.DeserializeObject<List<AdListDto>>(responseData);
 
-        return View(adList);
+        var viewModel = new AdListViewModel
+        {
+            Ads = adList,
+            AdParams = adParams
+        };
+
+        return View(viewModel);
     }
 
     public async Task<IActionResult> GetAdDetails(int id)

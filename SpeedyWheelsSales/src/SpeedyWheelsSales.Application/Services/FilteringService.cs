@@ -20,7 +20,7 @@ public class FilteringService : IFilteringService
         if (adParams.MinPrice != default || adParams.MaxPrice != default)
         {
             adParams.MinPrice ??= 0;
-            adParams.MaxPrice ??= decimal.MaxValue;
+            adParams.MaxPrice ??= 999999999;
 
             query = query.Where(x => x.CarDto.Price >= adParams.MinPrice && x.CarDto.Price <= adParams.MaxPrice);
         }
@@ -31,7 +31,7 @@ public class FilteringService : IFilteringService
         if (adParams.MinEngineSize != default || adParams.MaxEngineSize != default)
         {
             adParams.MinEngineSize ??= 0;
-            adParams.MaxEngineSize ??= double.MaxValue;
+            adParams.MaxEngineSize ??= 999999999;
 
             query = query.Where(x =>
                 x.CarDto.EngineSize >= adParams.MinEngineSize && x.CarDto.EngineSize <= adParams.MaxEngineSize);

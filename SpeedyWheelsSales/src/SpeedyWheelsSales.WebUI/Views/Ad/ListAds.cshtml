@@ -1,13 +1,125 @@
-﻿@model List<SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdList.DTOs.AdListDto>
+﻿@using Domain.Enums
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model AdListViewModel
 
 @{
     ViewData["Title"] = "Ad List";
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 }
 
 <div class="container">
     <h2>Ad List</h2>
+    <div class="accordion" id="filterAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFilters" aria-expanded="false" aria-controls="collapseFilters">
+                    Filter ads
+                </button>
+            </h2>
+            <div id="collapseFilters" class="accordion-collapse collapse" aria-labelledby="headingFilters" data-bs-parent="#filterAccordion">
+                <div class="accordion-body">
+                    <form method="get" asp-action="ListAds">
+                        <div class="form-row">
+                            <div class="col-md-4 mb-2">
+                                <select id="sort" name="sortColumn" class="form-control">
+                                    <option value="">-- Sort by --</option>
+                                    <option value="price">Sort By Price</option>
+                                    <option value="mileage">Sort By Mileage</option>
+                                    <option value="createdat">Sort By Creation Date</option>
+                                    <option value="manufacturedate">Sort By Manufacture Date</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <select id="order" name="sortOrder" class="form-control">
+                                    <option value="">-- Sort order --</option>
+                                    <option value="asc">Ascending</option>
+                                    <option value="desc">Descending</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-4 mb-2">
+                                <input type="text" id="city" name="city" class="form-control" placeholder="City" value="@Model.AdParams.City"/>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <input type="text" id="brand" name="brand" class="form-control" placeholder="Brand" value="@Model.AdParams.Brand"/>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <input type="text" id="model" name="model" class="form-control" placeholder="Model" value="@Model.AdParams.Model"/>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <input type="text" id="minPrice" name="minPrice" class="form-control" placeholder="MinPrice" value="@Model.AdParams.MinPrice"/>
+                                <input type="text" id="maxPrice" name="maxPrice" class="form-control" placeholder="MaxPrice" value="@Model.AdParams.MaxPrice"/>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <input type="text" id="maxMileage" name="maxMileage" class="form-control" placeholder="MaxMileage" value="@Model.AdParams.MaxMileage"/>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <input type="text" id="minEngineSize" name="minEngineSize" class="form-control" placeholder="MinEngineSize" value="@Model.AdParams.MinEngineSize"/>
+                                <input type="text" id="maxEngineSize" name="maxEngineSize" class="form-control" placeholder="MaxEngineSize" value="@Model.AdParams.MaxEngineSize"/>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <input type="text" id="maxFuelConsumption" name="maxFuelConsumption" class="form-control" placeholder="MaxFuelConsumption" value="@Model.AdParams.MaxFuelConsumption"/>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <input type="text" id="minManufactureYear" name="minManufactureYear" class="form-control" placeholder="MinManufactureYear" value="@Model.AdParams.MinManufactureYear"/>
+                                <input type="text" id="maxManufactureYear" name="maxManufactureYear" class="form-control" placeholder="MaxManufactureYear" value="@Model.AdParams.MaxManufactureYear"/>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <select id="engineType" name="engineType" class="form-control">
+                                    <option value="">-- Select Engine Type --</option>
+                                    @foreach (var engineType in Enum.GetValues(typeof(EngineType)))
+                                    {
+                                        <option value="@engineType">@engineType</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <select id="transmission" name="transmission" class="form-control">
+                                    <option value="">-- Select Transmission Type --</option>
+                                    @foreach (var transmission in Enum.GetValues(typeof(Transmission)))
+                                    {
+                                        <option value="@transmission">@transmission</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <select id="typeOfDrive" name="typeOfDrive" class="form-control">
+                                    <option value="">-- Select Type Of Drive --</option>
+                                    @foreach (var typeOfDrive in Enum.GetValues(typeof(TypeOfDrive)))
+                                    {
+                                        <option value="@typeOfDrive">@typeOfDrive</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <select id="color" name="color" class="form-control">
+                                    <option value="">-- Select Engine Type --</option>
+                                    @foreach (var color in Enum.GetValues(typeof(Colors)))
+                                    {
+                                        <option value="@color">@color</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row mt-3">
+                            <div class="col-md-12 text-right">
+                                <button type="submit" class="btn btn-primary">Apply Filters</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
-        @foreach (var ad in Model)
+        @foreach (var ad in Model.Ads)
         {
             <div class="col-md-4 mb-4">
                 <div class="card">
