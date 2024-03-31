@@ -1,5 +1,6 @@
 using SpeedyWheelsSales.Infrastructure.Data;
 using SpeedyWheelsSales.WebUI;
+using SpeedyWheelsSales.WebUI.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
                        throw new InvalidOperationException("Connection string not found.");
 builder.Services.AddDatabase(connectionString);
 builder.Services.AddIdentityServices(builder.Configuration);
+builder.Services.AddAutoMapper(typeof(WebUiMappingProfiles).Assembly);
 
 var app = builder.Build();
 

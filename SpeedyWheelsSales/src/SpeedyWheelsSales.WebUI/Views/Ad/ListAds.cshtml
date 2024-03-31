@@ -21,7 +21,7 @@
             </h2>
             <div id="collapseFilters" class="accordion-collapse collapse" aria-labelledby="headingFilters" data-bs-parent="#filterAccordion">
                 <div class="accordion-body">
-                    <form method="get" asp-action="ListAds">
+                    <form id="saveSearchForm" method="post" action="@Url.Action("SaveSearch", "SavedSearch")">
                         <div class="form-row">
                             <div class="col-md-4 mb-2">
                                 <select id="sort" name="sortColumn" class="form-control">
@@ -109,7 +109,9 @@
 
                         <div class="form-row mt-3">
                             <div class="col-md-12 text-right">
-                                <button type="submit" class="btn btn-primary">Apply Filters</button>
+                                <button type="submit" class="btn btn-primary" onclick="setFormAction('@Url.Action("ListAds", "Ad")')">Apply Filters</button>
+                                <button type="submit" class="btn btn-success">Save Search</button>
+                                @* <button type="submit" class="btn btn-primary">Apply Filters</button> *@
                             </div>
                         </div>
                     </form>
@@ -154,3 +156,10 @@
         }
     </div>
 </div>
+
+<script>
+    function setFormAction(action) {
+        document.getElementById('saveSearchForm').action = action;
+        document.getElementById('saveSearchForm').submit(); // Отправляем форму
+    }
+</script>

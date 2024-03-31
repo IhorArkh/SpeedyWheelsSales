@@ -19,4 +19,21 @@ public class SaveSearchParams
     public Transmission? Transmission { get; set; }
     public TypeOfDrive? TypeOfDrive { get; set; }
     public Colors? Color { get; set; }
+
+    public IDictionary<string, string> ToDictionary()
+    {
+        var dictionary = new Dictionary<string, string>();
+        var properties = typeof(SaveSearchParams).GetProperties();
+
+        foreach (var property in properties)
+        {
+            var value = property.GetValue(this);
+            if (value != null)
+            {
+                dictionary.Add(property.Name, value.ToString());
+            }
+        }
+
+        return dictionary;
+    }
 }
