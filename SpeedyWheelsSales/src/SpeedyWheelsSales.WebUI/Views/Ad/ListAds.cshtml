@@ -3,7 +3,7 @@
 @model AdListViewModel
 
 @{
-    ViewData["Title"] = "Ad List";
+    ViewData["Title"] = "Ads";
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -11,7 +11,7 @@
 }
 
 <div class="container">
-    <h2>Ad List</h2>
+    <h2>List of ads</h2>
     <div class="accordion" id="filterAccordion">
         <div class="accordion-item">
             <h2 class="accordion-header">
@@ -111,7 +111,6 @@
                             <div class="col-md-12 text-right">
                                 <button type="submit" class="btn btn-primary" onclick="setFormAction('@Url.Action("ListAds", "Ad")')">Apply Filters</button>
                                 <button type="submit" class="btn btn-success">Save Search</button>
-                                @* <button type="submit" class="btn btn-primary">Apply Filters</button> *@
                             </div>
                         </div>
                     </form>
@@ -160,6 +159,6 @@
 <script>
     function setFormAction(action) {
         document.getElementById('saveSearchForm').action = action;
-        document.getElementById('saveSearchForm').submit(); // Отправляем форму
+        document.getElementById('saveSearchForm').submit();
     }
 </script>

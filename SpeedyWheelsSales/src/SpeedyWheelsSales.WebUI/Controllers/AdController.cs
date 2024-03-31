@@ -18,6 +18,7 @@ public class AdController : Controller
         _httpClient = httpClientFactory.CreateClient("MyWebApi");
     }
 
+    [HttpGet]
     public async Task<IActionResult> ListAds(AdParams adParams)
     {
         var queryString = QueryHelpers.AddQueryString("", adParams.ToDictionary());
@@ -43,6 +44,7 @@ public class AdController : Controller
         return View(viewModel);
     }
 
+    [HttpGet]
     public async Task<IActionResult> GetAdDetails(int id)
     {
         var response = await _httpClient.GetAsync($"Ad/{id}");

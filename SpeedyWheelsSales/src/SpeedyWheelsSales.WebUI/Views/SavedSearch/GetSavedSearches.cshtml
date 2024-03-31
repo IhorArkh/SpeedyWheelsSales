@@ -1,0 +1,31 @@
+﻿@model List<SpeedyWheelsSales.Application.Features.SavedSearch.Queries.GetSavedSearches.SavedSearchDto>
+
+@{
+    ViewData["Title"] = "Saved searches";
+}
+
+<h1>Saved searches</h1>
+
+<div class="card-deck">
+    @foreach (var search in Model)
+    {
+        <div class="card">
+            <div class="card-body">
+                @* <h5 class="card-title">Query: @search.QueryString</h5> *@
+                @foreach (var property in search.GetType().GetProperties())
+                {
+                    var value = property.GetValue(search);
+                    if (property.Name != "QueryString" && value != null && !string.IsNullOrWhiteSpace(value.ToString()))
+                    {
+                        <p class="card-text">@property.Name: @value</p>
+                    }
+
+                    <form asp-controller="SavedSearch" asp-action="DeleteSearch" method="post">
+                        <input type="hidden" name="searchId" value="@search.Id"/>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                }
+            </div>
+        </div>
+    }
+</div>

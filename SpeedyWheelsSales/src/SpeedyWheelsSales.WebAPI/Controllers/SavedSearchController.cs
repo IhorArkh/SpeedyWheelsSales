@@ -15,7 +15,7 @@ public class SavedSearchController : BaseApiController
     /// <response code="400">
     /// If can't find user in db.
     /// </response>
-    [Authorize]
+    // [Authorize]
     [HttpGet]
     public async Task<IActionResult> GetSavedSearches()
     {
@@ -30,7 +30,7 @@ public class SavedSearchController : BaseApiController
     /// If can't find user in db.
     /// If no params provided ot can't get query string.
     /// </response>
-    [Authorize]
+    // [Authorize]
     [HttpPost]
     public async Task<IActionResult> SaveSearch([FromQuery] SaveSearchParams saveSearchParams)
     {
@@ -45,7 +45,7 @@ public class SavedSearchController : BaseApiController
     /// If can't find user in db.
     /// If can't find search by provided id in db.
     /// </response>
-    [Authorize]
+    // [Authorize]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteSavedSearch(int id)
     {
