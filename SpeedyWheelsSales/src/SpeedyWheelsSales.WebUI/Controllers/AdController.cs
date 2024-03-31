@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SpeedyWheelsSales.Application.Core;
 using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdDetails.DTOs;
 using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdList.DTOs;
+using SpeedyWheelsSales.Application.Features.Ad.Queries.GetFavouriteAds.DTOs;
 using SpeedyWheelsSales.WebUI.Models;
 
 namespace SpeedyWheelsSales.WebUI.Controllers;
@@ -18,7 +20,6 @@ public class AdController : Controller
         _httpClient = httpClientFactory.CreateClient("MyWebApi");
     }
 
-    [HttpGet]
     public async Task<IActionResult> ListAds(AdParams adParams)
     {
         var queryString = QueryHelpers.AddQueryString("", adParams.ToDictionary());
@@ -54,5 +55,39 @@ public class AdController : Controller
         var adDetails = JsonConvert.DeserializeObject<AdDetailsDto>(responseData);
 
         return View(adDetails);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetFavourites()
+    {
+        var response = await _httpClient.GetAsync($"Ad/favourites");
+
+        if (!response.IsSuccessStatusCode)
+        {
+            var errorViewModel = new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier };
+            return View("Error", errorViewModel);
+        }
+
+        string responseData = await response.Content.ReadAsStringAsync();
+
+        var favouriteAds = JsonConvert.DeserializeObject<List<FavouriteAdDto>>(responseData);
+
+        return View(favouriteAds);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> ToggleFavourite([FromForm] int adId)
+    {
+        var response = await _httpClient.PostAsync($"Ad/toggleFavourite/{adId}", null);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            var errorViewModel = new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier };
+            return View("Error", errorViewModel);
+        }
+
+        string responseData = await response.Content.ReadAsStringAsync();
+
+        return Ok();
     }
 }

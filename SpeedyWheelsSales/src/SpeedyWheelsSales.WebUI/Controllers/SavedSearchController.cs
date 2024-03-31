@@ -59,7 +59,7 @@ public class SavedSearchController : Controller
     }
 
     [HttpDelete]
-    public async Task<IActionResult> DeleteSearch(int searchId)
+    public async Task<IActionResult> DeleteSearch([FromForm]int searchId)
     {
         var response = await _httpClient.GetAsync($"SavedSearch/{searchId}");
 
