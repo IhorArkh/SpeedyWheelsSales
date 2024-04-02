@@ -3,7 +3,7 @@ Welcome to SpeedyWheelsSales, the ultimate online marketplace for buying and sel
 
 ## Use cases
 - User registration and login
-  - The user creates a new account on SpeedyWheelsSales by providing necessary details such as name, email, ыphone number, username and password.
+  - The user creates a new account on SpeedyWheelsSales by providing necessary details such as name, email, phone number, username and password.
   - To complete registration user should confirm his email using unique confirmation link.
   - After email confirmation user have ability to log in.
   - Unregistered users can only view and search for advertisements. Registration is required to gain access to the additional functionality.
