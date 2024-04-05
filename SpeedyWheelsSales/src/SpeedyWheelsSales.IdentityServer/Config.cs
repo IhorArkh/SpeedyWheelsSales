@@ -11,8 +11,8 @@ public static class Config
             new IdentityResources.Profile(),
             new IdentityResource
             {
-                Name = "role",
-                UserClaims = new List<string> { "role" }
+                Name = "customProfile",
+                UserClaims = new List<string> { "username" }
             }
         };
 
@@ -28,8 +28,9 @@ public static class Config
         new ApiResource("speedywheelssalesapi")
         {
             Scopes = new List<string> { "speedywheelssalesapi.read", "speedywheelssalesapi.write" },
-            ApiSecrets = new List<Secret> { new Secret("ScopeSecret".Sha256()) }, // TODO secrets should be in appsettings file
-            UserClaims = new List<string> { "role" }
+            ApiSecrets = new List<Secret>
+                { new Secret("ScopeSecret".Sha256()) }, // TODO secrets should be in appsettings file
+            UserClaims = new List<string> { "username" }
         }
     };
 
@@ -49,10 +50,11 @@ public static class Config
                 PostLogoutRedirectUris = { "https://localhost:5003/signout-callback-oidc" },
 
                 AllowOfflineAccess = true,
-                AllowedScopes = { "openid", "profile", "speedywheelssalesapi.read" },
+                AlwaysIncludeUserClaimsInIdToken = true,
+                AlwaysSendClientClaims = true,
+                AllowedScopes = { "openid", "profile", "speedywheelssalesapi.read", "customProfile" },
                 RequirePkce = true,
-                RequireConsent = true,
                 AllowPlainTextPkce = false
-            },
+            }
         };
 }

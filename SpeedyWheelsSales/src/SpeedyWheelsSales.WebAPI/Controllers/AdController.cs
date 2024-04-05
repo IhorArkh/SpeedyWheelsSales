@@ -113,7 +113,7 @@ public class AdController : BaseApiController
     /// If failed to get user username.
     /// If failed to add/remove ad.
     /// </response>
-    // [Authorize]
+    [Authorize]
     [HttpPost("toggleFavourite/{id}")]
     public async Task<IActionResult> ToggleFavourite(int id)
     {
@@ -125,7 +125,7 @@ public class AdController : BaseApiController
     /// </summary>
     /// <response code="200">Returns favourite ads of current user.</response>
     /// <response code="404">If couldn't get current user username.</response>
-    // [Authorize]
+    [Authorize]
     [HttpGet("favourites")]
     public async Task<IActionResult> GetFavouriteAds([FromQuery] PagingParams pagingParams)
     {

@@ -25,43 +25,7 @@ public class AccountController : Controller
     [HttpGet]
     public IActionResult Login()
     {
-        return View();
-    }
-
-    [Authorize]
-    [HttpPost]
-    public async Task<IActionResult> Login(LoginViewModel loginViewModel)
-    {
-        // var user = await _userManager.Users.FirstOrDefaultAsync(x => x.PhoneNumber == loginViewModel.PhoneOrUserName) ??
-        //            await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == loginViewModel.PhoneOrUserName);
-        //
-        // if (user is null)
-        //     return Unauthorized();
-        //
-        // var result = await _userManager.CheckPasswordAsync(user, loginViewModel.Password);
-        //
-        // if (result)
-        // {
-        //     var claims = new List<Claim>
-        //     {
-        //         new Claim(ClaimTypes.Name, user.UserName),
-        //     };
-        //
-        //     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-        //
-        //     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-        //         new ClaimsPrincipal(claimsIdentity), new AuthenticationProperties()
-        //         {
-        //             IsPersistent = true
-        //         });
-        //
-        //     return RedirectToAction("ListAds", "Ad");
-        // }
-
-        var token = await HttpContext.GetTokenAsync("access_token");
-
-
-        return View();
+        return RedirectToAction("ListAds", "Ad");
     }
 
     [HttpGet]
@@ -112,6 +76,9 @@ public class AccountController : Controller
     public async Task<IActionResult> LogoutConfirmed()
     {
         await HttpContext.SignOutAsync();
+        Response.Cookies.Delete(".AspNetCore.Identity.Application");
+        Response.Cookies.Delete(".AspNetCore.Antiforgery");
+        Response.Cookies.Delete(".AspNetCore.cookie");
         return RedirectToAction("ListAds", "Ad");
     }
 }

@@ -1,6 +1,9 @@
 ﻿using System.Diagnostics;
 using System.Net;
 using AutoMapper;
+using IdentityModel.Client;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
@@ -22,9 +25,14 @@ public class SavedSearchController : Controller
         _httpClient = httpClientFactory.CreateClient("MyWebApi");
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<IActionResult> SaveSearch(AdParams adParams)
     {
+        var token = await HttpContext.GetTokenAsync("access_token");
+
+        _httpClient.SetBearerToken(token);
+
         var saveSearchParams = _mapper.Map<SaveSearchParams>(adParams);
 
         var queryString = QueryHelpers.AddQueryString("", saveSearchParams.ToDictionary());
@@ -40,9 +48,14 @@ public class SavedSearchController : Controller
         return Ok();
     }
 
+    [Authorize]
     [HttpGet]
     public async Task<IActionResult> GetSavedSearches()
     {
+        var token = await HttpContext.GetTokenAsync("access_token");
+
+        _httpClient.SetBearerToken(token);
+
         var response = await _httpClient.GetAsync("SavedSearch");
 
         if (!response.IsSuccessStatusCode)
@@ -58,9 +71,14 @@ public class SavedSearchController : Controller
         return View(savedSearchesList);
     }
 
+    [Authorize]
     [HttpDelete]
-    public async Task<IActionResult> DeleteSearch([FromForm]int searchId)
+    public async Task<IActionResult> DeleteSearch([FromForm] int searchId)
     {
+        var token = await HttpContext.GetTokenAsync("access_token");
+
+        _httpClient.SetBearerToken(token);
+
         var response = await _httpClient.GetAsync($"SavedSearch/{searchId}");
 
         if (!response.IsSuccessStatusCode)

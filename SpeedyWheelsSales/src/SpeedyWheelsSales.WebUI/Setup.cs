@@ -18,12 +18,12 @@ public static class Setup
             .AddCookie("cookie")
             .AddOpenIdConnect("oidc", opt =>
             {
-                // TODO need to configure it 
                 opt.Authority = config["InteractiveServiceSettings:AuthorityUrl"];
                 opt.ClientId = config["InteractiveServiceSettings:ClientId"];
                 opt.ClientSecret = config["InteractiveServiceSettings:ClientSecret"];
                 opt.Scope.Add(config["InteractiveServiceSettings:Scopes:0"]);
 
+                opt.GetClaimsFromUserInfoEndpoint = true;
                 opt.ResponseType = "code";
                 opt.UsePkce = true;
                 opt.ResponseMode = "query";
@@ -40,11 +40,5 @@ public static class Setup
             .AddEntityFrameworkStores<DataContext>();
 
         return services;
-    }
-
-    private static Task UnAuthorizedResponse(RedirectContext<CookieAuthenticationOptions> context)
-    {
-        context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-        return Task.CompletedTask;
     }
 }

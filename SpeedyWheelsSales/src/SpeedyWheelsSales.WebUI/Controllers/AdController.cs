@@ -1,4 +1,7 @@
 ﻿using System.Diagnostics;
+using IdentityModel.Client;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
@@ -57,9 +60,14 @@ public class AdController : Controller
         return View(adDetails);
     }
 
+    [Authorize]
     [HttpGet]
     public async Task<IActionResult> GetFavourites()
     {
+        var token = await HttpContext.GetTokenAsync("access_token");
+
+        _httpClient.SetBearerToken(token);
+
         var response = await _httpClient.GetAsync($"Ad/favourites");
 
         if (!response.IsSuccessStatusCode)
@@ -75,9 +83,14 @@ public class AdController : Controller
         return View(favouriteAds);
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<IActionResult> ToggleFavourite([FromForm] int adId)
     {
+        var token = await HttpContext.GetTokenAsync("access_token");
+
+        _httpClient.SetBearerToken(token);
+
         var response = await _httpClient.PostAsync($"Ad/toggleFavourite/{adId}", null);
 
         if (!response.IsSuccessStatusCode)
@@ -85,8 +98,6 @@ public class AdController : Controller
             var errorViewModel = new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier };
             return View("Error", errorViewModel);
         }
-
-        string responseData = await response.Content.ReadAsStringAsync();
 
         return Ok();
     }

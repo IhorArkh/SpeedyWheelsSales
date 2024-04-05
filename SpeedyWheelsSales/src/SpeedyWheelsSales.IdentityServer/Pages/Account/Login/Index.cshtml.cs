@@ -1,6 +1,7 @@
 // Copyright (c) Duende Software. All rights reserved.
 // See LICENSE in the project root for license information.
 
+using System.Security.Claims;
 using Domain.Entities;
 using Duende.IdentityServer;
 using Duende.IdentityServer.Events;
@@ -8,6 +9,7 @@ using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Services;
 using Duende.IdentityServer.Stores;
 using Duende.IdentityServer.Test;
+using IdentityModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -114,12 +116,16 @@ public class Index : PageModel
                     props.ExpiresUtc = DateTimeOffset.UtcNow.Add(LoginOptions.RememberMeLoginDuration);
                 }
 
-                ;
+                var claims = new List<Claim>
+                {
+                    new Claim("username", user.UserName)
+                };
 
                 // issue authentication cookie with subject ID and username
                 var isuser = new IdentityServerUser(user.Id)
                 {
-                    DisplayName = user.UserName
+                    DisplayName = user.UserName,
+                    AdditionalClaims = claims
                 };
 
                 await HttpContext.SignInAsync(isuser, props);

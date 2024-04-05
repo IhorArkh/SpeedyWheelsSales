@@ -1,5 +1,6 @@
 using Domain.Entities;
 using Duende.IdentityServer.Models;
+using Duende.IdentityServer.Services;
 using Duende.IdentityServer.Test;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,7 @@ builder.Services.AddDbContext<DataContext>(opt =>
 builder.Services.AddIdentity<AppUser, IdentityRole>()
     .AddEntityFrameworkStores<DataContext>();
 
+builder.Services.AddTransient<IProfileService, ProfileService>();
 builder.Services.AddRazorPages();
 builder.Services.AddIdentityServer(opt =>
     {
@@ -34,11 +36,12 @@ builder.Services.AddIdentityServer(opt =>
 
         opt.EmitStaticAudienceClaim = true;
     })
-    .AddConfigurationStore(opt => opt.ConfigureDbContext = b => 
+    .AddConfigurationStore(opt => opt.ConfigureDbContext = b =>
         b.UseSqlServer(connString, options => options.MigrationsAssembly(migrationsAssembly)))
-    .AddOperationalStore(opt => opt.ConfigureDbContext = b => 
+    .AddOperationalStore(opt => opt.ConfigureDbContext = b =>
         b.UseSqlServer(connString, options => options.MigrationsAssembly(migrationsAssembly)))
-    .AddAspNetIdentity<AppUser>();
+    .AddAspNetIdentity<AppUser>()
+    .AddProfileService<ProfileService>();
 
 builder.Host.UseSerilog(); // TODO Need to configure logger
 
