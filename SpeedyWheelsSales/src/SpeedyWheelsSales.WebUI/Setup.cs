@@ -10,14 +10,26 @@ public static class Setup
 {
     public static IServiceCollection AddIdentityServices(this IServiceCollection services, IConfiguration config)
     {
-        services.AddAuthentication()
-            .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, o =>
+        services.AddAuthentication(options =>
             {
-                o.ExpireTimeSpan = TimeSpan.FromMinutes(5);
-                o.Cookie.Name = "AuthCookie";
-                o.Events.OnRedirectToLogin = UnAuthorizedResponse;
-                o.Events.OnRedirectToAccessDenied = UnAuthorizedResponse;
+                options.DefaultScheme = "cookie";
+                options.DefaultChallengeScheme = "oidc";
+            })
+            .AddCookie("cookie")
+            .AddOpenIdConnect("oidc", opt =>
+            {
+                // TODO need to configure it 
+                opt.Authority = config["InteractiveServiceSettings:AuthorityUrl"];
+                opt.ClientId = config["InteractiveServiceSettings:ClientId"];
+                opt.ClientSecret = config["InteractiveServiceSettings:ClientSecret"];
+                opt.Scope.Add(config["InteractiveServiceSettings:Scopes:0"]);
+
+                opt.ResponseType = "code";
+                opt.UsePkce = true;
+                opt.ResponseMode = "query";
+                opt.SaveTokens = true;
             });
+
         services.AddAuthorization();
 
         services.AddIdentityCore<AppUser>(opt =>

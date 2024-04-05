@@ -48,7 +48,7 @@ public class AdController : BaseApiController
     /// If user with current username was not found in Db.
     /// If failed to create ad.
     /// </response>
-    // [Authorize]
+    [Authorize]
     [HttpPost]
     public async Task<IActionResult> CreateAd(CreateAdDto createAdDto)
     {
@@ -65,7 +65,7 @@ public class AdController : BaseApiController
     /// If user is not author of ad.
     /// If failed to update ad.
     /// </response>
-    // [Authorize]
+    [Authorize]
     [HttpPut("update/{id}")]
     public async Task<IActionResult> UpdateAd(int id, UpdateAdDto updateAdDto)
     {
@@ -81,7 +81,7 @@ public class AdController : BaseApiController
     /// If user is not author of ad.
     /// If failed to update ad.
     /// </response>
-    // [Authorize]
+    [Authorize]
     [HttpDelete("delete/{id}")]
     public async Task<IActionResult> DeleteAd(int id)
     {
@@ -97,7 +97,7 @@ public class AdController : BaseApiController
     /// If user is not author of ad.
     /// If failed to mark ad as sold.
     /// </response>
-    // [Authorize]
+    [Authorize]
     [HttpPut("markAsSold/{id}")]
     public async Task<IActionResult> MarkAsSold(int id)
     {
