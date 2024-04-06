@@ -96,8 +96,7 @@ public class Index : PageModel
         if (ModelState.IsValid)
         {
             var user = await _signInManager.UserManager.FindByNameAsync(Input.Username);
-
-            // validate username/password against in-memory store
+            
             if (user != null && await _signInManager.CheckPasswordSignInAsync(user, Input.Password, false) ==
                 SignInResult.Success)
             {
@@ -118,8 +117,7 @@ public class Index : PageModel
                 {
                     new Claim("username", user.UserName)
                 };
-
-                // issue authentication cookie with subject ID and username
+                
                 var isuser = new IdentityServerUser(user.Id)
                 {
                     DisplayName = user.UserName,

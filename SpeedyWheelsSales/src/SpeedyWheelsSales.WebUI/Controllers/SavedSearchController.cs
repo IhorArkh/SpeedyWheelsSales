@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Net;
 using AutoMapper;
 using IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;

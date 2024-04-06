@@ -1,11 +1,14 @@
 // Copyright (c) Duende Software. All rights reserved.
 // See LICENSE in the project root for license information.
 
+using System.Security.Claims;
+using Domain.Entities;
 using Duende.IdentityServer;
 using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Services;
 using Duende.IdentityServer.Test;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -15,20 +18,17 @@ namespace SpeedyWheelsSales.IdentityServer.Pages.Account.Create;
 [AllowAnonymous]
 public class Index : PageModel
 {
-    private readonly TestUserStore _users;
     private readonly IIdentityServerInteractionService _interaction;
+    private readonly SignInManager<AppUser> _signInManager;
 
-    [BindProperty]
-    public InputModel Input { get; set; } = default!;
+    [BindProperty] public InputModel Input { get; set; } = default!;
 
     public Index(
         IIdentityServerInteractionService interaction,
-        TestUserStore? users = null)
+        SignInManager<AppUser> signInManager)
     {
-        // this is where you would plug in your own custom identity management library (e.g. ASP.NET Identity)
-        _users = users ?? throw new InvalidOperationException("Please call 'AddTestUsers(TestUsers.Users)' on the IIdentityServerBuilder in Startup or remove the TestUserStore from the AccountController.");
-            
         _interaction = interaction;
+        _signInManager = signInManager;
     }
 
     public IActionResult OnGet(string? returnUrl)
@@ -36,7 +36,7 @@ public class Index : PageModel
         Input = new InputModel { ReturnUrl = returnUrl };
         return Page();
     }
-        
+
     public async Task<IActionResult> OnPost()
     {
         // check if we are in the context of an authorization request
@@ -69,19 +69,31 @@ public class Index : PageModel
             }
         }
 
-        if (_users.FindByUsername(Input.Username) != null)
+        if (await _signInManager.UserManager.FindByNameAsync(Input.Username) != null)
         {
             ModelState.AddModelError("Input.Username", "Invalid username");
         }
 
         if (ModelState.IsValid)
         {
-            var user = _users.CreateUser(Input.Username, Input.Password, Input.Name, Input.Email);
-
-            // issue authentication cookie with subject ID and username
-            var isuser = new IdentityServerUser(user.SubjectId)
+            var user = new AppUser()
             {
-                DisplayName = user.Username
+                UserName = Input.Username,
+                PhoneNumber = Input.PhoneNumber,
+                Name = Input.Name
+            };
+
+            var result = await _signInManager.UserManager.CreateAsync(user, Input.Password);
+
+            var claims = new List<Claim>
+            {
+                new Claim("username", user.UserName)
+            };
+            
+            var isuser = new IdentityServerUser(user.Id)
+            {
+                DisplayName = user.UserName,
+                AdditionalClaims = claims
             };
 
             await HttpContext.SignInAsync(isuser);
@@ -99,20 +111,29 @@ public class Index : PageModel
                 return Redirect(Input.ReturnUrl ?? "~/");
             }
 
-            // request for a local page
-            if (Url.IsLocalUrl(Input.ReturnUrl))
+            if (Input.ReturnUrl != null)
             {
                 return Redirect(Input.ReturnUrl);
             }
-            else if (string.IsNullOrEmpty(Input.ReturnUrl))
+            else
             {
                 return Redirect("~/");
             }
-            else
-            {
-                // user might have clicked on a malicious link - should be logged
-                throw new ArgumentException("invalid return URL");
-            }
+
+            // // request for a local page
+            // if (Url.IsLocalUrl(Input.ReturnUrl))
+            // {
+            //     return Redirect(Input.ReturnUrl);
+            // }
+            // else if (string.IsNullOrEmpty(Input.ReturnUrl))
+            // {
+            //     return Redirect("~/");
+            // }
+            // else
+            // {
+            //     // user might have clicked on a malicious link - should be logged
+            //     throw new ArgumentException("invalid return URL");
+            // }
         }
 
         return Page();

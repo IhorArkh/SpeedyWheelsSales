@@ -1,7 +1,4 @@
-﻿using System.Net;
-using Domain.Entities;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using Domain.Entities;
 using SpeedyWheelsSales.Infrastructure.Data;
 
 namespace SpeedyWheelsSales.WebUI;

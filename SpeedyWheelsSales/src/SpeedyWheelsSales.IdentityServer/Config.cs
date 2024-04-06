@@ -40,7 +40,7 @@ public static class Config
             // interactive client using code flow + pkce
             new Client
             {
-                ClientId = "interactive",
+                ClientId = "speedywheelssaleswebui",
                 ClientSecrets = { new Secret("SuperSecretPasswordSuperSecretPasswordSuperSecretPassword".Sha256()) },
 
                 AllowedGrantTypes = GrantTypes.Code,
@@ -54,7 +54,8 @@ public static class Config
                 AlwaysSendClientClaims = true,
                 AllowedScopes = { "openid", "profile", "speedywheelssalesapi.read", "customProfile" },
                 RequirePkce = true,
-                AllowPlainTextPkce = false
+                AllowPlainTextPkce = false,
+                RequireConsent = false
             }
         };
 }
