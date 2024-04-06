@@ -5,7 +5,7 @@ using Duende.IdentityServer.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace IdentityServerHost.Pages.Error;
+namespace SpeedyWheelsSales.IdentityServer.Pages.Home.Error;
 
 [AllowAnonymous]
 [SecurityHeaders]

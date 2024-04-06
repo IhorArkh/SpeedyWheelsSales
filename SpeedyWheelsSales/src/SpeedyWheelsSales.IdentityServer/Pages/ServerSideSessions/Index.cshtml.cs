@@ -7,7 +7,7 @@ using Duende.IdentityServer.Stores;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace IdentityServerHost.Pages.ServerSideSessions
+namespace SpeedyWheelsSales.IdentityServer.Pages.ServerSideSessions
 {
     public class IndexModel : PageModel
     {

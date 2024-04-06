@@ -1,7 +1,7 @@
 // Copyright (c) Duende Software. All rights reserved.
 // See LICENSE in the project root for license information.
 
-namespace IdentityServerHost.Pages.Login;
+namespace SpeedyWheelsSales.IdentityServer.Pages.Account.Login;
 
 public static class LoginOptions
 {

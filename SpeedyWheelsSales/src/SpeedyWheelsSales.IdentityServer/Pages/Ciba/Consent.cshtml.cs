@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace IdentityServerHost.Pages.Ciba;
+namespace SpeedyWheelsSales.IdentityServer.Pages.Ciba;
 
 [Authorize]
 [SecurityHeaders]

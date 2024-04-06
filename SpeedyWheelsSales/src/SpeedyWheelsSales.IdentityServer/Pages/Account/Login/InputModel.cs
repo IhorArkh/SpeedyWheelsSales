@@ -3,7 +3,7 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace IdentityServerHost.Pages.Login;
+namespace SpeedyWheelsSales.IdentityServer.Pages.Account.Login;
 
 public class InputModel
 {

@@ -1,13 +1,11 @@
 using Domain.Entities;
-using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Services;
-using Duende.IdentityServer.Test;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using SpeedyWheelsSales.IdentityServer;
 using SpeedyWheelsSales.Infrastructure.Data;
-using Log = IdentityServerHost.Pages.Log;
+using Log = SpeedyWheelsSales.IdentityServer.Pages.Log;
 
 var builder = WebApplication.CreateBuilder(args);
 
