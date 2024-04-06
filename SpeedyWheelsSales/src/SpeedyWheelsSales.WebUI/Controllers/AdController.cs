@@ -25,6 +25,11 @@ public class AdController : Controller
 
     public async Task<IActionResult> ListAds(AdParams adParams)
     {
+        var token = await HttpContext.GetTokenAsync("access_token");
+
+        if (token != null)
+            _httpClient.SetBearerToken(token);
+
         var queryString = QueryHelpers.AddQueryString("", adParams.ToDictionary());
 
         var response = await _httpClient.GetAsync($"Ad{queryString}");
@@ -99,6 +104,6 @@ public class AdController : Controller
             return View("Error", errorViewModel);
         }
 
-        return Ok();
+        return Ok("Success");
     }
 }

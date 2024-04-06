@@ -5,19 +5,19 @@
 }
 
 <div class="row">
-    @foreach (var ad in Model)
+    @foreach (var favAd in Model)
     {
         <div class="col-md-4 mb-4">
             <div class="card">
-                <img src="@ad.PhotoDtos.FirstOrDefault(x => x.IsMain).Url" class="card-img-top" alt="Car Photo">
+                <img src="@favAd.PhotoDtos.FirstOrDefault(x => x.IsMain).Url" class="card-img-top" alt="Car Photo">
                 <div class="card-body">
-                    <h5 class="card-title">@ad.CarDto.Model</h5>
-                    <p class="card-text">Price: $@ad.CarDto.Price</p>
-                    <p class="card-text">Mileage: @ad.CarDto.Mileage miles</p>
-                    <p class="card-text">Engine Size: @ad.CarDto.EngineSize</p>
-                    <a href="@Url.Action("GetAdDetails", "Ad", new { id = ad.Id })" class="btn btn-primary">View Details</a>
+                    <h5 class="card-title">@favAd.CarDto.Model</h5>
+                    <p class="card-text">Price: $@favAd.CarDto.Price</p>
+                    <p class="card-text">Mileage: @favAd.CarDto.Mileage miles</p>
+                    <p class="card-text">Engine Size: @favAd.CarDto.EngineSize</p>
+                    <a href="@Url.Action("GetAdDetails", "Ad", new { id = favAd.AdId })" class="btn btn-primary">View Details</a>
                     <form asp-controller="Ad" asp-action="ToggleFavourite" method="post">
-                        <input type="hidden" name="adId" value="@ad.Id"/>
+                        <input type="hidden" name="adId" value="@favAd.AdId"/>
                         <button type="submit" class="btn btn-success">Remove from favorites</button>
                     </form>
                 </div>

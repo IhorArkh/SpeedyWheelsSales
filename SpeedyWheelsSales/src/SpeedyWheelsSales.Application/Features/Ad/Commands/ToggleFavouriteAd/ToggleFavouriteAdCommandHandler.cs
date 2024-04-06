@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -50,11 +49,11 @@ public class ToggleFavouriteAdCommandHandler : IRequestHandler<ToggleFavouriteAd
                 Ad = ad
             };
 
-            user.FavouriteAds.Add(favAd);
+            _context.FavouriteAds.Add(favAd);
         }
         else
         {
-            user.FavouriteAds.Remove(existingFavAd);
+            _context.FavouriteAds.Remove(existingFavAd);
         }
 
         var result = await _context.SaveChangesAsync() > 0;
