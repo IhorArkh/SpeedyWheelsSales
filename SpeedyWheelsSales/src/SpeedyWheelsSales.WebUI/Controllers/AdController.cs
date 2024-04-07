@@ -104,6 +104,6 @@ public class AdController : Controller
             return View("Error", errorViewModel);
         }
 
-        return Ok("Success");
+        return RedirectToAction("GetFavourites");
     }
 }

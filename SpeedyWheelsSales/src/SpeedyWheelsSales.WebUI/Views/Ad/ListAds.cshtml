@@ -131,12 +131,18 @@
                         <p class="card-text">Mileage: @ad.CarDto.Mileage miles</p>
                         <p class="card-text">Engine Size: @ad.CarDto.EngineSize</p>
                         <a href="@Url.Action("GetAdDetails", "Ad", new { id = ad.Id })" class="btn btn-primary">View Details</a>
-                        @if (User.Identity.IsAuthenticated)
+                        @if (User.Identity.IsAuthenticated && !ad.IsAuthor)
                         {
+                            string buttonName = ad.IsFavourite ? "Remove from favourites" : "Add to favourites";
+                            
                             <form asp-controller="Ad" asp-action="ToggleFavourite" method="post">
                                 <input type="hidden" name="adId" value="@ad.Id"/>
-                                <button type="submit" class="btn btn-success">Add to favorites</button>
+                                <button type="submit" class="btn btn-success">@buttonName</button>
                             </form>
+                        }
+                        @if (User.Identity.IsAuthenticated && ad.IsAuthor)
+                        {
+                            <p class="align-content-center">Your ad</p>
                         }
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 using AutoFixture;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Domain.Interfaces;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Moq;
@@ -50,9 +51,12 @@ public class GetAdListQueryHandlerTests
         mockFilteringService.Setup(x => x.FilterAds(It.IsAny<IQueryable<AdListDto>>(), adParams))
             .Returns(adsQuery.OrderByDescending(x => x.CreatedAt).AsQueryable);
 
+        var userAccessorMock = new Mock<ICurrentUserAccessor>();
+        userAccessorMock.Setup(x => x.GetCurrentUsername()).Returns(() => null);
+
         var query = new GetAdListQuery { AdParams = adParams };
-        var handler =
-            new GetAdListQueryHandler(context, mapper, mockFilteringService.Object, mockSortingService.Object);
+        var handler = new GetAdListQueryHandler
+            (context, mapper, mockFilteringService.Object, mockSortingService.Object, userAccessorMock.Object);
 
         //Act
         var result = await handler.Handle(query, CancellationToken.None);
@@ -104,9 +108,12 @@ public class GetAdListQueryHandlerTests
         mockFilteringService.Setup(x => x.FilterAds(It.IsAny<IQueryable<AdListDto>>(), adParams))
             .Returns(adsQuery.OrderByDescending(x => x.CreatedAt).AsQueryable);
 
+        var userAccessorMock = new Mock<ICurrentUserAccessor>();
+        userAccessorMock.Setup(x => x.GetCurrentUsername()).Returns(() => null);
+
         var query = new GetAdListQuery { AdParams = adParams };
-        var handler =
-            new GetAdListQueryHandler(context, mapper, mockFilteringService.Object, mockSortingService.Object);
+        var handler = new GetAdListQueryHandler
+            (context, mapper, mockFilteringService.Object, mockSortingService.Object, userAccessorMock.Object);
 
         //Act
         var result = await handler.Handle(query, CancellationToken.None);
