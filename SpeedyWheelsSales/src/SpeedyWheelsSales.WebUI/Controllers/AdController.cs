@@ -23,14 +23,14 @@ public class AdController : Controller
         _httpClient = httpClientFactory.CreateClient("MyWebApi");
     }
 
-    public async Task<IActionResult> ListAds(AdParams adParams)
+    public async Task<IActionResult> ListAds(AdParams adParams, string? queryStr)
     {
         var token = await HttpContext.GetTokenAsync("access_token");
 
         if (token != null)
             _httpClient.SetBearerToken(token);
 
-        var queryString = QueryHelpers.AddQueryString("", adParams.ToDictionary());
+        var queryString = queryStr ?? QueryHelpers.AddQueryString("", adParams.ToDictionary());
 
         var response = await _httpClient.GetAsync($"Ad{queryString}");
 
@@ -41,7 +41,8 @@ public class AdController : Controller
         var viewModel = new AdListViewModel
         {
             Ads = adList,
-            AdParams = adParams
+            AdParams = adParams,
+            QueryString = queryString
         };
 
         var paginationData = JObject.Parse(response.Headers.GetValues("pagination").First());

@@ -15,6 +15,9 @@ public class SaveSearchParams
     public int? MaxMileage { get; set; }
     public int? MinManufactureYear { get; set; }
     public int? MaxManufactureYear { get; set; }
+    public double? MinEngineSize { get; set; }
+    public double? MaxEngineSize { get; set; }
+    public double? MaxFuelConsumption { get; set; }
     public EngineType? EngineType { get; set; }
     public Transmission? Transmission { get; set; }
     public TypeOfDrive? TypeOfDrive { get; set; }

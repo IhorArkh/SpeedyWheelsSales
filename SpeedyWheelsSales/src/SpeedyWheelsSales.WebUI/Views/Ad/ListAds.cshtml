@@ -52,22 +52,22 @@
                                 <input type="text" id="model" name="model" class="form-control" placeholder="Model" value="@Model.AdParams.Model"/>
                             </div>
                             <div class="col-md-4 mb-2">
-                                <input type="text" id="minPrice" name="minPrice" class="form-control" placeholder="MinPrice" value="@Model.AdParams.MinPrice"/>
-                                <input type="text" id="maxPrice" name="maxPrice" class="form-control" placeholder="MaxPrice" value="@Model.AdParams.MaxPrice"/>
+                                <input type="number" id="minPrice" name="minPrice" class="form-control" placeholder="MinPrice" value="@Model.AdParams.MinPrice"/>
+                                <input type="number" id="maxPrice" name="maxPrice" class="form-control" placeholder="MaxPrice" value="@Model.AdParams.MaxPrice"/>
                             </div>
                             <div class="col-md-4 mb-2">
-                                <input type="text" id="maxMileage" name="maxMileage" class="form-control" placeholder="MaxMileage" value="@Model.AdParams.MaxMileage"/>
+                                <input type="number" id="maxMileage" name="maxMileage" class="form-control" placeholder="MaxMileage" value="@Model.AdParams.MaxMileage"/>
                             </div>
                             <div class="col-md-4 mb-2">
-                                <input type="text" id="minEngineSize" name="minEngineSize" class="form-control" placeholder="MinEngineSize" value="@Model.AdParams.MinEngineSize"/>
-                                <input type="text" id="maxEngineSize" name="maxEngineSize" class="form-control" placeholder="MaxEngineSize" value="@Model.AdParams.MaxEngineSize"/>
+                                <input type="number" step="0.1" id="minEngineSize" name="minEngineSize" class="form-control" placeholder="MinEngineSize" value="@Model.AdParams.MinEngineSize"/>
+                                <input type="number" step="0.1" id="maxEngineSize" name="maxEngineSize" class="form-control" placeholder="MaxEngineSize" value="@Model.AdParams.MaxEngineSize"/>
                             </div>
                             <div class="col-md-4 mb-2">
-                                <input type="text" id="maxFuelConsumption" name="maxFuelConsumption" class="form-control" placeholder="MaxFuelConsumption" value="@Model.AdParams.MaxFuelConsumption"/>
+                                <input type="number" step="0.1" id="maxFuelConsumption" name="maxFuelConsumption" class="form-control" placeholder="MaxFuelConsumption" value="@Model.AdParams.MaxFuelConsumption"/>
                             </div>
                             <div class="col-md-4 mb-2">
-                                <input type="text" id="minManufactureYear" name="minManufactureYear" class="form-control" placeholder="MinManufactureYear" value="@Model.AdParams.MinManufactureYear"/>
-                                <input type="text" id="maxManufactureYear" name="maxManufactureYear" class="form-control" placeholder="MaxManufactureYear" value="@Model.AdParams.MaxManufactureYear"/>
+                                <input type="number" id="minManufactureYear" name="minManufactureYear" class="form-control" placeholder="MinManufactureYear" value="@Model.AdParams.MinManufactureYear"/>
+                                <input type="number" id="maxManufactureYear" name="maxManufactureYear" class="form-control" placeholder="MaxManufactureYear" value="@Model.AdParams.MaxManufactureYear"/>
                             </div>
                             <div class="col-md-4 mb-2">
                                 <select id="engineType" name="engineType" class="form-control">
@@ -134,7 +134,7 @@
                         @if (User.Identity.IsAuthenticated && !ad.IsAuthor)
                         {
                             string buttonName = ad.IsFavourite ? "Remove from favourites" : "Add to favourites";
-                            
+
                             <form asp-controller="Ad" asp-action="ToggleFavourite" method="post">
                                 <input type="hidden" name="adId" value="@ad.Id"/>
                                 <button type="submit" class="btn btn-success">@buttonName</button>

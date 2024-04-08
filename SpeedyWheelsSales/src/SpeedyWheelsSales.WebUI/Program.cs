@@ -1,3 +1,4 @@
+using System.Globalization;
 using SpeedyWheelsSales.Infrastructure.Data;
 using SpeedyWheelsSales.WebUI;
 using SpeedyWheelsSales.WebUI.Core;
@@ -18,6 +19,10 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDatabase(connectionString);
 builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddAutoMapper(typeof(WebUiMappingProfiles).Assembly);
+
+var cultureInfo = new CultureInfo("en-US");
+CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
 var app = builder.Build();
 

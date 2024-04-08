@@ -6,25 +6,31 @@
 
 <h1>Saved searches</h1>
 
-<div class="card-deck">
+<div class="row">
     @foreach (var search in Model)
     {
-        <div class="card">
-            <div class="card-body">
-                @* <h5 class="card-title">Query: @search.QueryString</h5> *@
-                @foreach (var property in search.GetType().GetProperties())
-                {
-                    var value = property.GetValue(search);
-                    if (property.Name != "QueryString" && value != null && !string.IsNullOrWhiteSpace(value.ToString()))
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    @* <h5 class="card-title">Query: @search.QueryString</h5> *@
+                    @foreach (var property in search.GetType().GetProperties())
                     {
-                        <p class="card-text">@property.Name: @value</p>
+                        var value = property.GetValue(search);
+                        if (property.Name != "QueryString" && property.Name != "Id"
+                                                           && value != null && !string.IsNullOrWhiteSpace(value.ToString()))
+                        {
+                            <p class="card-text">@property.Name: @value</p>
+                        }
                     }
-
-                    <form asp-controller="SavedSearch" asp-action="DeleteSearch" method="post">
-                        <input type="hidden" name="searchId" value="@search.Id"/>
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-                }
+                </div>
+                <form asp-controller="SavedSearch" asp-action="DeleteSearch" method="post">
+                    <input type="hidden" name="searchId" value="@search.Id"/>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+                <form asp-controller="Ad" asp-action="ListAds" method="get">
+                    <input type="hidden" name="queryStr" value="@search.QueryString"/>
+                    <button type="submit" class="btn btn-primary">Go to ads</button>
+                </form>
             </div>
         </div>
     }

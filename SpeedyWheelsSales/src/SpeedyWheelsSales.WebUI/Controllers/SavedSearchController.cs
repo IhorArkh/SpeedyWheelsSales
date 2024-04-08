@@ -44,7 +44,7 @@ public class SavedSearchController : Controller
             return View("Error", errorViewModel);
         }
 
-        return Ok();
+        return RedirectToAction("ListAds", "Ad");
     }
 
     [Authorize]
@@ -71,14 +71,14 @@ public class SavedSearchController : Controller
     }
 
     [Authorize]
-    [HttpDelete]
+    [HttpPost]
     public async Task<IActionResult> DeleteSearch([FromForm] int searchId)
     {
         var token = await HttpContext.GetTokenAsync("access_token");
 
         _httpClient.SetBearerToken(token);
 
-        var response = await _httpClient.GetAsync($"SavedSearch/{searchId}");
+        var response = await _httpClient.DeleteAsync($"SavedSearch/{searchId}");
 
         if (!response.IsSuccessStatusCode)
         {
@@ -86,6 +86,6 @@ public class SavedSearchController : Controller
             return View("Error", errorViewModel);
         }
 
-        return Ok();
+        return RedirectToAction("GetSavedSearches");
     }
 }
