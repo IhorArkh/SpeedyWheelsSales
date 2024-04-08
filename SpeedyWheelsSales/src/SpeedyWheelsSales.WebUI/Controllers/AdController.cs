@@ -23,16 +23,22 @@ public class AdController : Controller
         _httpClient = httpClientFactory.CreateClient("MyWebApi");
     }
 
-    public async Task<IActionResult> ListAds(AdParams adParams, string? queryStr)
+    public async Task<IActionResult> ListAds(AdParams adParams, string? queryStrFromSavedSearch)
     {
         var token = await HttpContext.GetTokenAsync("access_token");
 
         if (token != null)
             _httpClient.SetBearerToken(token);
 
-        var queryString = queryStr ?? QueryHelpers.AddQueryString("", adParams.ToDictionary());
+        if (queryStrFromSavedSearch != null)
+            adParams.QueryStringFromSavedSearch = "&" + queryStrFromSavedSearch.Substring(1);
 
-        var response = await _httpClient.GetAsync($"Ad{queryString}");
+        var queryStringFromAdParams = QueryHelpers.AddQueryString("", adParams.ToDictionary());
+
+        var response =
+            await _httpClient.GetAsync($"Ad{queryStringFromAdParams}{adParams.QueryStringFromSavedSearch}");
+        // When user try get saved search, queryStrFromSavedSearch will be passed to this method, than it will be used
+        // instead of parameters from adParams which will be null in such case. Done for correct paging.
 
         string responseData = await response.Content.ReadAsStringAsync();
 
@@ -41,8 +47,7 @@ public class AdController : Controller
         var viewModel = new AdListViewModel
         {
             Ads = adList,
-            AdParams = adParams,
-            QueryString = queryString
+            AdParams = adParams
         };
 
         var paginationData = JObject.Parse(response.Headers.GetValues("pagination").First());

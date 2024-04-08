@@ -1,9 +1,12 @@
 ﻿using Domain.Enums;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace SpeedyWheelsSales.Application.Core;
 
 public class AdParams : PagingParams
 {
+    public string? QueryStringFromSavedSearch { get; set; }
+
     // Sorting params
     public string? SortColumn { get; set; }
     public string? SortOrder { get; set; }
@@ -37,6 +40,9 @@ public class AdParams : PagingParams
             var value = property.GetValue(this);
             if (value != null)
             {
+                if (property.Name == "QueryString")
+                    continue;
+
                 dictionary.Add(property.Name, value.ToString());
             }
         }

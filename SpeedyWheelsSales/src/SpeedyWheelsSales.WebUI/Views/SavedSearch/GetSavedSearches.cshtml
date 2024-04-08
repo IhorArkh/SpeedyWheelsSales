@@ -28,7 +28,7 @@
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
                 <form asp-controller="Ad" asp-action="ListAds" method="get">
-                    <input type="hidden" name="queryStr" value="@search.QueryString"/>
+                    <input type="hidden" name="queryStrFromSavedSearch" value="@search.QueryString"/>
                     <button type="submit" class="btn btn-primary">Go to ads</button>
                 </form>
             </div>
