@@ -8,8 +8,9 @@ public class AdDetailsDto
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public bool IsDeleted { get; set; }
     public bool IsSold { get; set; }
+    public bool IsAuthor { get; set; }
     public DateTime? SoldAt { get; set; }
     public AdDetailsCarDto CarDto { get; set; }
     public ICollection<AdDetailsPhotoDto> PhotoDtos { get; set; } = new List<AdDetailsPhotoDto>();
-    public AdDetailsAppUserDto AppUserDtos { get; set; }
+    public AdDetailsAppUserDto AppUserDto { get; set; }
 }

@@ -46,7 +46,7 @@ public class GetAdListQueryHandler : IRequestHandler<GetAdListQuery, Result<Page
         var currUsername = _currentUserAccessor.GetCurrentUsername();
 
         if (currUsername != null)
-            adsQuery = await FillIsFavouriteAndIsAuthorProperties(adsQuery, currUsername); // TODO add tests for this case.
+            adsQuery = await FillIsFavouriteAndIsAuthorProperties(adsQuery, currUsername);
 
         return Result<PagedList<AdListDto>>.Success(
             await PagedList<AdListDto>.CreateAsync(adsQuery, request.AdParams.PageNumber,
@@ -54,7 +54,7 @@ public class GetAdListQueryHandler : IRequestHandler<GetAdListQuery, Result<Page
         );
     }
 
-    private async Task<IQueryable<AdListDto>> FillIsFavouriteAndIsAuthorProperties
+    private async Task<IQueryable<AdListDto>> FillIsFavouriteAndIsAuthorProperties // TODO add tests for this method.
         (IQueryable<AdListDto> query, string currUsername)
     {
         var user = await _context.AppUsers

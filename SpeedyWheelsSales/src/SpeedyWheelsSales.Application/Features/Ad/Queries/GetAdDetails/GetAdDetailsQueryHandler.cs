@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Domain.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SpeedyWheelsSales.Application.Core;
@@ -11,13 +12,15 @@ public class GetAdDetailsQueryHandler : IRequestHandler<GetAdDetailsQuery, Resul
 {
     private readonly DataContext _context;
     private readonly IMapper _mapper;
+    private readonly ICurrentUserAccessor _currentUserAccessor;
 
-    public GetAdDetailsQueryHandler(DataContext context, IMapper mapper)
+    public GetAdDetailsQueryHandler(DataContext context, IMapper mapper, ICurrentUserAccessor currentUserAccessor)
     {
         _context = context;
         _mapper = mapper;
+        _currentUserAccessor = currentUserAccessor;
     }
-    
+
     public async Task<Result<AdDetailsDto>> Handle(GetAdDetailsQuery request, CancellationToken cancellationToken)
     {
         var ad = await _context.Ads
@@ -27,7 +30,15 @@ public class GetAdDetailsQueryHandler : IRequestHandler<GetAdDetailsQuery, Resul
             .FirstOrDefaultAsync(x => x.Id == request.Id);
 
         var adDetailsDto = _mapper.Map<AdDetailsDto>(ad);
-        
+
+        if (adDetailsDto != null)
+        {
+            var currUsername = _currentUserAccessor.GetCurrentUsername();
+
+            if (currUsername == ad.AppUser.UserName)
+                adDetailsDto.IsAuthor = true;
+        }
+
         return Result<AdDetailsDto>.Success(adDetailsDto);
     }
 }

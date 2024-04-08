@@ -62,6 +62,11 @@ public class AdController : Controller
     [HttpGet]
     public async Task<IActionResult> GetAdDetails(int id)
     {
+        var token = await HttpContext.GetTokenAsync("access_token");
+
+        if (token != null)
+            _httpClient.SetBearerToken(token);
+
         var response = await _httpClient.GetAsync($"Ad/{id}");
 
         string responseData = await response.Content.ReadAsStringAsync();

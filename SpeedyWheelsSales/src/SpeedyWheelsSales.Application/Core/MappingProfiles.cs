@@ -21,7 +21,7 @@ public class MappingProfiles : Profile
         CreateMap<Domain.Entities.Ad, AdDetailsDto>()
             .ForMember(dest => dest.CarDto, opt =>
                 opt.MapFrom(src => src.Car))
-            .ForMember(dest => dest.AppUserDtos, opt =>
+            .ForMember(dest => dest.AppUserDto, opt =>
                 opt.MapFrom(src => src.AppUser))
             .ForMember(dest => dest.PhotoDtos, opt =>
                 opt.MapFrom(src => src.Photos));

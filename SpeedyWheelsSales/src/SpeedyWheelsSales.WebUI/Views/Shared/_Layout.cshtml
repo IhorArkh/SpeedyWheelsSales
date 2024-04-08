@@ -23,6 +23,9 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Profile" asp-action="GetProfile">Your profile</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Ad" asp-action="GetFavourites">Favourite ads</a>
                         </li>
                         <li class="nav-item">
