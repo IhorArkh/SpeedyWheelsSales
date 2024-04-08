@@ -122,9 +122,16 @@
     <div class="row">
         @foreach (var ad in Model.Ads)
         {
+            @if (ad.IsDeleted || (ad.IsSold && ad.SoldAt < DateTime.UtcNow.AddDays(1)))
+                continue;
+
             <div class="col-md-4 mb-4">
                 <div class="card">
                     <img src="@ad.PhotoDtos.FirstOrDefault(x => x.IsMain).Url" class="card-img-top" alt="Car Photo">
+                    @if (ad.IsSold)
+                    {
+                        <div class="sold-overlay">SOLD</div>
+                    }
                     <div class="card-body">
                         <h5 class="card-title">@ad.CarDto.Model</h5>
                         <p class="card-text">Price: $@ad.CarDto.Price</p>

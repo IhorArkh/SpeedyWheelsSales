@@ -10,6 +10,14 @@
         <div class="col-md-4 mb-4">
             <div class="card">
                 <img src="@favAd.PhotoDtos.FirstOrDefault(x => x.IsMain).Url" class="card-img-top" alt="Car Photo">
+                @if (favAd.IsSold)
+                {
+                    <div class="sold-overlay">SOLD at @favAd.SoldAt</div>
+                }
+                @if (favAd.IsDeleted)
+                {
+                    <div class="sold-overlay">DELETED</div>
+                }
                 <div class="card-body">
                     <h5 class="card-title">@favAd.CarDto.Model</h5>
                     <p class="card-text">Price: $@favAd.CarDto.Price</p>

@@ -3,7 +3,7 @@
 public class FavouriteAdDto
 {
     public string City { get; set; }
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; set; }
     public bool IsDeleted { get; set; }
     public bool IsSold { get; set; }
     public DateTime? SoldAt { get; set; }

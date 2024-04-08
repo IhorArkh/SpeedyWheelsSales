@@ -70,6 +70,16 @@ public class MappingProfiles : Profile
 
         // GetFavouriteAds
         CreateMap<FavouriteAd, FavouriteAdDto>()
+            .ForMember(dest => dest.City, opt =>
+                opt.MapFrom(src => src.Ad.City))
+            .ForMember(dest => dest.CreatedAt, opt =>
+                opt.MapFrom(src => src.Ad.CreatedAt))
+            .ForMember(dest => dest.IsDeleted, opt =>
+                opt.MapFrom(src => src.Ad.IsDeleted))
+            .ForMember(dest => dest.IsSold, opt =>
+                opt.MapFrom(src => src.Ad.IsSold))
+            .ForMember(dest => dest.SoldAt, opt =>
+                opt.MapFrom(src => src.Ad.SoldAt))
             .ForMember(dest => dest.CarDto, opt =>
                 opt.MapFrom(src => src.Ad.Car))
             .ForMember(dest => dest.PhotoDtos, opt =>
