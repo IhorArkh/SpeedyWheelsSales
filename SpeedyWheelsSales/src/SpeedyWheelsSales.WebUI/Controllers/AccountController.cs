@@ -28,7 +28,9 @@ public class AccountController : Controller
     [HttpGet]
     public IActionResult Register()
     {
-        var registerUrl = $"{_identityServerBaseUrl}Account/Create/?returnUrl={_webUiBaseUrl}";
+        var returnUrlAfterRegister = $"{_webUiBaseUrl}/Account/Login";
+
+        var registerUrl = $"{_identityServerBaseUrl}Account/Create/?returnUrl={returnUrlAfterRegister}";
 
         return Redirect(registerUrl);
     }
