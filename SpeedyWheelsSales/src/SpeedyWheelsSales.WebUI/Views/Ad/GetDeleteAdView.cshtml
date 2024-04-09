@@ -47,6 +47,9 @@
                     <input type="hidden" name="adId" value="@Model.Id"/>
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
+                <form asp-controller="Profile" asp-action="GetProfile" method="get">
+                    <button type="submit" class="btn btn-secondary">Cancel</button>
+                </form>
             </div>
         </div>
     </div>

@@ -1,0 +1,18 @@
+﻿@model int
+
+@{
+    ViewData["Title"] = "Mark ad as sold";
+}
+
+
+<div class="container mt-4">
+    <h2>Mark ad as sold</h2>
+    <p>Are you sure you want to mark this ad as sold? This is an irreversible action!</p>
+    <form asp-action="MarkAdAsSold" method="post">
+        <input type="hidden" name="adId" value="@Model"/>
+        <button type="submit" class="btn btn-danger">Mark as sold</button>
+    </form>
+    <form asp-controller="Profile" asp-action="GetProfile" method="get">
+        <button type="submit" class="btn btn-secondary">Cancel</button>
+    </form>
+</div>

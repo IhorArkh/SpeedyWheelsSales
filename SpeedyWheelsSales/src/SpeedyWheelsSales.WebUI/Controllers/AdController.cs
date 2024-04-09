@@ -194,4 +194,31 @@ public class AdController : Controller
 
         return RedirectToAction("GetProfile", "Profile");
     }
+
+    [Authorize]
+    [HttpGet]
+    public async Task<IActionResult> GetMarkAdAsSoldView(int adId)
+    {
+        return View(adId);
+    }
+
+    [Authorize]
+    [HttpPost]
+    public async Task<IActionResult> MarkAdAsSold(int adId)
+    {
+        var token = await HttpContext.GetTokenAsync("access_token");
+
+        if (token != null)
+            _httpClient.SetBearerToken(token);
+
+        var response = await _httpClient.PutAsync($"Ad/markAsSold/{adId}", null);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            var errorViewModel = new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier };
+            return View("Error", errorViewModel);
+        }
+
+        return RedirectToAction("GetProfile", "Profile");
+    }
 }

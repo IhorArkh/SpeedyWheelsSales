@@ -124,7 +124,7 @@
         {
             @foreach (var ad in Model.Ads)
             {
-                @if (ad.IsDeleted || (ad.IsSold && ad.SoldAt < DateTime.UtcNow.AddDays(1)))
+                @if (ad.IsDeleted || (ad.IsSold && ad.SoldAt < DateTime.UtcNow.AddDays(-1)))
                     continue;
 
                 <div class="col-md-4 mb-4">
@@ -140,7 +140,7 @@
                             <p class="card-text">Mileage: @ad.CarDto.Mileage miles</p>
                             <p class="card-text">Engine Size: @ad.CarDto.EngineSize</p>
                             <a href="@Url.Action("GetAdDetails", "Ad", new { id = ad.Id })" class="btn btn-primary">View Details</a>
-                            @if (User.Identity.IsAuthenticated && !ad.IsAuthor)
+                            @if (User.Identity.IsAuthenticated && !ad.IsAuthor && !ad.IsSold)
                             {
                                 string buttonName = ad.IsFavourite ? "Remove from favourites" : "Add to favourites";
 

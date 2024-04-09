@@ -121,7 +121,7 @@ public class AdController : BaseApiController
     }
 
     /// <summary>
-    /// Get favourite ads for current user.
+    /// Get favourite ads for current user. (authorized)
     /// </summary>
     /// <response code="200">Returns favourite ads of current user.</response>
     /// <response code="404">If couldn't get current user username.</response>

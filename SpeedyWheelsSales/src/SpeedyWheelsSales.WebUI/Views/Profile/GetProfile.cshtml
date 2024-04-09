@@ -57,6 +57,11 @@
                                     <input type="hidden" name="adId" value="@ad.Id"/>
                                     <button type="submit" class="btn btn-danger">Delete ad</button>
                                 </form>
+
+                                <form asp-controller="Ad" asp-action="GetMarkAdAsSoldView" method="get">
+                                    <input type="hidden" name="adId" value="@ad.Id"/>
+                                    <button type="submit" class="btn btn-success">Mark as sold</button>
+                                </form>
                             }
                         </div>
                     }
