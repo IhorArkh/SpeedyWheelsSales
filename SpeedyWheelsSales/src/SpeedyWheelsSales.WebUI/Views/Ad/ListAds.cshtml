@@ -129,7 +129,10 @@
 
                 <div class="col-md-4 mb-4">
                     <div class="card">
-                        <img src="@ad.PhotoDtos.FirstOrDefault(x => x.IsMain).Url" class="card-img-top" alt="Car Photo">
+                        @if (ad.PhotoDtos.Any())
+                        {
+                            <img src="@ad.PhotoDtos.FirstOrDefault(x => x.IsMain).Url" class="card-img-top" alt="Car Photo">
+                        }
                         @if (ad.IsSold)
                         {
                             <div class="sold-overlay">SOLD</div>

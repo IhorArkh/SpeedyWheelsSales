@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SpeedyWheelsSales.Application.Core;
+using SpeedyWheelsSales.Application.Features.Ad.Commands.CreateAd.DTOs;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.UpdateAd.DTOs;
 using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdDetails.DTOs;
 using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdList.DTOs;
@@ -212,6 +213,36 @@ public class AdController : Controller
             _httpClient.SetBearerToken(token);
 
         var response = await _httpClient.PutAsync($"Ad/markAsSold/{adId}", null);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            var errorViewModel = new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier };
+            return View("Error", errorViewModel);
+        }
+
+        return RedirectToAction("GetProfile", "Profile");
+    }
+    
+    [Authorize]
+    [HttpGet]
+    public IActionResult GetCreateAdView()
+    {
+        return View();
+    }
+    
+    [Authorize]
+    [HttpPost]
+    public async Task<IActionResult> CreateAd(CreateAdDto createAdDto)
+    {
+        var token = await HttpContext.GetTokenAsync("access_token");
+
+        if (token != null)
+            _httpClient.SetBearerToken(token);
+        
+        var jsonContent = JsonConvert.SerializeObject(createAdDto);
+        var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+        var response = await _httpClient.PostAsync($"Ad", content);
 
         if (!response.IsSuccessStatusCode)
         {
