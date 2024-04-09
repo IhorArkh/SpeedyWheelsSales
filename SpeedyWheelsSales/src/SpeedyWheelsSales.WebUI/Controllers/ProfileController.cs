@@ -49,7 +49,7 @@ public class ProfileController : Controller
 
         var userProfile = JsonConvert.DeserializeObject<UserProfileDto>(responseData);
 
-        var userProfileVm = new UserProfileModel
+        var userProfileVm = new UserProfileViewModel
         {
             IsOwner = username == null,
             UserProfileDto = userProfile

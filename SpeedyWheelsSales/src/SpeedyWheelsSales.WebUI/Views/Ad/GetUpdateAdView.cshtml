@@ -1,0 +1,87 @@
+﻿@using Domain.Enums
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model UpdateAdViewModel
+
+@{
+    ViewData["Title"] = "Edit Ad";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h2>Edit Ad</h2>
+            <form asp-action="UpdateAd" method="post">
+                <div class="form-group">
+                    <label for="Description">Description:</label>
+                    <input type="text" class="form-control" id="Description" name="UpdateAdDto.Description" value="@Model.UpdateAdDto.Description">
+                </div>
+                <div class="form-group">
+                    <label for="City">City:</label>
+                    <input type="text" class="form-control" id="City" name="UpdateAdDto.City" value="@Model.UpdateAdDto.City">
+                </div>
+                <div class="form-group">
+                    <label for="Price">Price:</label>
+                    <input type="number" class="form-control" id="Price" name="UpdateAdDto.UpdateAdCarDto.Price" value="@Model.UpdateAdDto.UpdateAdCarDto.Price">
+                </div>
+                <div class="form-group">
+                    <label for="Mileage">Mileage:</label>
+                    <input type="number" class="form-control" id="Mileage" name="UpdateAdDto.UpdateAdCarDto.Mileage" value="@Model.UpdateAdDto.UpdateAdCarDto.Mileage">
+                </div>
+                <div class="form-group">
+                    <label for="EngineSize">Engine Size:</label>
+                    <input type="number" class="form-control" id="EngineSize" name="UpdateAdDto.UpdateAdCarDto.EngineSize" value="@Model.UpdateAdDto.UpdateAdCarDto.EngineSize">
+                </div>
+                <div class="form-group">
+                    <label for="FuelConsumption">Fuel Consumption:</label>
+                    <input type="number" class="form-control" id="FuelConsumption" name="UpdateAdDto.UpdateAdCarDto.FuelConsumption" value="@Model.UpdateAdDto.UpdateAdCarDto.FuelConsumption">
+                </div>
+                <div class="form-group">
+                    <label for="Vin">VIN:</label>
+                    <input type="text" class="form-control" id="Vin" name="UpdateAdDto.UpdateAdCarDto.Vin" value="@Model.UpdateAdDto.UpdateAdCarDto.Vin">
+                </div>
+                <div class="form-group">
+                    <label for="Plates">Plates:</label>
+                    <input type="text" class="form-control" id="Plates" name="UpdateAdDto.UpdateAdCarDto.Plates" value="@Model.UpdateAdDto.UpdateAdCarDto.Plates">
+                </div>
+                <div class="form-group">
+                    <label for="EngineType">Engine Type:</label>
+                    <select class="form-control" id="EngineType" name="UpdateAdDto.UpdateAdCarDto.EngineType" value="@Model.UpdateAdDto.UpdateAdCarDto.EngineType">
+                        @foreach (var engineType in Enum.GetValues(typeof(EngineType)))
+                        {
+                            <option value="@engineType">@engineType</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="Transmission">Transmission:</label>
+                    <select class="form-control" id="Transmission" name="UpdateAdDto.UpdateAdCarDto.Transmission" value="@Model.UpdateAdDto.UpdateAdCarDto.Plates">
+                        @foreach (var transmission in Enum.GetValues(typeof(Transmission)))
+                        {
+                            <option value="@transmission">@transmission</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="TypeOfDrive">Type of Drive:</label>
+                    <select class="form-control" id="TypeOfDrive" name="UpdateAdDto.UpdateAdCarDto.TypeOfDrive" value="@Model.UpdateAdDto.UpdateAdCarDto.TypeOfDrive">
+                        @foreach (var typeOfDrive in Enum.GetValues(typeof(TypeOfDrive)))
+                        {
+                            <option value="@typeOfDrive">@typeOfDrive</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="Color">Color:</label>
+                    <select class="form-control" id="Color" name="UpdateAdDto.UpdateAdCarDto.Color" value="@Model.UpdateAdDto.UpdateAdCarDto.Color">
+                        @foreach (var color in Enum.GetValues(typeof(Colors)))
+                        {
+                            <option value="@color">@color</option>
+                        }
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <input type="hidden" name="AdId" value="@Model.AdId">
+            </form>
+        </div>
+    </div>
+</div>

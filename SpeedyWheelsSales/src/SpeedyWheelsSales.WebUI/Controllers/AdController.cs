@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Text;
 using IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SpeedyWheelsSales.Application.Core;
+using SpeedyWheelsSales.Application.Features.Ad.Commands.UpdateAd.DTOs;
 using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdDetails.DTOs;
 using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdList.DTOs;
 using SpeedyWheelsSales.Application.Features.Ad.Queries.GetFavouriteAds.DTOs;
@@ -116,5 +118,41 @@ public class AdController : Controller
         }
 
         return RedirectToAction("GetFavourites");
+    }
+
+    [Authorize]
+    [HttpGet]
+    public async Task<IActionResult> GetUpdateAdView(int adId)
+    {
+        var updateAdVm = new UpdateAdViewModel()
+        {
+            AdId = adId,
+            UpdateAdDto = new UpdateAdDto() { UpdateAdCarDto = new UpdateAdCarDto() }
+        };
+
+        return View(updateAdVm);
+    }
+
+    [Authorize]
+    [HttpPost]
+    public async Task<IActionResult> UpdateAd(UpdateAdViewModel updateAdVm)
+    {
+        var token = await HttpContext.GetTokenAsync("access_token");
+
+        if (token != null)
+            _httpClient.SetBearerToken(token);
+
+        var jsonContent = JsonConvert.SerializeObject(updateAdVm.UpdateAdDto);
+        var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+        var response = await _httpClient.PutAsync($"Ad/update/{updateAdVm.AdId}", content);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            var errorViewModel = new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier };
+            return View("Error", errorViewModel);
+        }
+
+        return RedirectToAction("GetProfile", "Profile");
     }
 }

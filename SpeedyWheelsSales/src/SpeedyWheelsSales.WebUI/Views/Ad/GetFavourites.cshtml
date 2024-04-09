@@ -5,31 +5,38 @@
 }
 
 <div class="row">
-    @foreach (var favAd in Model)
+    @if (Model.Any())
     {
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <img src="@favAd.PhotoDtos.FirstOrDefault(x => x.IsMain).Url" class="card-img-top" alt="Car Photo">
-                @if (favAd.IsSold)
-                {
-                    <div class="sold-overlay">SOLD at @favAd.SoldAt</div>
-                }
-                @if (favAd.IsDeleted)
-                {
-                    <div class="sold-overlay">DELETED</div>
-                }
-                <div class="card-body">
-                    <h5 class="card-title">@favAd.CarDto.Model</h5>
-                    <p class="card-text">Price: $@favAd.CarDto.Price</p>
-                    <p class="card-text">Mileage: @favAd.CarDto.Mileage miles</p>
-                    <p class="card-text">Engine Size: @favAd.CarDto.EngineSize</p>
-                    <a href="@Url.Action("GetAdDetails", "Ad", new { id = favAd.AdId })" class="btn btn-primary">View Details</a>
-                    <form asp-controller="Ad" asp-action="ToggleFavourite" method="post">
-                        <input type="hidden" name="adId" value="@favAd.AdId"/>
-                        <button type="submit" class="btn btn-success">Remove from favorites</button>
-                    </form>
+        @foreach (var favAd in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="@favAd.PhotoDtos.FirstOrDefault(x => x.IsMain).Url" class="card-img-top" alt="Car Photo">
+                    @if (favAd.IsSold)
+                    {
+                        <div class="sold-overlay">SOLD at @favAd.SoldAt</div>
+                    }
+                    @if (favAd.IsDeleted)
+                    {
+                        <div class="sold-overlay">DELETED</div>
+                    }
+                    <div class="card-body">
+                        <h5 class="card-title">@favAd.CarDto.Model</h5>
+                        <p class="card-text">Price: $@favAd.CarDto.Price</p>
+                        <p class="card-text">Mileage: @favAd.CarDto.Mileage miles</p>
+                        <p class="card-text">Engine Size: @favAd.CarDto.EngineSize</p>
+                        <a href="@Url.Action("GetAdDetails", "Ad", new { id = favAd.AdId })" class="btn btn-primary">View Details</a>
+                        <form asp-controller="Ad" asp-action="ToggleFavourite" method="post">
+                            <input type="hidden" name="adId" value="@favAd.AdId"/>
+                            <button type="submit" class="btn btn-success">Remove from favorites</button>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
+        }
+    }
+    else
+    {
+        <p>No favourite ads found.</p>
     }
 </div>

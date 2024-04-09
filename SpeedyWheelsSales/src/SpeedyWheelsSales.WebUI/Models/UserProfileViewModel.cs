@@ -2,7 +2,7 @@
 
 namespace SpeedyWheelsSales.WebUI.Models;
 
-public class UserProfileModel
+public class UserProfileViewModel
 {
     public UserProfileDto UserProfileDto { get; set; }
     public bool IsOwner { get; set; }

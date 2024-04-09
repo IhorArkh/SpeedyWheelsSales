@@ -1,4 +1,4 @@
-﻿@model UserProfileModel
+﻿@model UserProfileViewModel
 
 @{
     ViewData["Title"] = $"{Model.UserProfileDto.Name}'s Profile";
@@ -41,8 +41,16 @@
                             {
                                 <div class="sold-overlay">SOLD</div>
                             }
-                            <a href="@Url.Action("GetAdDetails", "Ad", new { id = ad.Id })" class="btn btn-primary">View Details</a>
                         </div>
+                        <a href="@Url.Action("GetAdDetails", "Ad", new { id = ad.Id })" class="btn btn-primary">View Details</a>
+
+                        @if (Model.IsOwner)
+                        {
+                            <form asp-controller="Ad" asp-action="GetUpdateAdView" method="get">
+                                <input type="hidden" name="adId" value="@ad.Id"/>
+                                <button type="submit" class="btn btn-warning">Edit ad</button>
+                            </form>
+                        }
                     </div>
                 }
             }

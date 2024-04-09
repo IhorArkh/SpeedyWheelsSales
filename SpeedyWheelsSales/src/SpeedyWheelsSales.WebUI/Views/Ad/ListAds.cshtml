@@ -120,40 +120,47 @@
     </div>
 
     <div class="row">
-        @foreach (var ad in Model.Ads)
+        @if (Model.Ads.Any())
         {
-            @if (ad.IsDeleted || (ad.IsSold && ad.SoldAt < DateTime.UtcNow.AddDays(1)))
-                continue;
+            @foreach (var ad in Model.Ads)
+            {
+                @if (ad.IsDeleted || (ad.IsSold && ad.SoldAt < DateTime.UtcNow.AddDays(1)))
+                    continue;
 
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="@ad.PhotoDtos.FirstOrDefault(x => x.IsMain).Url" class="card-img-top" alt="Car Photo">
-                    @if (ad.IsSold)
-                    {
-                        <div class="sold-overlay">SOLD</div>
-                    }
-                    <div class="card-body">
-                        <h5 class="card-title">@ad.CarDto.Model</h5>
-                        <p class="card-text">Price: $@ad.CarDto.Price</p>
-                        <p class="card-text">Mileage: @ad.CarDto.Mileage miles</p>
-                        <p class="card-text">Engine Size: @ad.CarDto.EngineSize</p>
-                        <a href="@Url.Action("GetAdDetails", "Ad", new { id = ad.Id })" class="btn btn-primary">View Details</a>
-                        @if (User.Identity.IsAuthenticated && !ad.IsAuthor)
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="@ad.PhotoDtos.FirstOrDefault(x => x.IsMain).Url" class="card-img-top" alt="Car Photo">
+                        @if (ad.IsSold)
                         {
-                            string buttonName = ad.IsFavourite ? "Remove from favourites" : "Add to favourites";
+                            <div class="sold-overlay">SOLD</div>
+                        }
+                        <div class="card-body">
+                            <h5 class="card-title">@ad.CarDto.Model</h5>
+                            <p class="card-text">Price: $@ad.CarDto.Price</p>
+                            <p class="card-text">Mileage: @ad.CarDto.Mileage miles</p>
+                            <p class="card-text">Engine Size: @ad.CarDto.EngineSize</p>
+                            <a href="@Url.Action("GetAdDetails", "Ad", new { id = ad.Id })" class="btn btn-primary">View Details</a>
+                            @if (User.Identity.IsAuthenticated && !ad.IsAuthor)
+                            {
+                                string buttonName = ad.IsFavourite ? "Remove from favourites" : "Add to favourites";
 
-                            <form asp-controller="Ad" asp-action="ToggleFavourite" method="post">
-                                <input type="hidden" name="adId" value="@ad.Id"/>
-                                <button type="submit" class="btn btn-success">@buttonName</button>
-                            </form>
-                        }
-                        @if (User.Identity.IsAuthenticated && ad.IsAuthor)
-                        {
-                            <p class="align-content-center">Your ad</p>
-                        }
+                                <form asp-controller="Ad" asp-action="ToggleFavourite" method="post">
+                                    <input type="hidden" name="adId" value="@ad.Id"/>
+                                    <button type="submit" class="btn btn-success">@buttonName</button>
+                                </form>
+                            }
+                            @if (User.Identity.IsAuthenticated && ad.IsAuthor)
+                            {
+                                <p class="align-content-center">Your ad</p>
+                            }
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
+        }
+        else
+        {
+            <p>No ads found.</p>
         }
     </div>
 
