@@ -1,0 +1,53 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdDetails.DTOs.AdDetailsDto
+
+@{
+    ViewData["Title"] = "Delete ad";
+}
+
+<div class="container mt-4">
+    <h2>Delete ad</h2>
+    <p>Are you sure you want to delete this ad? This is an irreversible action!</p>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        @foreach (var photo in Model.PhotoDtos)
+                        {
+                            <div class="carousel-item @(photo.IsMain ? "active" : "")">
+                                <img src="@photo.Url" class="d-block w-100" alt="Car Photo">
+                            </div>
+                        }
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">@Model.CarDto.Brand @Model.CarDto.Model</h5>
+                    <p class="card-text">@Model.Description</p>
+                    <p class="card-text">@Model.CreatedAt.ToShortDateString()</p>
+                    <p class="card-text">@Model.CarDto.Mileage</p>
+                    <p class="card-text">@Model.CarDto.Plates</p>
+                    <p class="card-text">@Model.CarDto.Price</p>
+                    <p class="card-text">@Model.CarDto.Transmission</p>
+                    <p class="card-text">@Model.CarDto.Vin</p>
+                    <p class="card-text">@Model.CarDto.EngineSize</p>
+                    <p class="card-text">@Model.CarDto.EngineType</p>
+                    <p class="card-text">@Model.CarDto.ManufactureDate</p>
+                    <p class="card-text">@Model.CarDto.TypeOfDrive</p>
+                </div>
+                <form asp-action="DeleteAd" method="post">
+                    <input type="hidden" name="adId" value="@Model.Id"/>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

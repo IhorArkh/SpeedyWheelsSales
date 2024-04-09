@@ -155,4 +155,43 @@ public class AdController : Controller
 
         return RedirectToAction("GetProfile", "Profile");
     }
+
+    [Authorize]
+    [HttpPost]
+    public async Task<IActionResult> GetDeleteAdView(int adId)
+    {
+        var response = await _httpClient.GetAsync($"Ad/{adId}");
+
+        if (!response.IsSuccessStatusCode)
+        {
+            var errorViewModel = new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier };
+            return View("Error", errorViewModel);
+        }
+
+        string responseData = await response.Content.ReadAsStringAsync();
+
+        var adDetails = JsonConvert.DeserializeObject<AdDetailsDto>(responseData);
+
+        return View(adDetails);
+    }
+
+    [Authorize]
+    [HttpPost]
+    public async Task<IActionResult> DeleteAd(int adId)
+    {
+        var token = await HttpContext.GetTokenAsync("access_token");
+
+        if (token != null)
+            _httpClient.SetBearerToken(token);
+
+        var response = await _httpClient.DeleteAsync($"Ad/delete/{adId}");
+
+        if (!response.IsSuccessStatusCode)
+        {
+            var errorViewModel = new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier };
+            return View("Error", errorViewModel);
+        }
+
+        return RedirectToAction("GetProfile", "Profile");
+    }
 }
