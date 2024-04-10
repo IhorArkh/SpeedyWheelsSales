@@ -1,7 +1,6 @@
 using AutoFixture;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Domain.Interfaces;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Moq;

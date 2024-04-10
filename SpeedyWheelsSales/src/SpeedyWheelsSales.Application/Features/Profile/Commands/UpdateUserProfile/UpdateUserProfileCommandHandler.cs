@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using Domain.Interfaces;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SpeedyWheelsSales.Application.Core;
 using SpeedyWheelsSales.Application.Features.Profile.Commands.UpdateUserProfile.DTOs;
+using SpeedyWheelsSales.Application.Interfaces;
 using SpeedyWheelsSales.Infrastructure.Data;
 
 namespace SpeedyWheelsSales.Application.Features.Profile.Commands.UpdateUserProfile;

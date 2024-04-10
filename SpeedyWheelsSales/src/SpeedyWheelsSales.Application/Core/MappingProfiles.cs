@@ -43,7 +43,7 @@ public class MappingProfiles : Profile
             .ForMember(dest => dest.Car, opt =>
                 opt.MapFrom(src => src.CreateAdCarDto))
             .ForMember(dest => dest.Photos, opt =>
-                opt.MapFrom(src => src.CreateAdPhotoDtos));
+                opt.Ignore());
         CreateMap<CreateAdCarDto, Car>();
         CreateMap<CreateAdPhotoDto, Photo>();
 

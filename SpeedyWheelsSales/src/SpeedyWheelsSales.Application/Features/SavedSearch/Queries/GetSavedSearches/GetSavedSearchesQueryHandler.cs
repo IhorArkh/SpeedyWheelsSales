@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Domain.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SpeedyWheelsSales.Application.Core;
+using SpeedyWheelsSales.Application.Interfaces;
 using SpeedyWheelsSales.Infrastructure.Data;
 
 namespace SpeedyWheelsSales.Application.Features.SavedSearch.Queries.GetSavedSearches;

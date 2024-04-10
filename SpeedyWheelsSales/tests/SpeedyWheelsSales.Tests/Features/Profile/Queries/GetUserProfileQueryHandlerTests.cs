@@ -1,12 +1,12 @@
 ﻿using AutoFixture;
 using AutoMapper;
 using Domain.Entities;
-using Domain.Interfaces;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using SpeedyWheelsSales.Application.Core;
 using SpeedyWheelsSales.Application.Features.Profile.Queries.GetUserProfile;
+using SpeedyWheelsSales.Application.Interfaces;
 
 namespace SpeedyWheelsSales.Tests.Features.Profile.Queries;
 

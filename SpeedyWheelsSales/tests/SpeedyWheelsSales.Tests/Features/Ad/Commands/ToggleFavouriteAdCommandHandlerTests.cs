@@ -1,11 +1,11 @@
 using AutoFixture;
 using Domain.Entities;
-using Domain.Interfaces;
 using FluentAssertions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.ToggleFavouriteAd;
+using SpeedyWheelsSales.Application.Interfaces;
 
 namespace SpeedyWheelsSales.Tests.Features.Ad.Commands;
 

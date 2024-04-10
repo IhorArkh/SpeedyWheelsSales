@@ -1,11 +1,11 @@
 ﻿using AutoFixture;
 using AutoMapper;
 using Domain.Entities;
-using Domain.Interfaces;
 using FluentAssertions;
 using Moq;
 using SpeedyWheelsSales.Application.Core;
 using SpeedyWheelsSales.Application.Features.Ad.Queries.GetFavouriteAds;
+using SpeedyWheelsSales.Application.Interfaces;
 
 namespace SpeedyWheelsSales.Tests.Features.Ad.Queries;
 

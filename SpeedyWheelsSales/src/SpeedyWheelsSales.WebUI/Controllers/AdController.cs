@@ -222,14 +222,14 @@ public class AdController : Controller
 
         return RedirectToAction("GetProfile", "Profile");
     }
-    
+
     [Authorize]
     [HttpGet]
     public IActionResult GetCreateAdView()
     {
         return View();
     }
-    
+
     [Authorize]
     [HttpPost]
     public async Task<IActionResult> CreateAd(CreateAdDto createAdDto)
@@ -238,9 +238,8 @@ public class AdController : Controller
 
         if (token != null)
             _httpClient.SetBearerToken(token);
-        
-        var jsonContent = JsonConvert.SerializeObject(createAdDto);
-        var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+        var content = ConvertToMultipartFormDataContent(createAdDto);
 
         var response = await _httpClient.PostAsync($"Ad", content);
 
@@ -251,5 +250,38 @@ public class AdController : Controller
         }
 
         return RedirectToAction("GetProfile", "Profile");
+    }
+
+    private MultipartFormDataContent ConvertToMultipartFormDataContent(CreateAdDto createAdDto)
+    {
+        var content = new MultipartFormDataContent();
+
+        if (createAdDto.Description != null)
+            content.Add(new StringContent(createAdDto.Description), "Description");
+        if (createAdDto.City != null)
+            content.Add(new StringContent(createAdDto.City), "City");
+
+        if (createAdDto.CreateAdCarDto != null)
+        {
+            var carDto = createAdDto.CreateAdCarDto;
+            var carDtoProperties = typeof(CreateAdCarDto).GetProperties();
+
+            foreach (var property in carDtoProperties)
+            {
+                var value = property.GetValue(carDto);
+                if (value != null)
+                {
+                    content.Add(new StringContent(value.ToString()), $"CreateAdCarDto.{property.Name}");
+                }
+            }
+        }
+
+        foreach (var photo in createAdDto.Photos)
+        {
+            var photoContent = new StreamContent(photo.OpenReadStream());
+            content.Add(photoContent, "Photos", photo.FileName);
+        }
+
+        return content;
     }
 }

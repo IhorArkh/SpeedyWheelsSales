@@ -11,4 +11,8 @@
       <ProjectReference Include="..\SpeedyWheelsSales.Application\SpeedyWheelsSales.Application.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="CloudinaryDotNet" Version="1.26.2" />
+    </ItemGroup>
+
 </Project>

@@ -1,7 +1,7 @@
-﻿using Domain.Interfaces;
-using MediatR;
+﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SpeedyWheelsSales.Application.Core;
+using SpeedyWheelsSales.Application.Interfaces;
 using SpeedyWheelsSales.Infrastructure.Data;
 
 namespace SpeedyWheelsSales.Application.Features.Ad.Commands.MarkAdAsSold;
@@ -16,7 +16,7 @@ public class MarkAdAsSoldCommandHandler : IRequestHandler<MarkAdAsSoldCommand, R
         _context = context;
         _currentUserAccessor = currentUserAccessor;
     }
-    
+
     public async Task<Result<Unit>> Handle(MarkAdAsSoldCommand request, CancellationToken cancellationToken)
     {
         var ad = await _context.Ads
@@ -25,12 +25,12 @@ public class MarkAdAsSoldCommandHandler : IRequestHandler<MarkAdAsSoldCommand, R
 
         if (ad is null)
             return Result<Unit>.Empty();
-        
+
         var currUsername = _currentUserAccessor.GetCurrentUsername();
-        
+
         if (ad.AppUser.UserName != currUsername)
             return Result<Unit>.Failure("Users can mark as sold only their own ads.");
-        
+
         ad.IsSold = true;
         ad.SoldAt = DateTime.UtcNow;
 

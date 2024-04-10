@@ -159,11 +159,8 @@ namespace SpeedyWheelsSales.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Domain.Entities.Photo", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AdId")
                         .HasColumnType("int");

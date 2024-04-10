@@ -1,10 +1,10 @@
 ﻿using AutoFixture;
-using Domain.Interfaces;
 using FluentAssertions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.DeleteAd;
+using SpeedyWheelsSales.Application.Interfaces;
 
 namespace SpeedyWheelsSales.Tests.Features.Ad.Commands;
 

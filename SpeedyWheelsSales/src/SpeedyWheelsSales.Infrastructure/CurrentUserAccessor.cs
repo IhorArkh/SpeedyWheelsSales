@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
-using Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
+using SpeedyWheelsSales.Application.Interfaces;
 
 namespace SpeedyWheelsSales.Infrastructure;
 

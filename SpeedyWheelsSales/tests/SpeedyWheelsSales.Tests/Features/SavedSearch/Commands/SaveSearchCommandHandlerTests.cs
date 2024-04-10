@@ -1,7 +1,6 @@
 ﻿using AutoFixture;
 using AutoMapper;
 using Domain.Entities;
-using Domain.Interfaces;
 using FluentAssertions;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -9,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Moq;
 using SpeedyWheelsSales.Application.Core;
 using SpeedyWheelsSales.Application.Features.SavedSearch.Commands.SaveSearch;
+using SpeedyWheelsSales.Application.Interfaces;
 
 namespace SpeedyWheelsSales.Tests.Features.SavedSearch.Commands;
 

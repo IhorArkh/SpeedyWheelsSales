@@ -1,17 +1,19 @@
 ﻿using AutoFixture;
+using AutoFixture.AutoMoq;
 using AutoMapper;
 using Domain.Entities;
-using Domain.Interfaces;
 using FluentAssertions;
 using FluentValidation;
 using FluentValidation.Results;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using SpeedyWheelsSales.Application.Core;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.CreateAd;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.CreateAd.DTOs;
+using SpeedyWheelsSales.Application.Interfaces;
+using SpeedyWheelsSales.Application.Photos;
 
 namespace SpeedyWheelsSales.Tests.Features.Ad.Commands;
 
@@ -24,11 +26,7 @@ public class CreateAdCommandHandlerTests
     {
         //Arrange
         var context = await InMemoryDbContextProvider.GetDbContext(ContextName);
-        var fixture = new Fixture();
-
-        fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
-            .ForEach(b => fixture.Behaviors.Remove(b));
-        fixture.Behaviors.Add(new OmitOnRecursionBehavior());
+        var fixture = CreateAndConfigureAutoFixture();
 
         var mapper = new Mapper(new MapperConfiguration(cfg =>
             cfg.AddProfile<MappingProfiles>()));
@@ -41,19 +39,36 @@ public class CreateAdCommandHandlerTests
         user.FavouriteAds = new List<FavouriteAd>();
         user.Ads = new List<Domain.Entities.Ad>();
 
+        context.AppUsers.Add(user);
+        await context.SaveChangesAsync();
+
         var userAccessorMock = new Mock<ICurrentUserAccessor>();
         userAccessorMock.Setup(x => x.GetCurrentUsername()).Returns(user.UserName);
 
-        var userManagerMock = new Mock<UserManager<AppUser>>(
-            Mock.Of<IUserStore<AppUser>>(), null, null, null, null, null, null, null, null);
-
-        userManagerMock.Setup(x => x.FindByNameAsync(It.IsAny<string>())).ReturnsAsync(user);
+        var photoAccessorMock = new Mock<IPhotoAccessor>();
+        var publicIdCounter = 0;
+        photoAccessorMock.Setup(x => x.AddPhoto(It.IsAny<IFormFile>()))
+            .ReturnsAsync(() =>
+            {
+                publicIdCounter++;
+                var publicId = "PublicId_" + publicIdCounter;
+                var url = fixture.Create<string>();
+                return new PhotoUploadResult()
+                {
+                    PublicId = publicId,
+                    Url = url
+                };
+            });
 
         var createAdDto = fixture.Create<CreateAdDto>();
 
         var command = new CreateAdCommand { CreateAdDto = createAdDto };
-        var handler = new CreateAdCommandHandler
-            (context, mapper, userAccessorMock.Object, userManagerMock.Object, validatorMock.Object);
+        var handler = new CreateAdCommandHandler(
+            context,
+            mapper,
+            userAccessorMock.Object,
+            validatorMock.Object,
+            photoAccessorMock.Object);
 
         //Act
         var result = await handler.Handle(command, CancellationToken.None);
@@ -66,6 +81,7 @@ public class CreateAdCommandHandlerTests
         result.ValidationErrors.Should().BeNullOrEmpty();
         ad.Should().BeEquivalentTo(createAdDto, opt => opt.ExcludingMissingMembers());
         ad.CreatedAt.Date.Should().Be(DateTime.UtcNow.Date);
+        ad.Photos.Count.Should().Be(3);
     }
 
     [Fact]
@@ -73,7 +89,7 @@ public class CreateAdCommandHandlerTests
     {
         //Arrange
         var context = await InMemoryDbContextProvider.GetDbContext(ContextName);
-        var fixture = new Fixture();
+        var fixture = CreateAndConfigureAutoFixture();
 
         var mapper = new Mapper(new MapperConfiguration(cfg =>
             cfg.AddProfile<MappingProfiles>()));
@@ -84,14 +100,17 @@ public class CreateAdCommandHandlerTests
 
         var userAccessorMock = new Mock<ICurrentUserAccessor>();
 
-        var userManagerMock = new Mock<UserManager<AppUser>>(
-            Mock.Of<IUserStore<AppUser>>(), null, null, null, null, null, null, null, null);
+        var photoAccessorMock = new Mock<IPhotoAccessor>();
 
         var createAdDto = fixture.Create<CreateAdDto>();
 
         var command = new CreateAdCommand { CreateAdDto = createAdDto };
-        var handler = new CreateAdCommandHandler
-            (context, mapper, userAccessorMock.Object, userManagerMock.Object, validatorMock.Object);
+        var handler = new CreateAdCommandHandler(
+            context,
+            mapper,
+            userAccessorMock.Object,
+            validatorMock.Object,
+            photoAccessorMock.Object);
 
         //Act
         var result = await handler.Handle(command, CancellationToken.None);
@@ -108,11 +127,7 @@ public class CreateAdCommandHandlerTests
     {
         //Arrange
         var context = await InMemoryDbContextProvider.GetDbContext(ContextName);
-        var fixture = new Fixture();
-
-        fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
-            .ForEach(b => fixture.Behaviors.Remove(b));
-        fixture.Behaviors.Add(new OmitOnRecursionBehavior());
+        var fixture = CreateAndConfigureAutoFixture();
 
         var mapper = new Mapper(new MapperConfiguration(cfg =>
             cfg.AddProfile<MappingProfiles>()));
@@ -126,17 +141,17 @@ public class CreateAdCommandHandlerTests
         var userAccessorMock = new Mock<ICurrentUserAccessor>();
         userAccessorMock.Setup(x => x.GetCurrentUsername()).Returns("notExistingUserName");
 
-        var userManagerMock = new Mock<UserManager<AppUser>>(
-            Mock.Of<IUserStore<AppUser>>(), null, null, null, null, null, null, null, null);
-
-        userManagerMock.Setup(x => x.FindByNameAsync(It.IsAny<string>()))
-            .ReturnsAsync(() => null);
+        var photoAccessorMock = new Mock<IPhotoAccessor>();
 
         var createAdDto = fixture.Create<CreateAdDto>();
 
         var command = new CreateAdCommand { CreateAdDto = createAdDto };
-        var handler = new CreateAdCommandHandler
-            (context, mapper, userAccessorMock.Object, userManagerMock.Object, validatorMock.Object);
+        var handler = new CreateAdCommandHandler(
+            context,
+            mapper,
+            userAccessorMock.Object,
+            validatorMock.Object,
+            photoAccessorMock.Object);
 
         //Act
         var result = await handler.Handle(command, CancellationToken.None);
@@ -154,7 +169,7 @@ public class CreateAdCommandHandlerTests
     {
         //Arrange
         var context = await InMemoryDbContextProvider.GetDbContext(ContextName);
-        var fixture = new Fixture();
+        var fixture = CreateAndConfigureAutoFixture();
 
         var mapper = new Mapper(new MapperConfiguration(cfg =>
             cfg.AddProfile<MappingProfiles>()));
@@ -166,14 +181,17 @@ public class CreateAdCommandHandlerTests
         var userAccessorMock = new Mock<ICurrentUserAccessor>();
         userAccessorMock.Setup(x => x.GetCurrentUsername()).Returns(() => null);
 
-        var userManagerMock = new Mock<UserManager<AppUser>>(
-            Mock.Of<IUserStore<AppUser>>(), null, null, null, null, null, null, null, null);
+        var photoAccessorMock = new Mock<IPhotoAccessor>();
 
         var createAdDto = fixture.Create<CreateAdDto>();
 
         var command = new CreateAdCommand { CreateAdDto = createAdDto };
-        var handler = new CreateAdCommandHandler
-            (context, mapper, userAccessorMock.Object, userManagerMock.Object, validatorMock.Object);
+        var handler = new CreateAdCommandHandler(
+            context,
+            mapper,
+            userAccessorMock.Object,
+            validatorMock.Object,
+            photoAccessorMock.Object);
 
         //Act
         var result = await handler.Handle(command, CancellationToken.None);
@@ -184,5 +202,22 @@ public class CreateAdCommandHandlerTests
         result.Value.Should().Be(Unit.Value);
         result.Error.Should().BeNullOrEmpty();
         result.ValidationErrors.Should().BeNullOrEmpty();
+    }
+
+    private IFixture CreateAndConfigureAutoFixture()
+    {
+        var fixture = new Fixture().Customize(new AutoMoqCustomization());
+
+        fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
+            .ForEach(b => fixture.Behaviors.Remove(b));
+        fixture.Behaviors.Add(new OmitOnRecursionBehavior());
+        fixture.Register(() =>
+        {
+            var mock = new Mock<IFormFile>();
+            mock.Setup(m => m.FileName).Returns(fixture.Create<string>());
+            return mock.Object;
+        });
+
+        return fixture;
     }
 }

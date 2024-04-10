@@ -8,7 +8,27 @@
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <h2>Create Ad</h2>
-            <form asp-controller="Ad" asp-action="CreateAd" method="post">
+            <form asp-controller="Ad" asp-action="CreateAd" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="Photo1">Main photo:</label>
+                    <input type="file" class="form-control-file" id="Photo1" name="createAdDto.Photos" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label for="Photo2">Photo 2:</label>
+                    <input type="file" class="form-control-file" id="Photo2" name="createAdDto.Photos" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label for="Photo3">Photo 3:</label>
+                    <input type="file" class="form-control-file" id="Photo3" name="createAdDto.Photos" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label for="Photo4">Photo 4:</label>
+                    <input type="file" class="form-control-file" id="Photo4" name="createAdDto.Photos" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label for="Photo5">Photo 5:</label>
+                    <input type="file" class="form-control-file" id="Photo5" name="createAdDto.Photos" accept="image/*">
+                </div>
                 <div class="form-group">
                     <label for="Description">Description:</label>
                     <input type="text" class="form-control" id="Description" name="createAdDto.Description">

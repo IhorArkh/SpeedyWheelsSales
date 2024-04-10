@@ -1,8 +1,6 @@
-using System.Collections.Immutable;
 using System.Reflection;
 using System.Text.Json.Serialization;
 using Domain.Entities;
-using Domain.Interfaces;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +19,7 @@ using SpeedyWheelsSales.Application.Interfaces;
 using SpeedyWheelsSales.Application.Services;
 using SpeedyWheelsSales.Infrastructure;
 using SpeedyWheelsSales.Infrastructure.Data;
+using SpeedyWheelsSales.Infrastructure.Photos;
 using SpeedyWheelsSales.WebAPI;
 using SpeedyWheelsSales.WebAPI.Middlewares;
 
@@ -72,6 +71,8 @@ builder.Services.AddScoped<ISortingService, SortingService>();
 builder.Services.AddScoped<IValidator<CreateAdDto>, CreateAdCommandValidator>();
 builder.Services.AddScoped<IValidator<UpdateAdDto>, UpdateAdCommandValidator>();
 builder.Services.AddScoped<IValidator<UpdateUserProfileDto>, UpdateUserProfileValidator>();
+builder.Services.AddScoped<IPhotoAccessor, PhotoAccessor>();
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("Cloudinary"));
 
 var app = builder.Build();
 
@@ -102,9 +103,7 @@ var services = scope.ServiceProvider;
 try
 {
     var context = services.GetRequiredService<DataContext>();
-    var userManager = services.GetService<UserManager<AppUser>>();
     await context.Database.MigrateAsync();
-    await Seed.SeedData(context, userManager);
 }
 catch (Exception ex)
 {

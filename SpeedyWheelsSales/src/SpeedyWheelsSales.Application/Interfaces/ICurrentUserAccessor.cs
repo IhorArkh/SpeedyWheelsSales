@@ -1,4 +1,4 @@
-﻿namespace Domain.Interfaces;
+﻿namespace SpeedyWheelsSales.Application.Interfaces;
 
 public interface ICurrentUserAccessor
 {

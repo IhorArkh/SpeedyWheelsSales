@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Domain.Entities;
-using Domain.Interfaces;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using SpeedyWheelsSales.Application.Core;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.CreateAd.DTOs;
+using SpeedyWheelsSales.Application.Interfaces;
 using SpeedyWheelsSales.Infrastructure.Data;
 
 namespace SpeedyWheelsSales.Application.Features.Ad.Commands.CreateAd;
@@ -15,17 +15,21 @@ public class CreateAdCommandHandler : IRequestHandler<CreateAdCommand, Result<Un
     private readonly DataContext _context;
     private readonly IMapper _mapper;
     private readonly ICurrentUserAccessor _currentUserAccessor;
-    private readonly UserManager<AppUser> _userManager;
     private readonly IValidator<CreateAdDto> _validator;
+    private readonly IPhotoAccessor _photoAccessor;
 
-    public CreateAdCommandHandler(DataContext context, IMapper mapper, ICurrentUserAccessor currentUserAccessor,
-        UserManager<AppUser> userManager, IValidator<CreateAdDto> validator)
+    public CreateAdCommandHandler(
+        DataContext context,
+        IMapper mapper,
+        ICurrentUserAccessor currentUserAccessor,
+        IValidator<CreateAdDto> validator,
+        IPhotoAccessor photoAccessor)
     {
         _context = context;
         _mapper = mapper;
         _currentUserAccessor = currentUserAccessor;
-        _userManager = userManager;
         _validator = validator;
+        _photoAccessor = photoAccessor;
     }
 
     public async Task<Result<Unit>> Handle(CreateAdCommand request, CancellationToken cancellationToken)
@@ -34,23 +38,36 @@ public class CreateAdCommandHandler : IRequestHandler<CreateAdCommand, Result<Un
         if (!validationResult.IsValid)
             return Result<Unit>.ValidationError(validationResult.Errors);
 
-        var ad = _mapper.Map<Domain.Entities.Ad>(request.CreateAdDto);
-
         var currUserUsername = _currentUserAccessor.GetCurrentUsername();
         if (currUserUsername is null)
             return Result<Unit>.Empty();
 
-        // var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == currUserUsername);
-        var user = await _userManager.FindByNameAsync(currUserUsername);
+        var user = await _context.AppUsers.FirstOrDefaultAsync(x => x.UserName == currUserUsername);
         if (user is null)
             return Result<Unit>.Empty();
 
-        ad.AppUser = user;
+        var ad = _mapper.Map<Domain.Entities.Ad>(request.CreateAdDto);
         ad.CreatedAt = DateTime.UtcNow;
 
-        _context.Add(ad);
-        var result = await _context.SaveChangesAsync() > 0;
+        foreach (var file in request.CreateAdDto.Photos)
+        {
+            var photoUploadResult = await _photoAccessor.AddPhoto(file);
 
+            var photo = new Photo()
+            {
+                Url = photoUploadResult.Url,
+                Id = photoUploadResult.PublicId
+            };
+
+            if (!ad.Photos.Any(x => x.IsMain))
+                photo.IsMain = true;
+
+            ad.Photos.Add(photo);
+        }
+
+        user.Ads.Add(ad);
+
+        var result = await _context.SaveChangesAsync() > 0;
         if (!result)
             return Result<Unit>.Failure("Failed to create ad.");
 
