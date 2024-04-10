@@ -16,8 +16,11 @@ public class UpdateUserProfileCommandHandler : IRequestHandler<UpdateUserProfile
     private readonly ICurrentUserAccessor _currentUserAccessor;
     private readonly IValidator<UpdateUserProfileDto> _validator;
 
-    public UpdateUserProfileCommandHandler(DataContext context, IMapper mapper,
-        ICurrentUserAccessor currentUserAccessor, IValidator<UpdateUserProfileDto> validator)
+    public UpdateUserProfileCommandHandler(
+        DataContext context,
+        IMapper mapper,
+        ICurrentUserAccessor currentUserAccessor,
+        IValidator<UpdateUserProfileDto> validator)
     {
         _context = context;
         _mapper = mapper;

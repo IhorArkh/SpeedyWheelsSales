@@ -29,15 +29,14 @@ public class GetAdDetailsQueryHandler : IRequestHandler<GetAdDetailsQuery, Resul
             .Include(x => x.Car)
             .FirstOrDefaultAsync(x => x.Id == request.Id);
 
+        if (ad is null)
+            return Result<AdDetailsDto>.Empty();
+
         var adDetailsDto = _mapper.Map<AdDetailsDto>(ad);
 
-        if (adDetailsDto != null)
-        {
-            var currUsername = _currentUserAccessor.GetCurrentUsername();
-
-            if (currUsername == ad.AppUser.UserName)
-                adDetailsDto.IsAuthor = true;
-        }
+        var currUsername = _currentUserAccessor.GetCurrentUsername();
+        if (currUsername == ad.AppUser.UserName)
+            adDetailsDto.IsAuthor = true;
 
         return Result<AdDetailsDto>.Success(adDetailsDto);
     }

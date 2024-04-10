@@ -16,7 +16,10 @@ public class UpdateAdCommandHandler : IRequestHandler<UpdateAdCommand, Result<Un
     private readonly ICurrentUserAccessor _currentUserAccessor;
     private readonly IValidator<UpdateAdDto> _validator;
 
-    public UpdateAdCommandHandler(DataContext context, IMapper mapper, ICurrentUserAccessor currentUserAccessor,
+    public UpdateAdCommandHandler(
+        DataContext context,
+        IMapper mapper,
+        ICurrentUserAccessor currentUserAccessor,
         IValidator<UpdateAdDto> validator)
     {
         _context = context;

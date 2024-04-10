@@ -86,7 +86,7 @@ public class DeleteSearchCommandHandlerTests
     }
 
     [Fact]
-    public async Task Handler_ShouldReturnFailure_WhenSearchDoesNotExists()
+    public async Task Handler_ShouldEmptyResult_WhenSearchDoesNotExists()
     {
         //Arrange
         var context = await InMemoryDbContextProvider.GetDbContext(ContextName);
@@ -112,8 +112,8 @@ public class DeleteSearchCommandHandlerTests
 
         //Assert
         result.IsSuccess.Should().BeFalse();
-        result.IsEmpty.Should().BeFalse();
-        result.Error.Should().Be("Search does not exist.");
+        result.IsEmpty.Should().BeTrue();
+        result.Error.Should().BeNullOrEmpty();
         result.Value.Should().Be(Unit.Value);
     }
 }

@@ -43,9 +43,12 @@ public class AdController : BaseApiController
     /// <response code="200">If ad created successfully.</response>
     /// <response code="400">
     /// If validation errors occured.
+    /// If occured error adding photo.
+    /// If failed to save changes to db.
+    /// </response>
+    /// <response code="404">
     /// If couldn't get current user username.
     /// If user with current username was not found in Db.
-    /// If failed to create ad.
     /// </response>
     [Authorize]
     [HttpPost]
@@ -54,16 +57,17 @@ public class AdController : BaseApiController
         return HandleResult(await Mediator.Send(new CreateAdCommand { CreateAdDto = createAdDto }));
     }
 
+    //TODO Update it after adding update ad photos functionality.
     /// <summary>
     /// Update existing ad.(authorized)
     /// </summary>
     /// <response code="200">If ad updated successfully.</response>
     /// <response code="400">
     /// If validation errors occured.
-    /// If ad for updating was not found in Db.
     /// If user is not author of ad.
-    /// If failed to update ad.
+    /// If failed to save changes to db.
     /// </response>
+    /// <response code="404">If ad for updating was not found in Db.</response>
     [Authorize]
     [HttpPut("update/{id}")]
     public async Task<IActionResult> UpdateAd(int id, UpdateAdDto updateAdDto)
@@ -76,10 +80,10 @@ public class AdController : BaseApiController
     /// </summary>
     /// <response code="200">If ad deleted successfully.</response>
     /// <response code="400">
-    /// If ad for deleting was not found in Db.
     /// If user is not author of ad.
-    /// If failed to update ad.
+    /// If failed to save changes to db.
     /// </response>
+    /// <response code="404">If ad for deleting was not found in Db.</response>
     [Authorize]
     [HttpDelete("delete/{id}")]
     public async Task<IActionResult> DeleteAd(int id)
@@ -92,10 +96,10 @@ public class AdController : BaseApiController
     /// </summary>
     /// <response code="200">If marked as sold successfully.</response>
     /// <response code="400">
-    /// If ad for marking was not found in Db.
     /// If user is not author of ad.
-    /// If failed to mark ad as sold.
+    /// If failed to save changes to db.
     /// </response>
+    /// <response code="404">If ad for marking was not found in Db.</response>
     [Authorize]
     [HttpPut("markAsSold/{id}")]
     public async Task<IActionResult> MarkAsSold(int id)
@@ -108,9 +112,11 @@ public class AdController : BaseApiController
     /// </summary>
     /// <response code="200">If added/removed successfully.</response>
     /// <response code="400">
+    /// If failed to save changes to db.
+    /// </response>
+    /// <response code="404">
     /// If ad was not found in Db.
     /// If failed to get user username.
-    /// If failed to add/remove ad.
     /// </response>
     [Authorize]
     [HttpPost("toggleFavourite/{id}")]
@@ -123,6 +129,7 @@ public class AdController : BaseApiController
     /// Get favourite ads for current user. (authorized)
     /// </summary>
     /// <response code="200">Returns favourite ads of current user.</response>
+    /// <response code="400">If failed to save changes to db.</response>
     /// <response code="404">If couldn't get current user username.</response>
     [Authorize]
     [HttpGet("favourites")]

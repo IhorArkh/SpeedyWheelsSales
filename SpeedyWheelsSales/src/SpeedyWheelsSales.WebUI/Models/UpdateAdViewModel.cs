@@ -1,4 +1,5 @@
 ﻿using SpeedyWheelsSales.Application.Features.Ad.Commands.UpdateAd.DTOs;
+using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdDetails.DTOs;
 
 namespace SpeedyWheelsSales.WebUI.Models;
 

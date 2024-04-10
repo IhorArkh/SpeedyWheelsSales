@@ -48,7 +48,7 @@ public class GetAdDetailsQueryHandlerTests
     }
 
     [Fact]
-    public async Task Handler_ShouldReturnSuccessWithNullValue_WhenAdDoesNotExists()
+    public async Task Handler_ShouldReturnEmptyResult_WhenAdDoesNotExists()
     {
         //Arrange
         var context = await InMemoryDbContextProvider.GetDbContext(ContextName);
@@ -79,10 +79,10 @@ public class GetAdDetailsQueryHandlerTests
         var result = await handler.Handle(query, CancellationToken.None);
 
         //Assert
-        result.IsSuccess.Should().BeTrue();
+        result.IsSuccess.Should().BeFalse();
         result.Value.Should().BeNull();
         result.Error.Should().BeNull();
-        result.IsEmpty.Should().BeFalse();
+        result.IsEmpty.Should().BeTrue();
     }
 
     [Fact]

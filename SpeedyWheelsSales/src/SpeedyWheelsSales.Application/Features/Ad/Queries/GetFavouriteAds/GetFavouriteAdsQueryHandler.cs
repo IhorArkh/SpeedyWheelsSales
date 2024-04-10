@@ -15,8 +15,7 @@ public class GetFavouriteAdsQueryHandler : IRequestHandler<GetFavouriteAdsQuery,
     private readonly ICurrentUserAccessor _currentUserAccessor;
     private readonly IMapper _mapper;
 
-    public GetFavouriteAdsQueryHandler(DataContext context, ICurrentUserAccessor currentUserAccessor,
-        IMapper mapper)
+    public GetFavouriteAdsQueryHandler(DataContext context, ICurrentUserAccessor currentUserAccessor, IMapper mapper)
     {
         _context = context;
         _currentUserAccessor = currentUserAccessor;

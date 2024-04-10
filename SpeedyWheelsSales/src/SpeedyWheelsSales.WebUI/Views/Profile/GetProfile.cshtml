@@ -19,8 +19,11 @@
 
                 @if (Model.IsOwner)
                 {
-                    <form asp-controller="Profile" asp-action="UpdateProfile" method="get">
+                    <form asp-controller="Profile" asp-action="GetUpdateProfileView" method="get">
                         <button type="submit" class="btn btn-primary">Edit profile</button>
+                    </form>
+                    <form asp-controller="Profile" asp-action="GetChangePhotoView" method="get">
+                        <button type="submit" class="btn btn-primary">Change photo</button>
                     </form>
                 }
             </div>

@@ -29,7 +29,7 @@ public class DeleteSearchCommandHandler : IRequestHandler<DeleteSearchCommand, R
 
         var savedSearch = user.SavedSearches.FirstOrDefault(x => x.Id == request.Id);
         if (savedSearch is null)
-            return Result<Unit>.Failure("Search does not exist.");
+            return Result<Unit>.Empty();
 
         user.SavedSearches.Remove(savedSearch);
         var result = await _context.SaveChangesAsync() > 0;

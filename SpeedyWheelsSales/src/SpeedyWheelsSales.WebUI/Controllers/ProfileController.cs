@@ -60,7 +60,7 @@ public class ProfileController : Controller
 
     [Authorize]
     [HttpGet]
-    public async Task<IActionResult> UpdateProfile()
+    public async Task<IActionResult> GetUpdateProfileView()
     {
         return View();
     }
@@ -77,7 +77,41 @@ public class ProfileController : Controller
         var jsonContent = JsonConvert.SerializeObject(updateUserProfileDto);
         var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-        var response = await _httpClient.PutAsync($"Profile", content);
+        var response = await _httpClient.PutAsync("Profile", content);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            var errorViewModel = new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier };
+            return View("Error", errorViewModel);
+        }
+
+        return RedirectToAction("GetProfile");
+    }
+
+    [Authorize]
+    [HttpGet]
+    public IActionResult GetChangePhotoView()
+    {
+        return View();
+    }
+
+    [Authorize]
+    [HttpPost]
+    public async Task<IActionResult> ChangePhoto(IFormFile photo)
+    {
+        if (photo is null)
+            return BadRequest();
+
+        var token = await HttpContext.GetTokenAsync("access_token");
+
+        if (token != null)
+            _httpClient.SetBearerToken(token);
+
+        var content = new MultipartFormDataContent();
+        var photoContent = new StreamContent(photo.OpenReadStream());
+        content.Add(photoContent, "photo", photo.FileName);
+
+        var response = await _httpClient.PutAsync("Profile/changePhoto", content);
 
         if (!response.IsSuccessStatusCode)
         {

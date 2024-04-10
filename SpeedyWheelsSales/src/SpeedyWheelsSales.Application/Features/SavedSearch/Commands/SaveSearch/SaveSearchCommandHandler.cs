@@ -15,8 +15,11 @@ public class SaveSearchCommandHandler : IRequestHandler<SaveSearchCommand, Resul
     private readonly ICurrentUserAccessor _currentUserAccessor;
     private readonly IMapper _mapper;
 
-    public SaveSearchCommandHandler(DataContext context, IHttpContextAccessor httpContextAccessor,
-        ICurrentUserAccessor currentUserAccessor, IMapper mapper)
+    public SaveSearchCommandHandler(
+        DataContext context,
+        IHttpContextAccessor httpContextAccessor,
+        ICurrentUserAccessor currentUserAccessor,
+        IMapper mapper)
     {
         _context = context;
         _httpContextAccessor = httpContextAccessor;

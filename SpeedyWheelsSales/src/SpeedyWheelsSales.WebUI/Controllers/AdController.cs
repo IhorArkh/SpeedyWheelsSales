@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Text;
+using AutoMapper;
 using IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -19,10 +20,12 @@ namespace SpeedyWheelsSales.WebUI.Controllers;
 
 public class AdController : Controller
 {
+    private readonly IMapper _mapper;
     private readonly HttpClient _httpClient;
 
-    public AdController(IHttpClientFactory httpClientFactory)
+    public AdController(IHttpClientFactory httpClientFactory, IMapper mapper)
     {
+        _mapper = mapper;
         _httpClient = httpClientFactory.CreateClient("MyWebApi");
     }
 
@@ -125,10 +128,24 @@ public class AdController : Controller
     [HttpGet]
     public async Task<IActionResult> GetUpdateAdView(int adId)
     {
+        var response = await _httpClient.GetAsync($"Ad/{adId}");
+
+        if (!response.IsSuccessStatusCode)
+        {
+            var errorViewModel = new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier };
+            return View("Error", errorViewModel);
+        }
+
+        string responseData = await response.Content.ReadAsStringAsync();
+
+        var adDetails = JsonConvert.DeserializeObject<AdDetailsDto>(responseData);
+
+        var updateAdDto = _mapper.Map<UpdateAdDto>(adDetails);
+
         var updateAdVm = new UpdateAdViewModel()
         {
             AdId = adId,
-            UpdateAdDto = new UpdateAdDto() { UpdateAdCarDto = new UpdateAdCarDto() }
+            UpdateAdDto = updateAdDto
         };
 
         return View(updateAdVm);
@@ -241,7 +258,7 @@ public class AdController : Controller
 
         var content = ConvertToMultipartFormDataContent(createAdDto);
 
-        var response = await _httpClient.PostAsync($"Ad", content);
+        var response = await _httpClient.PostAsync("Ad", content);
 
         if (!response.IsSuccessStatusCode)
         {

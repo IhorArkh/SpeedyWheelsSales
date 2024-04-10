@@ -52,8 +52,10 @@ public class CreateAdCommandHandler : IRequestHandler<CreateAdCommand, Result<Un
         foreach (var file in request.CreateAdDto.Photos)
         {
             var photoUploadResult = await _photoAccessor.AddPhoto(file);
+            if (photoUploadResult is null)
+                return Result<Unit>.Failure("Error adding photo.");
 
-            var photo = new Photo()
+            var photo = new Photo
             {
                 Url = photoUploadResult.Url,
                 Id = photoUploadResult.PublicId
