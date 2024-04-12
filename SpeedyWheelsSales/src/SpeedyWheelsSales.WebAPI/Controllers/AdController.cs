@@ -60,7 +60,6 @@ public class AdController : BaseApiController
         return HandleResult(await Mediator.Send(new CreateAdCommand { CreateAdDto = createAdDto }));
     }
 
-    //TODO Update it after adding update ad photos functionality.
     /// <summary>
     /// Update existing ad.(authorized)
     /// </summary>
@@ -72,7 +71,7 @@ public class AdController : BaseApiController
     /// </response>
     /// <response code="404">If ad for updating was not found in Db.</response>
     [Authorize]
-    [HttpPut("update/{id}")] // TODO think about changing this and delete routes to just "{id}"
+    [HttpPut("{id}")]
     public async Task<IActionResult> UpdateAd(int id, UpdateAdDto updateAdDto)
     {
         return HandleResult(await Mediator.Send(new UpdateAdCommand { UpdateAdDto = updateAdDto, Id = id }));
@@ -88,7 +87,7 @@ public class AdController : BaseApiController
     /// </response>
     /// <response code="404">If ad for deleting was not found in Db.</response>
     [Authorize]
-    [HttpDelete("delete/{id}")]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteAd(int id)
     {
         return HandleResult(await Mediator.Send(new DeleteAdCommand { Id = id }));

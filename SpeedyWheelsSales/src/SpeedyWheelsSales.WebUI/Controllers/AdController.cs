@@ -46,7 +46,7 @@ public class AdController : Controller
         // When user try get saved search, queryStrFromSavedSearch will be passed to this method, than it will be used
         // instead of parameters from adParams which will be null in such case. Done for correct paging.
 
-        string responseData = await response.Content.ReadAsStringAsync();
+        var responseData = await response.Content.ReadAsStringAsync();
 
         var adList = JsonConvert.DeserializeObject<List<AdListDto>>(responseData);
 
@@ -75,7 +75,7 @@ public class AdController : Controller
 
         var response = await _httpClient.GetAsync($"Ad/{id}");
 
-        string responseData = await response.Content.ReadAsStringAsync();
+        var responseData = await response.Content.ReadAsStringAsync();
 
         var adDetails = JsonConvert.DeserializeObject<AdDetailsDto>(responseData);
 
@@ -84,13 +84,15 @@ public class AdController : Controller
 
     [Authorize]
     [HttpGet]
-    public async Task<IActionResult> GetFavourites()
+    public async Task<IActionResult> GetFavourites(PagingParams pagingParams)
     {
         var token = await HttpContext.GetTokenAsync("access_token");
 
         _httpClient.SetBearerToken(token);
 
-        var response = await _httpClient.GetAsync($"Ad/favourites");
+        var queryStrFromPagingParams = $"PageNumber={pagingParams.PageNumber}&PageSize={pagingParams.PageSize}";
+        
+        var response = await _httpClient.GetAsync($"Ad/favourites?{queryStrFromPagingParams}");
 
         if (!response.IsSuccessStatusCode)
         {
@@ -98,11 +100,23 @@ public class AdController : Controller
             return View("Error", errorViewModel);
         }
 
-        string responseData = await response.Content.ReadAsStringAsync();
+        var responseData = await response.Content.ReadAsStringAsync();
 
         var favouriteAds = JsonConvert.DeserializeObject<List<FavouriteAdDto>>(responseData);
 
-        return View(favouriteAds);
+        var viewModel = new FavoriteAdsViewModel
+        {
+            FavouriteAdDtos = favouriteAds,
+            PagingParams = pagingParams
+        };
+
+        var paginationData = JObject.Parse(response.Headers.GetValues("pagination").First());
+        viewModel.CurrentPage = paginationData.Value<int>("currentPage");
+        viewModel.ItemsPerPage = paginationData.Value<int>("itemsPerPage");
+        viewModel.TotalItems = paginationData.Value<int>("totalItems");
+        viewModel.TotalPages = paginationData.Value<int>("totalPages");
+
+        return View(viewModel);
     }
 
     [Authorize]
@@ -136,7 +150,7 @@ public class AdController : Controller
             return View("Error", errorViewModel);
         }
 
-        string responseData = await response.Content.ReadAsStringAsync();
+        var responseData = await response.Content.ReadAsStringAsync();
 
         var adDetails = JsonConvert.DeserializeObject<AdDetailsDto>(responseData);
 
@@ -164,7 +178,7 @@ public class AdController : Controller
         var jsonContent = JsonConvert.SerializeObject(updateAdVm.UpdateAdDto);
         var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-        var response = await _httpClient.PutAsync($"Ad/update/{updateAdVm.AdId}", content);
+        var response = await _httpClient.PutAsync($"Ad/{updateAdVm.AdId}", content);
 
         if (!response.IsSuccessStatusCode)
         {
@@ -187,7 +201,7 @@ public class AdController : Controller
             return View("Error", errorViewModel);
         }
 
-        string responseData = await response.Content.ReadAsStringAsync();
+        var responseData = await response.Content.ReadAsStringAsync();
 
         var adDetails = JsonConvert.DeserializeObject<AdDetailsDto>(responseData);
 
@@ -203,7 +217,7 @@ public class AdController : Controller
         if (token != null)
             _httpClient.SetBearerToken(token);
 
-        var response = await _httpClient.DeleteAsync($"Ad/delete/{adId}");
+        var response = await _httpClient.DeleteAsync($"Ad/{adId}");
 
         if (!response.IsSuccessStatusCode)
         {

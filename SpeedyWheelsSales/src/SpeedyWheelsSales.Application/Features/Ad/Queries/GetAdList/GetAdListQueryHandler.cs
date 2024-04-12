@@ -34,6 +34,8 @@ public class GetAdListQueryHandler : IRequestHandler<GetAdListQuery, Result<Page
     public async Task<Result<PagedList<AdListDto>>> Handle(GetAdListQuery request, CancellationToken cancellationToken)
     {
         var adsQuery = _context.Ads
+            .Where(x => !x.IsDeleted)
+            .Where(x => x.IsSold == false || x.SoldAt > DateTime.UtcNow.AddDays(-1))
             .Include(x => x.Car)
             .Include(x => x.Photos)
             .ProjectTo<AdListDto>(_mapper.ConfigurationProvider)

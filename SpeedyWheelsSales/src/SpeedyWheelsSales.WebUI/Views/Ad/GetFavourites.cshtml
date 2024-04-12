@@ -1,20 +1,20 @@
 ﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
-@model List<SpeedyWheelsSales.Application.Features.Ad.Queries.GetFavouriteAds.DTOs.FavouriteAdDto>
+@model FavoriteAdsViewModel
 
 @{
     ViewData["Title"] = "Favourite ads";
 }
 
 <div class="row">
-    @if (Model.Any())
+    @if (Model.FavouriteAdDtos.Any())
     {
-        @foreach (var favAd in Model)
+        @foreach (var favAd in Model.FavouriteAdDtos)
         {
             <div class="col-md-4 mb-4">
                 <div class="card">
                     @if (favAd.PhotoDtos.Any())
                     {
-                        <img src="@favAd.PhotoDtos.FirstOrDefault(x => x.IsMain).Url" class="card-img-top" alt="Car Photo">
+                        <img src="@favAd.PhotoDtos.FirstOrDefault(x => x.IsMain)?.Url" class="card-img-top" alt="Car Photo">
                     }
                     @if (favAd.IsSold)
                     {
@@ -43,4 +43,22 @@
     {
         <p>No favourite ads found.</p>
     }
+
+    <div class="pagination justify-content-center">
+        @if (Model.TotalPages > 1)
+        {
+            <ul class="pagination">
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    Model.PagingParams.PageNumber = @i;
+                    Model.PagingParams.PageSize = Model.ItemsPerPage;
+                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                        <a class="page-link" href="@Url.Action("GetFavourites", "Ad", Model.PagingParams)">
+                            @i
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
 </div>
