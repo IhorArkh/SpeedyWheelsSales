@@ -1,0 +1,17 @@
+﻿@model int
+
+@{
+    ViewData["Title"] = "Add ad photo";
+}
+
+<div class="col-md-6 offset-md-3">
+    <h2>Create Ad</h2>
+    <form asp-controller="Ad" asp-action="AddAdPhoto" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="Photo1">Choose photo:</label>
+            <input type="hidden" name="adId" value="@Model">
+            <input type="file" class="form-control-file" id="Photo1" name="photo" accept="image/*" required>
+            <button type="submit" class="btn btn-success">Submit</button>
+        </div>
+    </form>
+</div>

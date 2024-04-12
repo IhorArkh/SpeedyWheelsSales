@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SpeedyWheelsSales.Application.Core;
+using SpeedyWheelsSales.Application.Features.Ad.Commands.AddAdPhoto;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.CreateAd;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.CreateAd.DTOs;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.DeleteAd;
@@ -178,5 +179,25 @@ public class AdController : BaseApiController
     public async Task<IActionResult> SetMainAdPhoto(string photoId)
     {
         return HandleResult(await Mediator.Send(new SetMainAdPhotoCommand { PhotoId = photoId }));
+    }
+
+    /// <summary>
+    /// Add ad photo. (authorized)
+    /// </summary>
+    /// <response code="200">When added successfully.</response>
+    /// <response code="400">
+    /// When failed to save changes to db.
+    /// When current user username != ad author username.
+    /// When occured error adding photo.
+    /// </response>
+    /// <response code="404">
+    /// If couldn't get current user username.
+    /// When ad not found in db.
+    /// </response>
+    [Authorize]
+    [HttpPost("photo/{adId}")]
+    public async Task<IActionResult> AddAdPhoto(int adId, IFormFile photo)
+    {
+        return HandleResult(await Mediator.Send(new AddAdPhotoCommand { AdId = adId, Photo = photo }));
     }
 }

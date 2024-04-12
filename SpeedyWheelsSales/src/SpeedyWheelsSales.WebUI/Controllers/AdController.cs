@@ -270,39 +270,6 @@ public class AdController : Controller
         return RedirectToAction("GetProfile", "Profile");
     }
 
-    private MultipartFormDataContent ConvertToMultipartFormDataContent(CreateAdDto createAdDto)
-    {
-        var content = new MultipartFormDataContent();
-
-        if (createAdDto.Description != null)
-            content.Add(new StringContent(createAdDto.Description), "Description");
-        if (createAdDto.City != null)
-            content.Add(new StringContent(createAdDto.City), "City");
-
-        if (createAdDto.CreateAdCarDto != null)
-        {
-            var carDto = createAdDto.CreateAdCarDto;
-            var carDtoProperties = typeof(CreateAdCarDto).GetProperties();
-
-            foreach (var property in carDtoProperties)
-            {
-                var value = property.GetValue(carDto);
-                if (value != null)
-                {
-                    content.Add(new StringContent(value.ToString()), $"CreateAdCarDto.{property.Name}");
-                }
-            }
-        }
-
-        foreach (var photo in createAdDto.Photos)
-        {
-            var photoContent = new StreamContent(photo.OpenReadStream());
-            content.Add(photoContent, "Photos", photo.FileName);
-        }
-
-        return content;
-    }
-
     [Authorize]
     [HttpPost]
     public async Task<IActionResult> DeleteAdPhoto(string photoId)
@@ -341,5 +308,72 @@ public class AdController : Controller
         }
 
         return RedirectToAction("GetProfile", "Profile");
+    }
+
+    [Authorize]
+    [HttpGet]
+    public IActionResult GetAddAdPhotoView(int adId)
+    {
+        return View(adId);
+    }
+
+    [Authorize]
+    [HttpPost]
+    public async Task<IActionResult> AddAdPhoto(int adId, IFormFile photo)
+    {
+        if (photo is null)
+            return BadRequest();
+
+        var token = await HttpContext.GetTokenAsync("access_token");
+
+        if (token != null)
+            _httpClient.SetBearerToken(token);
+
+        var content = new MultipartFormDataContent();
+        var photoContent = new StreamContent(photo.OpenReadStream());
+        content.Add(photoContent, "Photo", photo.FileName);
+
+        var response = await _httpClient.PostAsync($"Ad/photo/{adId}", content);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            var errorViewModel = new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier };
+            return View("Error", errorViewModel);
+        }
+
+        return RedirectToAction("GetProfile", "Profile");
+    }
+
+    private MultipartFormDataContent ConvertToMultipartFormDataContent(CreateAdDto createAdDto)
+    {
+        var content = new MultipartFormDataContent();
+
+        if (createAdDto.Description != null)
+            content.Add(new StringContent(createAdDto.Description), "Description");
+        if (createAdDto.City != null)
+            content.Add(new StringContent(createAdDto.City), "City");
+
+        if (createAdDto.CreateAdCarDto != null)
+        {
+            var carDto = createAdDto.CreateAdCarDto;
+            var carDtoProperties = typeof(CreateAdCarDto).GetProperties();
+
+            foreach (var property in carDtoProperties)
+            {
+                var value = property.GetValue(carDto);
+                if (value != null)
+                {
+                    content.Add(new StringContent(value.ToString()), $"CreateAdCarDto.{property.Name}");
+                }
+            }
+        }
+
+        foreach (var photo in createAdDto.Photos)
+        {
+            var photoContent = new StreamContent(photo.OpenReadStream());
+            content.Add(photoContent, "Photos", photo.FileName);
+        }
+
+        return content;
     }
 }
