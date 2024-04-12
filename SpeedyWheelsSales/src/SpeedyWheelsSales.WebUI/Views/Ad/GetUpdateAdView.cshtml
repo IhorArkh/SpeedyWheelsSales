@@ -17,11 +17,17 @@
                 {
                     <p>Main photo(can't be deleted)</p>
                 }
-
-                <form asp-action="DeleteAdPhoto" method="post">
-                    <input type="hidden" name="photoId" value="@photo.Id">
-                    <button type="submit" class="btn btn-primary">Delete photo</button>
-                </form>
+                else
+                {
+                    <form asp-action="SetMainAdPhoto" method="post">
+                        <input type="hidden" name="photoId" value="@photo.Id">
+                        <button type="submit" class="btn btn-primary">Set photo as main</button>
+                    </form>
+                    <form asp-action="DeleteAdPhoto" method="post">
+                        <input type="hidden" name="photoId" value="@photo.Id">
+                        <button type="submit" class="btn btn-primary">Delete photo</button>
+                    </form>
+                }
             }
 
             <form asp-action="UpdateAd" method="post">

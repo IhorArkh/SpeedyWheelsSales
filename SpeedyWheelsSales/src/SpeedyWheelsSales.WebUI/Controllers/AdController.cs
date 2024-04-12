@@ -322,4 +322,24 @@ public class AdController : Controller
 
         return RedirectToAction("GetProfile", "Profile");
     }
+
+    [Authorize]
+    [HttpPost]
+    public async Task<IActionResult> SetMainAdPhoto(string photoId)
+    {
+        var token = await HttpContext.GetTokenAsync("access_token");
+
+        if (token != null)
+            _httpClient.SetBearerToken(token);
+
+        var response = await _httpClient.PutAsync($"Ad/photo/{photoId}", null);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            var errorViewModel = new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier };
+            return View("Error", errorViewModel);
+        }
+
+        return RedirectToAction("GetProfile", "Profile");
+    }
 }

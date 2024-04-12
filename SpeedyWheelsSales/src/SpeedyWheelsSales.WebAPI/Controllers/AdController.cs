@@ -6,6 +6,7 @@ using SpeedyWheelsSales.Application.Features.Ad.Commands.CreateAd.DTOs;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.DeleteAd;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.DeleteAdPhoto;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.MarkAdAsSold;
+using SpeedyWheelsSales.Application.Features.Ad.Commands.SetMainAdPhoto;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.ToggleFavouriteAd;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.UpdateAd;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.UpdateAd.DTOs;
@@ -70,7 +71,7 @@ public class AdController : BaseApiController
     /// </response>
     /// <response code="404">If ad for updating was not found in Db.</response>
     [Authorize]
-    [HttpPut("update/{id}")]
+    [HttpPut("update/{id}")] // TODO think about changing this and delete routes to just "{id}"
     public async Task<IActionResult> UpdateAd(int id, UpdateAdDto updateAdDto)
     {
         return HandleResult(await Mediator.Send(new UpdateAdCommand { UpdateAdDto = updateAdDto, Id = id }));
@@ -142,7 +143,7 @@ public class AdController : BaseApiController
     /// <summary>
     /// Delete ad photo. (authorized)
     /// </summary>
-    /// <response code="200">Returns when deleted successfully.</response>
+    /// <response code="200">When deleted successfully.</response>
     /// <response code="400">
     /// When failed to save changes to db.
     /// When current user username != ad author username.
@@ -158,5 +159,24 @@ public class AdController : BaseApiController
     public async Task<IActionResult> DeleteAdPhoto(string photoId)
     {
         return HandleResult(await Mediator.Send(new DeleteAdPhotoCommand { PhotoId = photoId }));
+    }
+
+    /// <summary>
+    /// Set main ad photo. (authorized)
+    /// </summary>
+    /// <response code="200">When set as main successfully.</response>
+    /// <response code="400">
+    /// When failed to save changes to db.
+    /// When current user username != ad author username.
+    /// </response>
+    /// <response code="404">
+    /// If couldn't get current user username.
+    /// When photo not found in db.
+    /// </response>
+    [Authorize]
+    [HttpPut("photo/{photoId}")]
+    public async Task<IActionResult> SetMainAdPhoto(string photoId)
+    {
+        return HandleResult(await Mediator.Send(new SetMainAdPhotoCommand { PhotoId = photoId }));
     }
 }
