@@ -10,6 +10,20 @@
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <h2>Edit Ad</h2>
+            @foreach (var photo in Model.PhotoDtos)
+            {
+                <img src="@photo.Url" alt="Photo"/>
+                @if (photo.IsMain)
+                {
+                    <p>Main photo(can't be deleted)</p>
+                }
+
+                <form asp-action="DeleteAdPhoto" method="post">
+                    <input type="hidden" name="photoId" value="@photo.Id">
+                    <button type="submit" class="btn btn-primary">Delete photo</button>
+                </form>
+            }
+
             <form asp-action="UpdateAd" method="post">
                 <div class="form-group">
                     <label for="Description">Description:</label>

@@ -7,4 +7,5 @@ public class UpdateAdViewModel
 {
     public int AdId { get; set; }
     public UpdateAdDto UpdateAdDto { get; set; }
+    public ICollection<AdDetailsPhotoDto> PhotoDtos { get; set; } = new List<AdDetailsPhotoDto>();
 }

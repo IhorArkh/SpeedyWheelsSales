@@ -145,7 +145,8 @@ public class AdController : Controller
         var updateAdVm = new UpdateAdViewModel()
         {
             AdId = adId,
-            UpdateAdDto = updateAdDto
+            UpdateAdDto = updateAdDto,
+            PhotoDtos = adDetails.PhotoDtos
         };
 
         return View(updateAdVm);
@@ -300,5 +301,25 @@ public class AdController : Controller
         }
 
         return content;
+    }
+
+    [Authorize]
+    [HttpPost]
+    public async Task<IActionResult> DeleteAdPhoto(string photoId)
+    {
+        var token = await HttpContext.GetTokenAsync("access_token");
+
+        if (token != null)
+            _httpClient.SetBearerToken(token);
+
+        var response = await _httpClient.DeleteAsync($"Ad/photo/{photoId}");
+
+        if (!response.IsSuccessStatusCode)
+        {
+            var errorViewModel = new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier };
+            return View("Error", errorViewModel);
+        }
+
+        return RedirectToAction("GetProfile", "Profile");
     }
 }

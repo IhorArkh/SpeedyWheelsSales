@@ -42,7 +42,7 @@
                         <div class="card mb-4">
                             @if (ad.PhotoDtos.Any())
                             {
-                                <img src="@ad.PhotoDtos.FirstOrDefault(x => x.IsMain).Url" class="card-img-top" alt="Car Photo">
+                                <img src="@ad.PhotoDtos.FirstOrDefault(x => x.IsMain)?.Url" class="card-img-top" alt="Car Photo">
                             }
                             <div class="card-body">
                                 <h5 class="card-title">@ad.CarDto.Brand @ad.CarDto.Model</h5>

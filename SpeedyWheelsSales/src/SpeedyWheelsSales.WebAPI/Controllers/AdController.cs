@@ -4,6 +4,7 @@ using SpeedyWheelsSales.Application.Core;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.CreateAd;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.CreateAd.DTOs;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.DeleteAd;
+using SpeedyWheelsSales.Application.Features.Ad.Commands.DeleteAdPhoto;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.MarkAdAsSold;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.ToggleFavouriteAd;
 using SpeedyWheelsSales.Application.Features.Ad.Commands.UpdateAd;
@@ -136,5 +137,26 @@ public class AdController : BaseApiController
     public async Task<IActionResult> GetFavouriteAds([FromQuery] PagingParams pagingParams)
     {
         return HandlePagedResult(await Mediator.Send(new GetFavouriteAdsQuery { PagingParams = pagingParams }));
+    }
+
+    /// <summary>
+    /// Delete ad photo. (authorized)
+    /// </summary>
+    /// <response code="200">Returns when deleted successfully.</response>
+    /// <response code="400">
+    /// When failed to save changes to db.
+    /// When current user username != ad author username.
+    /// When tried to delete main photo.
+    /// When occured error deleting photo.
+    /// </response>
+    /// <response code="404">
+    /// If couldn't get current user username.
+    /// When photo not found in db.
+    /// </response>
+    [Authorize]
+    [HttpDelete("photo/{photoId}")]
+    public async Task<IActionResult> DeleteAdPhoto(string photoId)
+    {
+        return HandleResult(await Mediator.Send(new DeleteAdPhotoCommand { PhotoId = photoId }));
     }
 }

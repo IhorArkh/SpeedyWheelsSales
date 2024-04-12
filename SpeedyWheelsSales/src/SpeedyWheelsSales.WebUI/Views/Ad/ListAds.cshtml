@@ -131,7 +131,7 @@
                     <div class="card">
                         @if (ad.PhotoDtos.Any())
                         {
-                            <img src="@ad.PhotoDtos.FirstOrDefault(x => x.IsMain).Url" class="card-img-top" alt="Car Photo">
+                            <img src="@ad.PhotoDtos.FirstOrDefault(x => x.IsMain)?.Url" class="card-img-top" alt="Car Photo">
                         }
                         @if (ad.IsSold)
                         {
