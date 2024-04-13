@@ -60,9 +60,25 @@ public class ProfileController : Controller
 
     [Authorize]
     [HttpGet]
-    public IActionResult GetUpdateProfileView()
+    public async Task<IActionResult> GetUpdateProfileView()
     {
-        return View(); // TODO need to pass previous values to view
+        var token = await HttpContext.GetTokenAsync("access_token");
+        if (token != null)
+            _httpClient.SetBearerToken(token);
+
+        var response = await _httpClient.GetAsync("Profile");
+
+        if (!response.IsSuccessStatusCode)
+        {
+            var errorViewModel = new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier };
+            return View("Error", errorViewModel);
+        }
+        
+        var responseData = await response.Content.ReadAsStringAsync();
+
+        var userProfile = JsonConvert.DeserializeObject<UserProfileDto>(responseData);
+
+        return View(userProfile);
     }
 
     [Authorize]
