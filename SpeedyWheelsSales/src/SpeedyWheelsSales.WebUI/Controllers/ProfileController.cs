@@ -60,9 +60,9 @@ public class ProfileController : Controller
 
     [Authorize]
     [HttpGet]
-    public async Task<IActionResult> GetUpdateProfileView()
+    public IActionResult GetUpdateProfileView()
     {
-        return View();
+        return View(); // TODO need to pass previous values to view
     }
 
     [Authorize]

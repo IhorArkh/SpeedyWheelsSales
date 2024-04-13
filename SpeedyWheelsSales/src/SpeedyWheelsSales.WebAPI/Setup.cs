@@ -21,7 +21,7 @@ public static class Setup
         services.AddIdentityCore<AppUser>(opt =>
             {
                 opt.Password.RequireNonAlphanumeric = false;
-                opt.User.RequireUniqueEmail = true;
+                opt.User.RequireUniqueEmail = true; // TODO phone number should be unique too.
             })
             .AddEntityFrameworkStores<DataContext>();
 

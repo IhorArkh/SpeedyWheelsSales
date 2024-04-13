@@ -2,6 +2,7 @@
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     ViewData["Title"] = "Create Ad";
+    var todayDate = DateTime.UtcNow.ToString("yyyy-MM-dd");
 }
 
 <div class="container mt-4">
@@ -11,7 +12,8 @@
             <form asp-controller="Ad" asp-action="CreateAd" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="Photo1">Main photo:</label>
-                    <input type="file" class="form-control-file" id="Photo1" name="createAdDto.Photos" accept="image/*">
+                    <input type="file" class="form-control-file" id="Photo1" name="createAdDto.Photos" accept="image/*" required>
+                    <small class="form-text text-muted">Main photo is required</small>
                 </div>
                 <div class="form-group">
                     <label for="Photo2">Photo 2:</label>
@@ -31,47 +33,47 @@
                 </div>
                 <div class="form-group">
                     <label for="Description">Description:</label>
-                    <input type="text" class="form-control" id="Description" name="createAdDto.Description">
+                    <textarea type="text" class="form-control" id="Description" name="createAdDto.Description" required maxlength="2000"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="City">City:</label>
-                    <input type="text" class="form-control" id="City" name="createAdDto.City">
+                    <input type="text" class="form-control" id="City" name="createAdDto.City" required maxlength="50">
                 </div>
                 <div class="form-group">
                     <label for="Brand">Brand:</label>
-                    <input type="text" class="form-control" id="Brand" name="createAdDto.CreateAdCarDto.Brand">
+                    <input type="text" class="form-control" id="Brand" name="createAdDto.CreateAdCarDto.Brand" required maxlength="50">
                 </div>
                 <div class="form-group">
                     <label for="Model">Model:</label>
-                    <input type="text" class="form-control" id="Model" name="createAdDto.CreateAdCarDto.Model">
+                    <input type="text" class="form-control" id="Model" name="createAdDto.CreateAdCarDto.Model" required maxlength="50">
                 </div>
                 <div class="form-group">
                     <label for="Price">Price:</label>
-                    <input type="number" class="form-control" id="Price" name="createAdDto.CreateAdCarDto.Price">
+                    <input type="number" class="form-control" id="Price" name="createAdDto.CreateAdCarDto.Price" required min="0" max="999999999">
                 </div>
                 <div class="form-group">
                     <label for="Mileage">Mileage:</label>
-                    <input type="number" class="form-control" id="Mileage" name="createAdDto.CreateAdCarDto.Mileage">
+                    <input type="number" class="form-control" id="Mileage" name="createAdDto.CreateAdCarDto.Mileage" required min="0" max="999999999">
                 </div>
                 <div class="form-group">
                     <label for="EngineSize">Engine Size:</label>
-                    <input type="number" class="form-control" id="EngineSize" name="createAdDto.CreateAdCarDto.EngineSize">
+                    <input type="number" class="form-control" id="EngineSize" name="createAdDto.CreateAdCarDto.EngineSize" required min="0" max="999999999">
                 </div>
                 <div class="form-group">
                     <label for="FuelConsumption">Fuel Consumption:</label>
-                    <input type="number" class="form-control" id="FuelConsumption" name="createAdDto.CreateAdCarDto.FuelConsumption">
+                    <input type="number" class="form-control" id="FuelConsumption" name="createAdDto.CreateAdCarDto.FuelConsumption" required min="0" max="999999999">
                 </div>
                 <div class="form-group">
                     <label for="Vin">VIN:</label>
-                    <input type="text" class="form-control" id="Vin" name="createAdDto.CreateAdCarDto.Vin">
+                    <input type="text" class="form-control" id="Vin" name="createAdDto.CreateAdCarDto.Vin" required maxlength="50">
                 </div>
                 <div class="form-group">
                     <label for="Plates">Plates:</label>
-                    <input type="text" class="form-control" id="Plates" name="createAdDto.CreateAdCarDto.Plates">
+                    <input type="text" class="form-control" id="Plates" name="createAdDto.CreateAdCarDto.Plates" required maxlength="15">
                 </div>
                 <div class="form-group">
                     <label for="ManufactureDate">Manufacture Date:</label>
-                    <input type="date" class="form-control" id="ManufactureDate" name="createAdDto.CreateAdCarDto.ManufactureDate">
+                    <input type="date" class="form-control" id="ManufactureDate" name="createAdDto.CreateAdCarDto.ManufactureDate" required max="@todayDate">
                 </div>
                 <div class="form-group">
                     <label for="EngineType">Engine Type:</label>

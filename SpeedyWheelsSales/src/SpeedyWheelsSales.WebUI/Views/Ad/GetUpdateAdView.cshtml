@@ -38,42 +38,49 @@
             <form asp-action="UpdateAd" method="post">
                 <div class="form-group">
                     <label for="Description">Description:</label>
-                    <input type="text" class="form-control" id="Description" name="UpdateAdDto.Description" value="@Model.UpdateAdDto.Description">
+                    <textarea type="text" class="form-control" id="Description" name="UpdateAdDto.Description" required maxlength="2000">@Model.UpdateAdDto.Description</textarea>
                 </div>
                 <div class="form-group">
                     <label for="City">City:</label>
-                    <input type="text" class="form-control" id="City" name="UpdateAdDto.City" value="@Model.UpdateAdDto.City">
+                    <input type="text" class="form-control" id="City" name="UpdateAdDto.City" value="@Model.UpdateAdDto.City" required maxlength="50">
                 </div>
                 <div class="form-group">
                     <label for="Price">Price:</label>
-                    <input type="number" class="form-control" id="Price" name="UpdateAdDto.UpdateAdCarDto.Price" value="@Model.UpdateAdDto.UpdateAdCarDto.Price">
+                    <input type="number" class="form-control" id="Price" name="UpdateAdDto.UpdateAdCarDto.Price" value="@Model.UpdateAdDto.UpdateAdCarDto.Price" required min="0" max="999999999">
                 </div>
                 <div class="form-group">
                     <label for="Mileage">Mileage:</label>
-                    <input type="number" class="form-control" id="Mileage" name="UpdateAdDto.UpdateAdCarDto.Mileage" value="@Model.UpdateAdDto.UpdateAdCarDto.Mileage">
+                    <input type="number" class="form-control" id="Mileage" name="UpdateAdDto.UpdateAdCarDto.Mileage" value="@Model.UpdateAdDto.UpdateAdCarDto.Mileage" required min="0" max="999999999">
                 </div>
                 <div class="form-group">
                     <label for="EngineSize">Engine Size:</label>
-                    <input type="number" class="form-control" id="EngineSize" name="UpdateAdDto.UpdateAdCarDto.EngineSize" value="@Model.UpdateAdDto.UpdateAdCarDto.EngineSize">
+                    <input type="number" class="form-control" id="EngineSize" name="UpdateAdDto.UpdateAdCarDto.EngineSize" value="@Model.UpdateAdDto.UpdateAdCarDto.EngineSize" required min="0" max="999999999">
                 </div>
                 <div class="form-group">
                     <label for="FuelConsumption">Fuel Consumption:</label>
-                    <input type="number" class="form-control" id="FuelConsumption" name="UpdateAdDto.UpdateAdCarDto.FuelConsumption" value="@Model.UpdateAdDto.UpdateAdCarDto.FuelConsumption">
+                    <input type="number" class="form-control" id="FuelConsumption" name="UpdateAdDto.UpdateAdCarDto.FuelConsumption" value="@Model.UpdateAdDto.UpdateAdCarDto.FuelConsumption" required min="0" max="999999999">
                 </div>
                 <div class="form-group">
                     <label for="Vin">VIN:</label>
-                    <input type="text" class="form-control" id="Vin" name="UpdateAdDto.UpdateAdCarDto.Vin" value="@Model.UpdateAdDto.UpdateAdCarDto.Vin">
+                    <input type="text" class="form-control" id="Vin" name="UpdateAdDto.UpdateAdCarDto.Vin" value="@Model.UpdateAdDto.UpdateAdCarDto.Vin" required maxlength="50">
                 </div>
                 <div class="form-group">
                     <label for="Plates">Plates:</label>
-                    <input type="text" class="form-control" id="Plates" name="UpdateAdDto.UpdateAdCarDto.Plates" value="@Model.UpdateAdDto.UpdateAdCarDto.Plates">
+                    <input type="text" class="form-control" id="Plates" name="UpdateAdDto.UpdateAdCarDto.Plates" value="@Model.UpdateAdDto.UpdateAdCarDto.Plates" required maxlength="15">
                 </div>
                 <div class="form-group">
                     <label for="EngineType">Engine Type:</label>
                     <select class="form-control" id="EngineType" name="UpdateAdDto.UpdateAdCarDto.EngineType" value="@Model.UpdateAdDto.UpdateAdCarDto.EngineType">
                         @foreach (var engineType in Enum.GetValues(typeof(EngineType)))
                         {
-                            <option value="@engineType">@engineType</option>
+                            @if (engineType.ToString() == Model.UpdateAdDto.UpdateAdCarDto.EngineType.ToString())
+                            {
+                                <option value="@engineType" selected>@engineType</option>
+                            }
+                            else
+                            {
+                                <option value="@engineType">@engineType</option>
+                            }
                         }
                     </select>
                 </div>
@@ -82,7 +89,14 @@
                     <select class="form-control" id="Transmission" name="UpdateAdDto.UpdateAdCarDto.Transmission" value="@Model.UpdateAdDto.UpdateAdCarDto.Plates">
                         @foreach (var transmission in Enum.GetValues(typeof(Transmission)))
                         {
-                            <option value="@transmission">@transmission</option>
+                            @if (transmission.ToString() == Model.UpdateAdDto.UpdateAdCarDto.Transmission.ToString())
+                            {
+                                <option value="@transmission" selected>@transmission</option>
+                            }
+                            else
+                            {
+                                <option value="@transmission">@transmission</option>
+                            }
                         }
                     </select>
                 </div>
@@ -91,7 +105,14 @@
                     <select class="form-control" id="TypeOfDrive" name="UpdateAdDto.UpdateAdCarDto.TypeOfDrive" value="@Model.UpdateAdDto.UpdateAdCarDto.TypeOfDrive">
                         @foreach (var typeOfDrive in Enum.GetValues(typeof(TypeOfDrive)))
                         {
-                            <option value="@typeOfDrive">@typeOfDrive</option>
+                            @if (typeOfDrive.ToString() == Model.UpdateAdDto.UpdateAdCarDto.TypeOfDrive.ToString())
+                            {
+                                <option value="@typeOfDrive" selected>@typeOfDrive</option>
+                            }
+                            else
+                            {
+                                <option value="@typeOfDrive">@typeOfDrive</option>
+                            }
                         }
                     </select>
                 </div>
@@ -100,11 +121,18 @@
                     <select class="form-control" id="Color" name="UpdateAdDto.UpdateAdCarDto.Color" value="@Model.UpdateAdDto.UpdateAdCarDto.Color">
                         @foreach (var color in Enum.GetValues(typeof(Colors)))
                         {
-                            <option value="@color">@color</option>
+                            @if (color.ToString() == Model.UpdateAdDto.UpdateAdCarDto.Color.ToString())
+                            {
+                                <option value="@color" selected>@color</option>
+                            }
+                            else
+                            {
+                                <option value="@color">@color</option>
+                            }
                         }
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <button type="submit" class="btn btn-success">Save Changes</button>
                 <input type="hidden" name="AdId" value="@Model.AdId">
             </form>
             <form asp-controller="Profile" asp-action="GetProfile" method="get">
