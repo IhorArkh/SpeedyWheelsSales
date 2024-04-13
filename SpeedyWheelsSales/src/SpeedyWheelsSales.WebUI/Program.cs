@@ -2,6 +2,8 @@ using System.Globalization;
 using SpeedyWheelsSales.Infrastructure.Data;
 using SpeedyWheelsSales.WebUI;
 using SpeedyWheelsSales.WebUI.Core;
+using SpeedyWheelsSales.WebUI.Interfaces;
+using SpeedyWheelsSales.WebUI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +21,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDatabase(connectionString);
 builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddAutoMapper(typeof(WebUiMappingProfiles).Assembly);
+builder.Services.AddScoped<IErrorHandlingService, ErrorHandlingService>();
 
 var cultureInfo = new CultureInfo("en-US");
 CultureInfo.DefaultThreadCurrentCulture = cultureInfo;

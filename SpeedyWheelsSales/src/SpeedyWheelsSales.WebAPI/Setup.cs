@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using SpeedyWheelsSales.Infrastructure.Data;
 
 namespace SpeedyWheelsSales.WebAPI;
@@ -14,8 +15,14 @@ public static class Setup
                 opt.Authority = "https://localhost:5005";
                 opt.Audience = "speedywheelssalesapi";
 
-                opt.TokenValidationParameters.ValidTypes = new[] { "at+jwt" };
-                // TODO think about better token validation
+                opt.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateAudience = true,
+                    ValidateIssuer = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidTypes = new[] { "at+jwt" }
+                };
             });
         services.AddAuthorization();
         services.AddIdentityCore<AppUser>(opt =>

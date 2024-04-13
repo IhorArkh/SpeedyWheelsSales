@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SpeedyWheelsSales.Application.Features.Profile.Commands.UpdateUserProfile.DTOs;
 using SpeedyWheelsSales.Application.Features.Profile.Queries.GetUserProfile.DTOs;
+using SpeedyWheelsSales.WebUI.Interfaces;
 using SpeedyWheelsSales.WebUI.Models;
 
 namespace SpeedyWheelsSales.WebUI.Controllers;
 
 public class ProfileController : Controller
 {
+    private readonly IErrorHandlingService _errorHandlingService;
     private readonly HttpClient _httpClient;
 
-    public ProfileController(IHttpClientFactory httpClientFactory)
+    public ProfileController(IHttpClientFactory httpClientFactory, IErrorHandlingService errorHandlingService)
     {
+        _errorHandlingService = errorHandlingService;
         _httpClient = httpClientFactory.CreateClient("MyWebApi");
     }
 
@@ -28,7 +31,6 @@ public class ProfileController : Controller
         if (username == null)
         {
             var token = await HttpContext.GetTokenAsync("access_token");
-
             if (token != null)
                 _httpClient.SetBearerToken(token);
         }
@@ -38,12 +40,8 @@ public class ProfileController : Controller
         }
 
         var response = await _httpClient.GetAsync($"{path}");
-
         if (!response.IsSuccessStatusCode)
-        {
-            var errorViewModel = new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier };
-            return View("Error", errorViewModel);
-        }
+            return await _errorHandlingService.HandleErrorResponseAsync(response);
 
         var responseData = await response.Content.ReadAsStringAsync();
 
@@ -67,13 +65,9 @@ public class ProfileController : Controller
             _httpClient.SetBearerToken(token);
 
         var response = await _httpClient.GetAsync("Profile");
-
         if (!response.IsSuccessStatusCode)
-        {
-            var errorViewModel = new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier };
-            return View("Error", errorViewModel);
-        }
-        
+            return await _errorHandlingService.HandleErrorResponseAsync(response);
+
         var responseData = await response.Content.ReadAsStringAsync();
 
         var userProfile = JsonConvert.DeserializeObject<UserProfileDto>(responseData);
@@ -86,7 +80,6 @@ public class ProfileController : Controller
     public async Task<IActionResult> UpdateProfile(UpdateUserProfileDto updateUserProfileDto)
     {
         var token = await HttpContext.GetTokenAsync("access_token");
-
         if (token != null)
             _httpClient.SetBearerToken(token);
 
@@ -94,12 +87,8 @@ public class ProfileController : Controller
         var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
         var response = await _httpClient.PutAsync("Profile", content);
-
         if (!response.IsSuccessStatusCode)
-        {
-            var errorViewModel = new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier };
-            return View("Error", errorViewModel);
-        }
+            return await _errorHandlingService.HandleErrorResponseAsync(response);
 
         return RedirectToAction("GetProfile");
     }
@@ -119,7 +108,6 @@ public class ProfileController : Controller
             return BadRequest();
 
         var token = await HttpContext.GetTokenAsync("access_token");
-
         if (token != null)
             _httpClient.SetBearerToken(token);
 
@@ -128,12 +116,8 @@ public class ProfileController : Controller
         content.Add(photoContent, "photo", photo.FileName);
 
         var response = await _httpClient.PutAsync("Profile/changePhoto", content);
-
         if (!response.IsSuccessStatusCode)
-        {
-            var errorViewModel = new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier };
-            return View("Error", errorViewModel);
-        }
+            return await _errorHandlingService.HandleErrorResponseAsync(response);
 
         return RedirectToAction("GetProfile");
     }
