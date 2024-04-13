@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace SpeedyWheelsSales.IdentityServer.Pages.Account.Create;
 
@@ -70,7 +71,13 @@ public class Index : PageModel
 
         if (await _signInManager.UserManager.FindByNameAsync(Input.Username) != null)
         {
-            ModelState.AddModelError("Input.Username", "Invalid username");
+            ModelState.AddModelError("Input.Username", "This username has already taken.");
+        }
+
+        if (await _signInManager.UserManager.Users
+                .FirstOrDefaultAsync(x => x.PhoneNumber == Input.PhoneNumber) != null)
+        {
+            ModelState.AddModelError("Input.Username", "This phone number has already used.");
         }
 
         if (ModelState.IsValid)
@@ -88,7 +95,7 @@ public class Index : PageModel
             {
                 new Claim("username", user.UserName)
             };
-            
+
             var isuser = new IdentityServerUser(user.Id)
             {
                 DisplayName = user.UserName,
