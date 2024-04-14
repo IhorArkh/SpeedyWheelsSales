@@ -30,7 +30,7 @@
         </div>
         <div class="col-md-8">
             <form asp-controller="Ad" asp-action="GetCreateAdView" method="get">
-                <button type="submit" class="btn btn-outline-success">Create new ad</button>
+                <button type="submit" class="btn btn-outline-success rounded-pill px-3">Create new ad</button>
             </form>
             <h2>Active ads</h2>
             @if (Model.UserProfileDto.AdDtos.Any())

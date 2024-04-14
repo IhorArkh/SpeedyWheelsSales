@@ -10,101 +10,104 @@
         <div class="col-md-6 offset-md-3">
             <h2>Create Ad</h2>
             <form asp-controller="Ad" asp-action="CreateAd" method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label for="Photo1">Main photo:</label>
-                    <input type="file" class="form-control-file" id="Photo1" name="createAdDto.Photos" accept="image/*" required>
-                    <small class="form-text text-muted">Main photo is required</small>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Main photo(required)</span>
+                    <input type="file" class="form-control" id="Photo1" name="createAdDto.Photos" accept="image/*" required>
                 </div>
-                <div class="form-group">
-                    <label for="Photo2">Photo 2:</label>
-                    <input type="file" class="form-control-file" id="Photo2" name="createAdDto.Photos" accept="image/*">
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Photo 2</span>
+                    <input type="file" class="form-control" id="Photo2" name="createAdDto.Photos" accept="image/*">
                 </div>
-                <div class="form-group">
-                    <label for="Photo3">Photo 3:</label>
-                    <input type="file" class="form-control-file" id="Photo3" name="createAdDto.Photos" accept="image/*">
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Photo 3</span>
+                    <input type="file" class="form-control" id="Photo3" name="createAdDto.Photos" accept="image/*">
                 </div>
-                <div class="form-group">
-                    <label for="Photo4">Photo 4:</label>
-                    <input type="file" class="form-control-file" id="Photo4" name="createAdDto.Photos" accept="image/*">
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Photo 4</span>
+                    <input type="file" class="form-control" id="Photo4" name="createAdDto.Photos" accept="image/*">
                 </div>
-                <div class="form-group">
-                    <label for="Photo5">Photo 5:</label>
-                    <input type="file" class="form-control-file" id="Photo5" name="createAdDto.Photos" accept="image/*">
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Photo 5</span>
+                    <input type="file" class="form-control" id="Photo5" name="createAdDto.Photos" accept="image/*">
                 </div>
-                <div class="form-group">
-                    <label for="Description">Description:</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Description</span>
                     <textarea type="text" class="form-control" id="Description" name="createAdDto.Description" required maxlength="2000"></textarea>
                 </div>
-                <div class="form-group">
-                    <label for="City">City:</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">City</span>
                     <input type="text" class="form-control" id="City" name="createAdDto.City" required maxlength="50">
                 </div>
-                <div class="form-group">
-                    <label for="Brand">Brand:</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Brand</span>
                     <input type="text" class="form-control" id="Brand" name="createAdDto.CreateAdCarDto.Brand" required maxlength="50">
                 </div>
-                <div class="form-group">
-                    <label for="Model">Model:</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Model</span>
                     <input type="text" class="form-control" id="Model" name="createAdDto.CreateAdCarDto.Model" required maxlength="50">
                 </div>
-                <div class="form-group">
-                    <label for="Price">Price:</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Price</span>
                     <input type="number" class="form-control" id="Price" name="createAdDto.CreateAdCarDto.Price" required min="0" max="999999999">
+                    <span class="input-group-text">$</span>
                 </div>
-                <div class="form-group">
-                    <label for="Mileage">Mileage:</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Mileage</span>
                     <input type="number" class="form-control" id="Mileage" name="createAdDto.CreateAdCarDto.Mileage" required min="0" max="999999999">
+                    <span class="input-group-text">km</span>
                 </div>
-                <div class="form-group">
-                    <label for="EngineSize">Engine Size:</label>
-                    <input type="number" class="form-control" id="EngineSize" name="createAdDto.CreateAdCarDto.EngineSize" required min="0" max="999999999">
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Engine Size</span>
+                    <input type="number" step="0.1" class="form-control" id="EngineSize" name="createAdDto.CreateAdCarDto.EngineSize" required min="0" max="999999999">
+                    <span class="input-group-text">L</span>
                 </div>
-                <div class="form-group">
-                    <label for="FuelConsumption">Fuel Consumption:</label>
-                    <input type="number" class="form-control" id="FuelConsumption" name="createAdDto.CreateAdCarDto.FuelConsumption" required min="0" max="999999999">
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Fuel consumption</span>
+                    <input type="number" step="0.1" class="form-control" id="FuelConsumption" name="createAdDto.CreateAdCarDto.FuelConsumption" required min="0" max="999999999">
+                    <span class="input-group-text">L/100km</span>
                 </div>
-                <div class="form-group">
-                    <label for="Vin">VIN:</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">VIN</span>
                     <input type="text" class="form-control" id="Vin" name="createAdDto.CreateAdCarDto.Vin" required maxlength="50">
                 </div>
-                <div class="form-group">
-                    <label for="Plates">Plates:</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Plates</span>
                     <input type="text" class="form-control" id="Plates" name="createAdDto.CreateAdCarDto.Plates" required maxlength="15">
                 </div>
-                <div class="form-group">
-                    <label for="ManufactureDate">Manufacture Date:</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Manufacture date</span>
                     <input type="date" class="form-control" id="ManufactureDate" name="createAdDto.CreateAdCarDto.ManufactureDate" required max="@todayDate">
                 </div>
-                <div class="form-group">
-                    <label for="EngineType">Engine Type:</label>
-                    <select class="form-control" id="EngineType" name="createAdDto.CreateAdCarDto.EngineType">
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Engine type</span>
+                    <select class="form-select" id="EngineType" name="createAdDto.CreateAdCarDto.EngineType">
                         @foreach (var engineType in Enum.GetValues(typeof(EngineType)))
                         {
                             <option value="@engineType">@engineType</option>
                         }
                     </select>
                 </div>
-                <div class="form-group">
-                    <label for="Transmission">Transmission:</label>
-                    <select class="form-control" id="Transmission" name="createAdDto.CreateAdCarDto.Transmission">
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Transmission</span>
+                    <select class="form-select" id="Transmission" name="createAdDto.CreateAdCarDto.Transmission">
                         @foreach (var transmission in Enum.GetValues(typeof(Transmission)))
                         {
                             <option value="@transmission">@transmission</option>
                         }
                     </select>
                 </div>
-                <div class="form-group">
-                    <label for="TypeOfDrive">Type of Drive:</label>
-                    <select class="form-control" id="TypeOfDrive" name="createAdDto.CreateAdCarDto.TypeOfDrive">
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Type of drive</span>
+                    <select class="form-select" id="TypeOfDrive" name="createAdDto.CreateAdCarDto.TypeOfDrive">
                         @foreach (var typeOfDrive in Enum.GetValues(typeof(TypeOfDrive)))
                         {
                             <option value="@typeOfDrive">@typeOfDrive</option>
                         }
                     </select>
                 </div>
-                <div class="form-group">
-                    <label for="Color">Color:</label>
-                    <select class="form-control" id="Color" name="createAdDto.CreateAdCarDto.Color">
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Color</span>
+                    <select class="form-select" id="Color" name="createAdDto.CreateAdCarDto.Color">
                         @foreach (var color in Enum.GetValues(typeof(Colors)))
                         {
                             <option value="@color">@color</option>

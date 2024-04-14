@@ -7,11 +7,14 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="~/css/styles.css">
 }
 
 <div class="container">
     <h2>List of ads</h2>
+
     <div class="accordion" id="filterAccordion">
         <div class="accordion-item">
             <h2 class="accordion-header">
@@ -19,7 +22,7 @@
                     Filter ads
                 </button>
             </h2>
-            <div id="collapseFilters" class="accordion-collapse collapse" aria-labelledby="headingFilters" data-bs-parent="#filterAccordion">
+            <div id="collapseFilters" class="accordion-collapse collapse show" aria-labelledby="headingFilters" data-bs-parent="#filterAccordion">
                 <div class="accordion-body">
                     <form id="saveSearchForm" method="post" action="@Url.Action("SaveSearch", "SavedSearch")">
                         <div class="form-row">
@@ -110,9 +113,13 @@
                         <div class="form-row mt-3">
                             <div class="col-md-12 text-right">
                                 <button type="submit" class="btn btn-primary" onclick="setFormAction('@Url.Action("ListAds", "Ad")')">Apply Filters</button>
-                                <button type="submit" class="btn btn-success">Save Search</button>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <button type="submit" class="btn btn-success">Save Search</button>
+                                }
                             </div>
                         </div>
+
                     </form>
                 </div>
             </div>
@@ -128,34 +135,59 @@
                     continue;
 
                 <div class="col-md-4 mb-4">
-                    <div class="card">
+                    <div class="card h-100">
                         @if (ad.PhotoDtos.Any())
                         {
                             <img src="@ad.PhotoDtos.FirstOrDefault(x => x.IsMain)?.Url" class="card-img-top" alt="Car Photo">
                         }
+                        @if (User.Identity.IsAuthenticated && ad.IsAuthor)
+                        {
+                            <p class="badge badge-success">Your ad</p>
+                        }
                         @if (ad.IsSold)
                         {
-                            <div class="sold-overlay">SOLD</div>
+                            <div class="sold-overlay d-flex justify-content-center align-items-center">SOLD</div>
                         }
                         <div class="card-body">
-                            <h5 class="card-title">@ad.CarDto.Model</h5>
-                            <p class="card-text">Price: $@ad.CarDto.Price</p>
-                            <p class="card-text">Mileage: @ad.CarDto.Mileage miles</p>
-                            <p class="card-text">Engine Size: @ad.CarDto.EngineSize</p>
-                            <a href="@Url.Action("GetAdDetails", "Ad", new { id = ad.Id })" class="btn btn-primary">View Details</a>
-                            @if (User.Identity.IsAuthenticated && !ad.IsAuthor && !ad.IsSold)
-                            {
-                                string buttonName = ad.IsFavourite ? "Remove from favourites" : "Add to favourites";
+                            <h5 class="card-title">@ad.CarDto.Brand @ad.CarDto.Model @ad.CarDto.ManufactureDate.Year</h5>
+                            <p class="card-text">
+                                <i class="fa-solid fa-dollar-sign"></i> @ad.CarDto.Price.ToString("0.##")
+                            </p>
+                            <p class="card-text">
+                                <i class="fa-solid fa-gauge-high"></i> @ad.CarDto.Mileage k km
+                                <span class="float-right">
+                                    <i class="fa-solid fa-location-dot"></i> @ad.City
+                                </span>
+                            </p>
+                            <p class="card-text">
+                                <i class="fa-solid fa-gas-pump"></i> @ad.CarDto.EngineType, @ad.CarDto.EngineSize L
+                                <span class="float-right">
+                                    <i class="fa-sharp fa-solid fa-gears"></i> @ad.CarDto.Transmission
+                                </span>
+                            </p>
+                            <p class="badge badge-primary">
+                                <i class="fa-solid fa-car"></i> @ad.CarDto.Plates
+                            </p>
+                            <p class="badge badge-primary float-right">
+                                <i class="fa-solid fa-barcode"></i> @ad.CarDto.Vin
+                            </p>
+                            <p class="card-text">
+                                <i class="fa-solid fa-clock"></i> @ad.CreatedAt.ToShortDateString()
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="@Url.Action("GetAdDetails", "Ad", new { id = ad.Id })" class="btn btn-primary rounded-pill px-3">Details</a>
+                                @if (User.Identity.IsAuthenticated && !ad.IsAuthor && !ad.IsSold)
+                                {
+                                    string iconClass = ad.IsFavourite ? "fas fa-heart" : "far fa-heart";
 
-                                <form asp-controller="Ad" asp-action="ToggleFavourite" method="post">
-                                    <input type="hidden" name="adId" value="@ad.Id"/>
-                                    <button type="submit" class="btn btn-success">@buttonName</button>
-                                </form>
-                            }
-                            @if (User.Identity.IsAuthenticated && ad.IsAuthor)
-                            {
-                                <p class="align-content-center">Your ad</p>
-                            }
+                                    <form asp-controller="Ad" asp-action="ToggleFavourite" method="post">
+                                        <input type="hidden" name="adId" value="@ad.Id"/>
+                                        <button type="submit" class="btn btn-link">
+                                            <i class="@iconClass"></i>
+                                        </button>
+                                    </form>
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>

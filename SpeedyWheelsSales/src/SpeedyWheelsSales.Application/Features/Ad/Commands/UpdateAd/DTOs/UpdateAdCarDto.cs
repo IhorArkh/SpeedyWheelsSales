@@ -6,7 +6,7 @@ public class UpdateAdCarDto
 {
     public decimal Price { get; set; }
     public int Mileage { get; set; }
-    public decimal EngineSize { get; set; }
+    public double EngineSize { get; set; }
     public double FuelConsumption { get; set; }
     public string Vin { get; set; }
     public string Plates { get; set; }
