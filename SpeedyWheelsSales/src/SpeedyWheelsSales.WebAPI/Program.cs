@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Reflection;
 using System.Text.Json.Serialization;
 using Domain.Entities;
@@ -73,6 +74,10 @@ builder.Services.AddScoped<IValidator<UpdateAdDto>, UpdateAdCommandValidator>();
 builder.Services.AddScoped<IValidator<UpdateUserProfileDto>, UpdateUserProfileValidator>();
 builder.Services.AddScoped<IPhotoAccessor, PhotoAccessor>();
 builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("Cloudinary"));
+
+var cultureInfo = new CultureInfo("en-US");
+CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
 var app = builder.Build();
 
