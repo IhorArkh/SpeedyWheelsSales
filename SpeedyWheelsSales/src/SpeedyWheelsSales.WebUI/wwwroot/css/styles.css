@@ -61,3 +61,13 @@
 .custom-display {
     font-size: 1.7rem;
 }
+
+.custom-btn {
+    width: 180px;
+    height: 40px;
+}
+
+#saveSearchForm label {
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+}

@@ -1,39 +1,39 @@
 ﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model SpeedyWheelsSales.Application.Features.Profile.Queries.GetUserProfile.DTOs.UserProfileDto
 @{
-    ViewData["Title"] = "Edit Profile";
+    ViewData["Title"] = "Edit profile";
 }
 
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <h2>Edit Profile</h2>
+            <h2 class="text-center">Edit profile</h2>
             <form asp-action="UpdateProfile" method="post" id="editProfileForm">
-                <div class="form-group">
-                    <label for="Name">Name:</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Name</span>
                     <input type="text" class="form-control" id="Name" name="Name" value="@Model.Name" required maxlength="50">
                 </div>
-                <div class="form-group">
-                    <label for="Location">Location:</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Location</span>
                     <input type="text" class="form-control" id="Location" name="Location" value="@Model.Location" required maxlength="50">
                 </div>
-                <div class="form-group">
-                    <label for="Bio">Bio:</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Bio</span>
                     <textarea class="form-control" id="Bio" name="Bio" required maxlength="250">@Model.Bio</textarea>
                 </div>
-                <div class="form-group">
-                    <label for="Email">Email:</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Email</span>
                     <input type="email" class="form-control" id="Email" name="Email" value="@Model.Email" required maxlength="50">
                 </div>
-                <div class="form-group">
-                    <label for="PhoneNumber">Phone Number:</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Phone number</span>
                     <input type="tel" class="form-control" id="PhoneNumber" name="PhoneNumber" value="@Model.PhoneNumber" required maxlength="50" pattern="[0-9]{10,14}">
-                    <small class="form-text text-muted">Please enter a valid phone number (10-14 digits).</small>
                 </div>
-                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <button type="submit" class="btn btn-success rounded-pill px-3" style="width: 100%;">Save Changes</button>
+            </form>
+            <form asp-controller="Profile" asp-action="GetProfile" method="get">
+                <button type="submit" class="btn btn-secondary rounded-pill mt-2" style="width: 100%;">Cancel</button>
             </form>
         </div>
     </div>
 </div>
-
-<script src="/js/form-validation.js"></script>

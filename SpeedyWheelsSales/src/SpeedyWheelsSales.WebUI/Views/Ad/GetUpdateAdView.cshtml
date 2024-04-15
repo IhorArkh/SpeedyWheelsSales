@@ -3,74 +3,86 @@
 @model UpdateAdViewModel
 
 @{
-    ViewData["Title"] = "Edit Ad";
+    ViewData["Title"] = "Edit ad";
 }
 
 <div class="container mt-4">
     <div class="row">
-        <div class="col-md-6 offset-md-3">
-            <h2 class="text-center">Edit Ad</h2>
-            <form asp-action="GetAddAdPhotoView" method="get">
+        <div class="col-md-7 offset-md-3">
+            <h2 class="text-center">Edit ad</h2>
+            <form asp-action="GetAddAdPhotoView" class="text-center mb-3" method="get">
                 <input type="hidden" name="adId" value="@Model.AdId">
-                <button type="submit" class="btn btn-outline-success">Add photo</button>
+                <button type="submit" class="btn btn-success rounded-pill px-3 btn-lg">Add photo</button>
             </form>
 
-            @foreach (var photo in Model.PhotoDtos)
-            {
-                <img src="@photo.Url" alt="Photo"/>
-                @if (photo.IsMain)
+            <div class="row">
+                @foreach (var photo in Model.PhotoDtos)
                 {
-                    <p>Main photo(can't be deleted)</p>
+                    <div class="col-md-4">
+                        <div class="text-center mb-3">
+                            <img src="@photo.Url" class="card-img-top" style="border-radius: 5%" alt="Photo"/>
+                            @if (photo.IsMain)
+                            {
+                                <b>Main photo (can't be deleted)</b>
+                            }
+                            else
+                            {
+                                <div class="d-flex justify-content-center mt-1">
+                                    <form asp-action="SetMainAdPhoto" class="mx-2" method="post">
+                                        <input type="hidden" name="photoId" value="@photo.Id">
+                                        <button type="submit" class="btn btn-primary rounded-pill px-3">Set main</button>
+                                    </form>
+                                    <form asp-action="DeleteAdPhoto" class="mx-2" method="post">
+                                        <input type="hidden" name="photoId" value="@photo.Id">
+                                        <button type="submit" class="btn btn-danger rounded-pill px-3">Delete</button>
+                                    </form>
+                                </div>
+                            }
+                        </div>
+                    </div>
                 }
-                else
-                {
-                    <form asp-action="SetMainAdPhoto" method="post">
-                        <input type="hidden" name="photoId" value="@photo.Id">
-                        <button type="submit" class="btn btn-primary">Set photo as main</button>
-                    </form>
-                    <form asp-action="DeleteAdPhoto" method="post">
-                        <input type="hidden" name="photoId" value="@photo.Id">
-                        <button type="submit" class="btn btn-primary">Delete photo</button>
-                    </form>
-                }
-            }
+            </div>
 
             <form asp-action="UpdateAd" method="post">
-                <div class="form-group">
-                    <label for="Description">Description:</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Description</span>
                     <textarea type="text" class="form-control" id="Description" name="UpdateAdDto.Description" required maxlength="2000">@Model.UpdateAdDto.Description</textarea>
                 </div>
-                <div class="form-group">
-                    <label for="City">City:</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">City</span>
                     <input type="text" class="form-control" id="City" name="UpdateAdDto.City" value="@Model.UpdateAdDto.City" required maxlength="50">
                 </div>
-                <div class="form-group">
-                    <label for="Price">Price:</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Price</span>
                     <input type="number" class="form-control" id="Price" name="UpdateAdDto.UpdateAdCarDto.Price" value="@Model.UpdateAdDto.UpdateAdCarDto.Price" required min="0" max="999999999">
+                    <span class="input-group-text">$</span>
                 </div>
-                <div class="form-group">
-                    <label for="Mileage">Mileage:</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Mileage</span>
                     <input type="number" class="form-control" id="Mileage" name="UpdateAdDto.UpdateAdCarDto.Mileage" value="@Model.UpdateAdDto.UpdateAdCarDto.Mileage" required min="0" max="999999999">
+                    <span class="input-group-text">km</span>
                 </div>
-                <div class="form-group">
-                    <label for="EngineSize">Engine Size:</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Engine Size</span>
                     <input type="number" step="0.1" class="form-control" id="EngineSize" name="UpdateAdDto.UpdateAdCarDto.EngineSize" value="@Model.UpdateAdDto.UpdateAdCarDto.EngineSize" required min="0" max="999999999">
+                    <span class="input-group-text">L</span>
                 </div>
-                <div class="form-group">
-                    <label for="FuelConsumption">Fuel Consumption:</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Fuel consumption</span>
                     <input type="number" step="0.1" class="form-control" id="FuelConsumption" name="UpdateAdDto.UpdateAdCarDto.FuelConsumption" value="@Model.UpdateAdDto.UpdateAdCarDto.FuelConsumption" required min="0" max="999999999">
+                    <span class="input-group-text">L/100km</span>
                 </div>
-                <div class="form-group">
-                    <label for="Vin">VIN:</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">VIN</span>
                     <input type="text" class="form-control" id="Vin" name="UpdateAdDto.UpdateAdCarDto.Vin" value="@Model.UpdateAdDto.UpdateAdCarDto.Vin" required maxlength="50">
                 </div>
-                <div class="form-group">
-                    <label for="Plates">Plates:</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Plates</span>
                     <input type="text" class="form-control" id="Plates" name="UpdateAdDto.UpdateAdCarDto.Plates" value="@Model.UpdateAdDto.UpdateAdCarDto.Plates" required maxlength="15">
                 </div>
-                <div class="form-group">
-                    <label for="EngineType">Engine Type:</label>
-                    <select class="form-control" id="EngineType" name="UpdateAdDto.UpdateAdCarDto.EngineType" value="@Model.UpdateAdDto.UpdateAdCarDto.EngineType">
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Engine type</span>
+                    <select class="form-select" id="EngineType" name="UpdateAdDto.UpdateAdCarDto.EngineType" value="@Model.UpdateAdDto.UpdateAdCarDto.EngineType">
                         @foreach (var engineType in Enum.GetValues(typeof(EngineType)))
                         {
                             @if (engineType.ToString() == Model.UpdateAdDto.UpdateAdCarDto.EngineType.ToString())
@@ -84,9 +96,9 @@
                         }
                     </select>
                 </div>
-                <div class="form-group">
-                    <label for="Transmission">Transmission:</label>
-                    <select class="form-control" id="Transmission" name="UpdateAdDto.UpdateAdCarDto.Transmission" value="@Model.UpdateAdDto.UpdateAdCarDto.Plates">
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Transmission</span>
+                    <select class="form-select" id="Transmission" name="UpdateAdDto.UpdateAdCarDto.Transmission" value="@Model.UpdateAdDto.UpdateAdCarDto.Plates">
                         @foreach (var transmission in Enum.GetValues(typeof(Transmission)))
                         {
                             @if (transmission.ToString() == Model.UpdateAdDto.UpdateAdCarDto.Transmission.ToString())
@@ -100,9 +112,9 @@
                         }
                     </select>
                 </div>
-                <div class="form-group">
-                    <label for="TypeOfDrive">Type of Drive:</label>
-                    <select class="form-control" id="TypeOfDrive" name="UpdateAdDto.UpdateAdCarDto.TypeOfDrive" value="@Model.UpdateAdDto.UpdateAdCarDto.TypeOfDrive">
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Type of drive</span>
+                    <select class="form-select" id="TypeOfDrive" name="UpdateAdDto.UpdateAdCarDto.TypeOfDrive" value="@Model.UpdateAdDto.UpdateAdCarDto.TypeOfDrive">
                         @foreach (var typeOfDrive in Enum.GetValues(typeof(TypeOfDrive)))
                         {
                             @if (typeOfDrive.ToString() == Model.UpdateAdDto.UpdateAdCarDto.TypeOfDrive.ToString())
@@ -116,9 +128,9 @@
                         }
                     </select>
                 </div>
-                <div class="form-group">
-                    <label for="Color">Color:</label>
-                    <select class="form-control" id="Color" name="UpdateAdDto.UpdateAdCarDto.Color" value="@Model.UpdateAdDto.UpdateAdCarDto.Color">
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Color</span>
+                    <select class="form-select" id="Color" name="UpdateAdDto.UpdateAdCarDto.Color" value="@Model.UpdateAdDto.UpdateAdCarDto.Color">
                         @foreach (var color in Enum.GetValues(typeof(Colors)))
                         {
                             @if (color.ToString() == Model.UpdateAdDto.UpdateAdCarDto.Color.ToString())
@@ -132,11 +144,11 @@
                         }
                     </select>
                 </div>
-                <button type="submit" class="btn btn-success">Save Changes</button>
+                <button type="submit" class="btn btn-success rounded-pill px-3" style="width: 100%;">Save Changes</button>
                 <input type="hidden" name="AdId" value="@Model.AdId">
             </form>
             <form asp-controller="Profile" asp-action="GetProfile" method="get">
-                <button type="submit" class="btn btn-secondary">Cancel</button>
+                <button type="submit" class="btn btn-secondary rounded-pill mt-2" style="width: 100%;">Cancel</button>
             </form>
         </div>
     </div>

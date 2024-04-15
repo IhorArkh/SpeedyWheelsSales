@@ -86,7 +86,8 @@ public class Index : PageModel
             {
                 UserName = Input.Username,
                 PhoneNumber = Input.PhoneNumber,
-                Name = Input.Name
+                Name = Input.Name,
+                RegisterDate = DateTime.UtcNow,
             };
 
             var result = await _signInManager.UserManager.CreateAsync(user, Input.Password);

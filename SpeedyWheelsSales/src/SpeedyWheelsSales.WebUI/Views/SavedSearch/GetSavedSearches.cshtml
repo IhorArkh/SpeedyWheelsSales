@@ -3,43 +3,115 @@
 
 @{
     ViewData["Title"] = "Saved searches";
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="~/css/styles.css">
 }
 
-<h1>Saved searches</h1>
+<h2 class="text-center mb-4">Saved searches</h2>
 
-<div class="row">
+<div class="col-6 mx-auto">
     @if (Model.Any())
     {
         @foreach (var search in Model)
         {
-            <div class="col-md-4 mb-4">
+            <div class="col mb-4">
                 <div class="card">
                     <div class="card-body">
-                        @* <h5 class="card-title">Query: @search.QueryString</h5> *@
+                        <h5 class="card-title text-center">Saved Search</h5>
                         @foreach (var property in search.GetType().GetProperties())
                         {
                             var value = property.GetValue(search);
                             if (property.Name != "QueryString" && property.Name != "Id"
                                                                && value != null && !string.IsNullOrWhiteSpace(value.ToString()))
                             {
-                                <p class="card-text">@property.Name: @value</p>
+                                <p class="card-text"><strong>@GetPropertyName(property.Name)</strong>: @FormatPropertyValue(property.Name, value)</p>
                             }
                         }
                     </div>
-                    <form asp-controller="SavedSearch" asp-action="DeleteSearch" method="post">
-                        <input type="hidden" name="searchId" value="@search.Id"/>
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-                    <form asp-controller="Ad" asp-action="ListAds" method="get">
-                        <input type="hidden" name="queryStrFromSavedSearch" value="@search.QueryString"/>
-                        <button type="submit" class="btn btn-primary">Go to ads</button>
-                    </form>
+                    <div class="d-flex justify-content-center mt-3 mb-3">
+                        <form asp-controller="Ad" asp-action="ListAds" class="mx-2" method="get">
+                            <input type="hidden" name="queryStrFromSavedSearch" value="@search.QueryString"/>
+                            <button type="submit" class="btn btn-primary rounded-pill px-3">Go to ads</button>
+                        </form>
+                        <form asp-controller="SavedSearch" asp-action="DeleteSearch" class="mx-2" method="post">
+                            <input type="hidden" name="searchId" value="@search.Id"/>
+                            <button type="submit" class="btn btn-danger rounded-pill px-3">Delete</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         }
     }
     else
     {
-        <p>No saved searches found.</p>
+        <div class="col-md-12">
+            <p class="text-center">No saved searches found.</p>
+        </div>
     }
 </div>
+
+@functions {
+
+    string GetPropertyName(string propertyName)
+    {
+        switch (propertyName)
+        {
+            case "City":
+                return "City";
+            case "Brand":
+                return "Brand";
+            case "Model":
+                return "Model";
+            case "MinPrice":
+                return "Minimum Price";
+            case "MaxPrice":
+                return "Maximum Price";
+            case "MaxMileage":
+                return "Maximum Mileage";
+            case "MinManufactureYear":
+                return "Minimum Manufacture Year";
+            case "MaxManufactureYear":
+                return "Maximum Manufacture Year";
+            case "MinEngineSize":
+                return "Minimum Engine Size";
+            case "MaxEngineSize":
+                return "Maximum Engine Size";
+            case "MaxFuelConsumption":
+                return "Maximum Fuel Consumption";
+            case "EngineType":
+                return "Engine Type";
+            case "Transmission":
+                return "Transmission";
+            case "TypeOfDrive":
+                return "Type of Drive";
+            case "Color":
+                return "Color";
+            default:
+                return propertyName;
+        }
+    }
+
+    string FormatPropertyValue(string propertyName, object value)
+    {
+        switch (propertyName)
+        {
+            case "MinPrice":
+            case "MaxPrice":
+                return $"{value:0.##}$";
+            case "MinEngineSize":
+            case "MaxEngineSize":
+                return $"{value} L";
+            case "MaxFuelConsumption":
+                return $"{value} L/100km";
+            case "MaxMileage":
+                return $"{value} km";
+            default:
+                return value.ToString();
+        }
+    }
+
+}

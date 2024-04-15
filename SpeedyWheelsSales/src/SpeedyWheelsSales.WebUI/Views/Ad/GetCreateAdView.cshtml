@@ -1,14 +1,14 @@
 ﻿@using Domain.Enums
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @{
-    ViewData["Title"] = "Create Ad";
+    ViewData["Title"] = "Create ad";
     var todayDate = DateTime.UtcNow.ToString("yyyy-MM-dd");
 }
 
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <h2>Create Ad</h2>
+            <h2 class="text-center">Create ad</h2>
             <form asp-controller="Ad" asp-action="CreateAd" method="post" enctype="multipart/form-data">
                 <div class="input-group mb-3">
                     <span class="input-group-text">Main photo(required)</span>
@@ -54,7 +54,7 @@
                 <div class="input-group mb-3">
                     <span class="input-group-text">Mileage</span>
                     <input type="number" class="form-control" id="Mileage" name="createAdDto.CreateAdCarDto.Mileage" required min="0" max="999999999">
-                    <span class="input-group-text">k km</span>
+                    <span class="input-group-text">km</span>
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text">Engine Size</span>
@@ -114,10 +114,10 @@
                         }
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary">Create Ad</button>
+                <button type="submit" class="btn btn-success rounded-pill px-3" style="width: 100%;">Create Ad</button>
             </form>
             <form asp-controller="Profile" asp-action="GetProfile" method="get">
-                <button type="submit" class="btn btn-secondary">Cancel</button>
+                <button type="submit" class="btn btn-secondary rounded-pill mt-2" style="width: 100%;">Cancel</button>
             </form>
         </div>
     </div>

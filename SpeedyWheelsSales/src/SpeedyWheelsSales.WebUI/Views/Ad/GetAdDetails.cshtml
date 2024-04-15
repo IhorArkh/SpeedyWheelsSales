@@ -39,7 +39,7 @@
                         <i class="fa-solid fa-dollar-sign"></i> @Model.CarDto.Price.ToString("0.##")
                     </p>
                     <p class="card-text">
-                        <i class="fa-solid fa-gauge-high"></i> @Model.CarDto.Mileage k km
+                        <i class="fa-solid fa-gauge-high"></i> @Model.CarDto.Mileage km
                         <span class="float-right">
                             <i class="fa-solid fa-location-dot"></i> @Model.City
                         </span>
@@ -59,6 +59,12 @@
                     <p class="card-text">
                         <i class="fa-solid fa-circle-info"></i> @Model.Description
                     </p>
+                    <p class="card-text">
+                        <i class="fa-solid fa-gas-pump"></i> @Model.CarDto.FuelConsumption L/100km
+                        <span class="float-right">
+                            <i class="fa-solid fa-palette"></i> @Model.CarDto.Color
+                        </span>
+                    </p>
                     <p class="card-text text-muted">
                         <i class="fa-solid fa-clock"></i> @Model.CreatedAt.ToShortDateString()
                     </p>
@@ -68,18 +74,31 @@
         <div class="col-md-4">
             <div class="card mt-3">
                 <div class="card-body">
-                    <img src="@Model.AppUserDto.PhotoUrl" class="card-img-top" alt="User Photo">
+                    @if (Model.AppUserDto.PhotoUrl != null)
+                    {
+                        <img src="@Model.AppUserDto.PhotoUrl" class="card-img-top" alt="User Photo">
+                    }
+                    else
+                    {
+                        <img src="/genericProfile.png" class="card-img-top" alt="User Photo">
+                    }
                     <div class="card-body">
                         <h5 class="card-title">@Model.AppUserDto.Name</h5>
                         <p class="card-text">
                             <i class="fa-solid fa-at"></i> @Model.AppUserDto.UserName
                         </p>
-                        <p class="card-text">
-                            <i class="fa-solid fa-location-dot"></i> @Model.AppUserDto.Location
-                        </p>
-                        <p class="card-text">
-                            <i class="fa-solid fa-address-card"></i> @Model.AppUserDto.Bio
-                        </p>
+                        @if (Model.AppUserDto.Location != null)
+                        {
+                            <p class="card-text">
+                                <i class="fa-solid fa-location-dot"></i> @Model.AppUserDto.Location
+                            </p>
+                        }
+                        @if (Model.AppUserDto.Bio != null)
+                        {
+                            <p class="card-text">
+                                <i class="fa-solid fa-address-card"></i> @Model.AppUserDto.Bio
+                            </p>
+                        }
                         <p class="card-text text-muted">
                             <i class="fa-solid fa-clock"></i> Registered:@Model.AppUserDto.RegisterDate.ToShortDateString()
                         </p>
@@ -87,10 +106,10 @@
 
                     @if (!Model.IsAuthor)
                     {
-                        <div class="d-flex justify-content-center mt-2 mb-2">
+                        <div>
                             <form asp-controller="Profile" asp-action="GetProfile" method="get">
                                 <input type="hidden" name="username" value="@Model.AppUserDto.UserName"/>
-                                <button type="submit" class="btn btn-primary rounded-pill px-3">View profile</button>
+                                <button type="submit" class="btn btn-primary rounded-pill px-3" style="width: 100%;">View profile</button>
                             </form>
                         </div>
                     }

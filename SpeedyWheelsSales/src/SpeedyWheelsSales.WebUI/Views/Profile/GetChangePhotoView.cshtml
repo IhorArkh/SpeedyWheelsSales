@@ -1,14 +1,13 @@
 ﻿@{
-    ViewData["Title"] = "Upload Photo";
+    ViewData["Title"] = "Upload profile photo";
 }
 
-<h1>Upload new photo</h1>
-
-<form asp-action="ChangePhoto" method="post" enctype="multipart/form-data">
-    <div class="form-group">
-        <label class="control-label">Select Photo:</label>
-        <input type="file" class="form-control" name="photo" accept="image/*" required>
-    </div>
-
-    <button type="submit" class="btn btn-success">Upload</button>
-</form>
+<h2 class="text-center">Upload new profile photo</h2>
+<div class="d-flex justify-content-center mt-3">
+    <form asp-action="ChangePhoto" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <input type="file" class="form-control" name="photo" accept="image/*" required>
+        </div>
+        <button type="submit" class="btn btn-success btn-block rounded-pill px-3 mt-2" style="width: 100%;">Submit</button>
+    </form>
+</div>
