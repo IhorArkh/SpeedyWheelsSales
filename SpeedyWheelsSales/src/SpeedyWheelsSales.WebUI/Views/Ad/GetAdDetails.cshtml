@@ -3,13 +3,18 @@
 
 @{
     ViewData["Title"] = "Ad details";
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/styles.css">
 }
 
 <div class="container">
-    <h2>Ad details</h2>
     <div class="row">
         <div class="col-md-8">
-            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div id="carouselExampleControls" class="carousel zoom" data-bs-ride="carousel" data-bs-interval="false">
                 <div class="carousel-inner">
                     @foreach (var photo in Model.PhotoDtos)
                     {
@@ -27,47 +32,69 @@
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">@Model.CarDto.Brand @Model.CarDto.Model @Model.CarDto.ManufactureDate.Year</h5>
+                    <p class="card-text text-left font-weight-bold text-success custom-display">
+                        <i class="fa-solid fa-dollar-sign"></i> @Model.CarDto.Price.ToString("0.##")
+                    </p>
+                    <p class="card-text">
+                        <i class="fa-solid fa-gauge-high"></i> @Model.CarDto.Mileage k km
+                        <span class="float-right">
+                            <i class="fa-solid fa-location-dot"></i> @Model.City
+                        </span>
+                    </p>
+                    <p class="card-text">
+                        <i class="fa-solid fa-gas-pump"></i> @Model.CarDto.EngineType, @Model.CarDto.EngineSize L
+                        <span class="float-right">
+                            <i class="fa-sharp fa-solid fa-gears"></i> @Model.CarDto.Transmission
+                        </span>
+                    </p>
+                    <p class="badge badge-primary">
+                        <i class="fa-solid fa-car"></i> @Model.CarDto.Plates
+                    </p>
+                    <p class="badge badge-primary float-right">
+                        <i class="fa-solid fa-barcode"></i> @Model.CarDto.Vin
+                    </p>
+                    <p class="card-text">
+                        <i class="fa-solid fa-circle-info"></i> @Model.Description
+                    </p>
+                    <p class="card-text text-muted">
+                        <i class="fa-solid fa-clock"></i> @Model.CreatedAt.ToShortDateString()
+                    </p>
+                </div>
+            </div>
         </div>
         <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">@Model.CarDto.Model</h5>
-                    <p class="card-text">Price: $@Model.CarDto.Price</p>
-                    <p class="card-text">Mileage: @Model.CarDto.Mileage miles</p>
-                    <p class="card-text">Engine Size: @Model.CarDto.EngineSize</p>
-                    <!-- Add other fields as needed -->
-                </div>
-            </div>
             <div class="card mt-3">
                 <div class="card-body">
-                    <h5 class="card-title">Ad Details</h5>
-                    <p class="card-text">Description: @Model.Description</p>
-                    <p class="card-text">City: @Model.City</p>
-                    <p class="card-text">Created At: @Model.CreatedAt</p>
-                    <p class="card-text">Is Deleted: @Model.IsDeleted</p>
-                    <p class="card-text">Is Sold: @Model.IsSold</p>
-                    <p class="card-text">Sold At: @Model.SoldAt</p>
-                </div>
-            </div>
-            <div class="card mt-3">
-                <div class="card-body">
-                    <h5 class="card-title">Seller Details</h5>
-                    <p class="card-text">Name: @Model.AppUserDto.Name</p>
-                    <p class="card-text">Location: @Model.AppUserDto.Location</p>
-                    <p class="card-text">Bio: @Model.AppUserDto.Bio</p>
-                    <img src="@Model.AppUserDto.PhotoUrl" class="img-fluid" alt="Seller Photo">
-                    <p class="card-text">Register Date: @Model.AppUserDto.RegisterDate</p>
-                    <p class="card-text">Username: @Model.AppUserDto.UserName</p>
-                    <p class="card-text">Phone Number: @Model.AppUserDto.PhoneNumber</p>
-                </div>
+                    <img src="@Model.AppUserDto.PhotoUrl" class="card-img-top" alt="User Photo">
+                    <div class="card-body">
+                        <h5 class="card-title">@Model.AppUserDto.Name</h5>
+                        <p class="card-text">
+                            <i class="fa-solid fa-at"></i> @Model.AppUserDto.UserName
+                        </p>
+                        <p class="card-text">
+                            <i class="fa-solid fa-location-dot"></i> @Model.AppUserDto.Location
+                        </p>
+                        <p class="card-text">
+                            <i class="fa-solid fa-address-card"></i> @Model.AppUserDto.Bio
+                        </p>
+                        <p class="card-text text-muted">
+                            <i class="fa-solid fa-clock"></i> Registered:@Model.AppUserDto.RegisterDate.ToShortDateString()
+                        </p>
+                    </div>
 
-                @if (!Model.IsAuthor)
-                {
-                    <form asp-controller="Profile" asp-action="GetProfile" method="get">
-                        <input type="hidden" name="username" value="@Model.AppUserDto.UserName"/>
-                        <button type="submit" class="btn btn-primary">View profile</button>
-                    </form>
-                }
+                    @if (!Model.IsAuthor)
+                    {
+                        <div class="d-flex justify-content-center mt-2 mb-2">
+                            <form asp-controller="Profile" asp-action="GetProfile" method="get">
+                                <input type="hidden" name="username" value="@Model.AppUserDto.UserName"/>
+                                <button type="submit" class="btn btn-primary rounded-pill px-3">View profile</button>
+                            </form>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     </div>

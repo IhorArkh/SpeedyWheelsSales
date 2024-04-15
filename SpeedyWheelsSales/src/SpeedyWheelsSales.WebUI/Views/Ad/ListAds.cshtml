@@ -9,19 +9,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="~/css/styles.css">
 }
 
 <div class="container">
-    <div class="accordion" id="filterAccordion">
+    <div class="accordion mb-4" id="filterAccordion">
         <div class="accordion-item">
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFilters" aria-expanded="false" aria-controls="collapseFilters">
                     Filter ads
                 </button>
             </h2>
-            <div id="collapseFilters" class="accordion-collapse collapse show" aria-labelledby="headingFilters" data-bs-parent="#filterAccordion">
+            <div id="collapseFilters" class="accordion-collapse collapse" aria-labelledby="headingFilters" data-bs-parent="#filterAccordion">
                 <div class="accordion-body">
                     <form id="saveSearchForm" method="post" action="@Url.Action("SaveSearch", "SavedSearch")">
                         <div class="form-row">
@@ -111,10 +110,10 @@
 
                         <div class="form-row mt-3">
                             <div class="col-md-12 text-right">
-                                <button type="submit" class="btn btn-primary" onclick="setFormAction('@Url.Action("ListAds", "Ad")')">Apply Filters</button>
+                                <button type="submit" class="btn btn-primary rounded-pill px-3" onclick="setFormAction('@Url.Action("ListAds", "Ad")')">Apply Filters</button>
                                 @if (User.Identity.IsAuthenticated)
                                 {
-                                    <button type="submit" class="btn btn-success">Save Search</button>
+                                    <button type="submit" class="btn btn-success rounded-pill px-3">Save Search</button>
                                 }
                             </div>
                         </div>
@@ -140,7 +139,7 @@
                         }
                         @if (User.Identity.IsAuthenticated && ad.IsAuthor)
                         {
-                            <p class="badge badge-success">Your ad</p>
+                            <p class="badge badge-success mb-0">Your ad</p>
                         }
                         @if (ad.IsSold)
                         {
@@ -148,7 +147,7 @@
                         }
                         <div class="card-body">
                             <h5 class="card-title">@ad.CarDto.Brand @ad.CarDto.Model @ad.CarDto.ManufactureDate.Year</h5>
-                            <p class="card-text">
+                            <p class="card-text text-left font-weight-bold text-success custom-display">
                                 <i class="fa-solid fa-dollar-sign"></i> @ad.CarDto.Price.ToString("0.##")
                             </p>
                             <p class="card-text">
@@ -169,7 +168,7 @@
                             <p class="badge badge-primary float-right">
                                 <i class="fa-solid fa-barcode"></i> @ad.CarDto.Vin
                             </p>
-                            <p class="card-text">
+                            <p class="card-text text-muted">
                                 <i class="fa-solid fa-clock"></i> @ad.CreatedAt.ToShortDateString()
                             </p>
                             <div class="d-flex justify-content-between align-items-center">
