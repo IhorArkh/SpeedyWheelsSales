@@ -1,0 +1,103 @@
+﻿@{
+ViewData["Title"] = "Chat";
+var recipientUsername = (string)ViewBag.recipientUsername;
+var currUserUsername = (string)ViewBag.currUserUsername;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .chat-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .message-container {
+            margin-bottom: 10px;
+        }
+
+        .message {
+            background-color: #f2f2f2;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .input-group {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container chat-container">
+    <h1 class="text-center mb-4">@ViewData["Title"]</h1>
+
+    <div id="chatMessages">
+        <!-- Chat messages will be displayed here -->
+    </div>
+
+    <div class="input-group">
+        <input type="text" id="message" class="form-control" placeholder="Enter your message">
+        <input type="hidden" id="recipientUsername" class="form-control" value="@recipientUsername">
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="button" onclick="sendMessage()">Send message</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.5/signalr.min.js"></script>
+<script>
+    var connection = new signalR.HubConnectionBuilder()
+        .withUrl("https://localhost:5001/chatHub?currUserUsername=@currUserUsername&recipientUsername=@recipientUsername")
+        .build();
+
+    connection.on("ReceiveMessage", function (message) {
+        var messageElement = $("<div>").addClass("message").text(message.content);
+        $("#chatMessages").append($("<div>").addClass("message-container").append(messageElement));
+    });
+
+    connection.on("ReceiveChatMessages", function (messages) {
+        messages.forEach(function (message) {
+            var messageContainer = $("<div>").addClass("message-container");
+            var messageHeader = $("<div>").addClass("message-header").text(message.senderUsername + " - " + formatTimestamp(message.sentAt));
+            var messageContent = $("<div>").addClass("message").text(message.content);
+            messageContainer.append(messageHeader, messageContent);
+            $("#chatMessages").append(messageContainer);
+        });
+    });
+
+    function sendMessage() {
+        const message = $("#message").val();
+        const recipientUsername = '@recipientUsername';
+        const currUserUsername = '@currUserUsername';
+
+        var command = {
+            recipientUsername: recipientUsername,
+            content: message,
+            currUserUsername: currUserUsername
+        };
+        connection.invoke("SendMessage", command).catch(function (err) {
+            return console.error(err.toString());
+        });
+
+        $("#message").val(""); // Clear input after sending message
+    }
+
+    function formatTimestamp(timestamp) {
+        return new Date(timestamp).toLocaleString();
+    }
+
+    connection.start().catch(function (err) {
+        return console.error(err.toString());
+    });
+</script>
+</body>
+</html>

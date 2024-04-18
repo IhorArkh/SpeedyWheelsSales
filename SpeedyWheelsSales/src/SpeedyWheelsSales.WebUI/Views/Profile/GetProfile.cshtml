@@ -1,4 +1,5 @@
-﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+﻿@using System.Security.Claims
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model UserProfileViewModel
 
 @{
@@ -62,6 +63,14 @@
             {
                 <form class="text-center" asp-controller="Ad" asp-action="GetCreateAdView" method="get">
                     <button type="submit" class="btn btn-success btn-lg rounded-pill px-3">Create new ad</button>
+                </form>
+            }
+            else if (User.Identity.IsAuthenticated)
+            {
+                <form class="mx-2" asp-controller="Chat" asp-action="GetChat" method="get">
+                    <input type="hidden" name="currUserUsername" value="@User.FindFirstValue("username")"/>
+                    <input type="hidden" name="recipientUsername" value="@Model.UserProfileDto.Username"/>
+                    <button type="submit" class="btn btn-primary rounded-pill px-3">Open chat</button>
                 </form>
             }
         </div>

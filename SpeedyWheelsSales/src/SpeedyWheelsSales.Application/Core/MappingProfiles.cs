@@ -5,6 +5,7 @@ using SpeedyWheelsSales.Application.Features.Ad.Commands.UpdateAd.DTOs;
 using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdDetails.DTOs;
 using SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdList.DTOs;
 using SpeedyWheelsSales.Application.Features.Ad.Queries.GetFavouriteAds.DTOs;
+using SpeedyWheelsSales.Application.Features.Message.Queries;
 using SpeedyWheelsSales.Application.Features.Profile.Commands.UpdateUserProfile.DTOs;
 using SpeedyWheelsSales.Application.Features.Profile.Queries.GetUserProfile.DTOs;
 using SpeedyWheelsSales.Application.Features.SavedSearch.Commands.SaveSearch;
@@ -92,5 +93,13 @@ public class MappingProfiles : Profile
 
         // GetSavedSearches
         CreateMap<SavedSearch, SavedSearchDto>();
+        
+        // CreateMessage
+        CreateMap<Message, CreateMessageDto>();
+        
+        // GetMessage
+        CreateMap<Message, GetMessageDto>()
+            .ForMember(dest => dest.SenderUsername, opt =>
+                opt.MapFrom(src => src.Sender.UserName));
     }
 }

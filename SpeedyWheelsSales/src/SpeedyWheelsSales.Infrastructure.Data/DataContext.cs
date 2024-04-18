@@ -17,6 +17,7 @@ public class DataContext : IdentityDbContext
     public DbSet<FavouriteAd> FavouriteAds { get; set; }
     public DbSet<Photo> Photos { get; set; }
     public DbSet<SavedSearch> SavedSearches { get; set; }
+    public DbSet<Message> Messages { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -28,5 +29,6 @@ public class DataContext : IdentityDbContext
         builder.ApplyConfiguration(new FavouriteAdConfiguration());
         builder.ApplyConfiguration(new PhotoConfiguration());
         builder.ApplyConfiguration(new SavedSearchConfiguration());
+        builder.ApplyConfiguration(new MessageConfiguration());
     }
 }

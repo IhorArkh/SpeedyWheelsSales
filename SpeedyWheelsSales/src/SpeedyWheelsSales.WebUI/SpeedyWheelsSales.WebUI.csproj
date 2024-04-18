@@ -19,4 +19,8 @@
       <ProjectReference Include="..\SpeedyWheelsSales.Application\SpeedyWheelsSales.Application.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Views\Chat\GetChat.cshtml" />
+    </ItemGroup>
+
 </Project>

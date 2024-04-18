@@ -14,4 +14,6 @@ public class AppUser : IdentityUser
     public ICollection<Ad> Ads { get; set; } = new List<Ad>();
     public ICollection<SavedSearch> SavedSearches { get; set; } = new List<SavedSearch>();
     public ICollection<FavouriteAd> FavouriteAds { get; set; } = new List<FavouriteAd>();
+    public ICollection<Message> SentMessages { get; set; } = new List<Message>();
+    public ICollection<Message> ReceivedMessages { get; set; } = new List<Message>();
 }

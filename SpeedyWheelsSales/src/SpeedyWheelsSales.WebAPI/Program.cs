@@ -1,9 +1,7 @@
 using System.Globalization;
 using System.Reflection;
 using System.Text.Json.Serialization;
-using Domain.Entities;
 using FluentValidation;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
@@ -23,6 +21,7 @@ using SpeedyWheelsSales.Infrastructure.Data;
 using SpeedyWheelsSales.Infrastructure.Photos;
 using SpeedyWheelsSales.WebAPI;
 using SpeedyWheelsSales.WebAPI.Middlewares;
+using SpeedyWheelsSales.WebAPI.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -62,8 +61,10 @@ builder.Services.AddMediatR(config =>
 builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 builder.Services.AddCors(x => x.AddPolicy("CorsPolicy", policy =>
 {
-    policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
-    //TODO Need to add specific origin in future.
+    policy.WithOrigins("https://localhost:5003")
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials();
 }));
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICurrentUserAccessor, CurrentUserAccessor>();
@@ -74,6 +75,8 @@ builder.Services.AddScoped<IValidator<UpdateAdDto>, UpdateAdCommandValidator>();
 builder.Services.AddScoped<IValidator<UpdateUserProfileDto>, UpdateUserProfileValidator>();
 builder.Services.AddScoped<IPhotoAccessor, PhotoAccessor>();
 builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("Cloudinary"));
+
+builder.Services.AddSignalR(opt => { opt.EnableDetailedErrors = true; });
 
 var cultureInfo = new CultureInfo("en-US");
 CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
@@ -101,6 +104,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<ChatHub>("/chatHub");
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
