@@ -3,12 +3,11 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SpeedyWheelsSales.Application.Core;
 using SpeedyWheelsSales.Application.Features.Message.Queries;
-using SpeedyWheelsSales.Application.Interfaces;
 using SpeedyWheelsSales.Infrastructure.Data;
 
 namespace SpeedyWheelsSales.Application.Features.Message.Commands;
 
-public class CreateMessageCommandHandler : IRequestHandler<CreateMessageCommand, Result<CreateMessageDto>> // TODO Create validator
+public class CreateMessageCommandHandler : IRequestHandler<CreateMessageCommand, Result<CreateMessageDto>>
 {
     private readonly DataContext _context;
     private readonly IMapper _mapper;
@@ -31,7 +30,7 @@ public class CreateMessageCommandHandler : IRequestHandler<CreateMessageCommand,
         if (recipient is null)
             return Result<CreateMessageDto>.Empty();
 
-        var message = new Domain.Entities.Message()
+        var message = new Domain.Entities.Message
         {
             SenderId = sender.Id,
             Sender = sender,

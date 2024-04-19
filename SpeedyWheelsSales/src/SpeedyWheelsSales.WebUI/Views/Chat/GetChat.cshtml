@@ -1,7 +1,7 @@
 ﻿@{
-ViewData["Title"] = "Chat";
-var recipientUsername = (string)ViewBag.recipientUsername;
-var currUserUsername = (string)ViewBag.currUserUsername;
+    ViewData["Title"] = "Chat";
+    var recipientUsername = (string)ViewBag.recipientUsername;
+    var currUserUsername = (string)ViewBag.currUserUsername;
 }
 
 <!DOCTYPE html>
@@ -11,35 +11,13 @@ var currUserUsername = (string)ViewBag.currUserUsername;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewData["Title"]</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .chat-container {
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .message-container {
-            margin-bottom: 10px;
-        }
-
-        .message {
-            background-color: #f2f2f2;
-            padding: 10px;
-            border-radius: 5px;
-        }
-
-        .input-group {
-            margin-top: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="~/css/chat.css">
 </head>
 <body>
-<div class="container chat-container">
-    <h1 class="text-center mb-4">@ViewData["Title"]</h1>
+<div class="container-fluid chat-container">
+    <h1 class="text-center mb-4">Chat with @recipientUsername</h1>
 
-    <div id="chatMessages">
+    <div class="message-container" id="chatMessages">
         <!-- Chat messages will be displayed here -->
     </div>
 
@@ -60,8 +38,17 @@ var currUserUsername = (string)ViewBag.currUserUsername;
         .build();
 
     connection.on("ReceiveMessage", function (message) {
-        var messageElement = $("<div>").addClass("message").text(message.content);
-        $("#chatMessages").append($("<div>").addClass("message-container").append(messageElement));
+        var messageContainer = $("<div>").addClass("message-container");
+        var messageHeader = $("<div>").addClass("message-header").text(message.senderUsername + " - " + formatTimestamp(message.sentAt));
+        var messageContent = $("<div>").addClass("message").text(message.content);
+        messageContainer.append(messageHeader, messageContent);
+        if (message.senderUsername === '@currUserUsername') {
+            messageContainer.find('.message').addClass('sent');
+        } else {
+            messageContainer.find('.message').addClass('received');
+        }
+        $("#chatMessages").append($("<div>").addClass("message-container").append(messageContainer));
+        scrollToBottom();
     });
 
     connection.on("ReceiveChatMessages", function (messages) {
@@ -70,8 +57,14 @@ var currUserUsername = (string)ViewBag.currUserUsername;
             var messageHeader = $("<div>").addClass("message-header").text(message.senderUsername + " - " + formatTimestamp(message.sentAt));
             var messageContent = $("<div>").addClass("message").text(message.content);
             messageContainer.append(messageHeader, messageContent);
+            if (message.senderUsername === '@currUserUsername') {
+                messageContainer.find('.message').addClass('sent');
+            } else {
+                messageContainer.find('.message').addClass('received');
+            }
             $("#chatMessages").append(messageContainer);
         });
+        scrollToBottom();
     });
 
     function sendMessage() {
@@ -93,6 +86,11 @@ var currUserUsername = (string)ViewBag.currUserUsername;
 
     function formatTimestamp(timestamp) {
         return new Date(timestamp).toLocaleString();
+    }
+
+    function scrollToBottom() {
+        var container = $("#chatMessages");
+        container.scrollTop(container[0].scrollHeight);
     }
 
     connection.start().catch(function (err) {

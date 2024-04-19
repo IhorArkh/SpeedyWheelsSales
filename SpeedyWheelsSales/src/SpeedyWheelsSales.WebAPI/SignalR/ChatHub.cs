@@ -17,9 +17,9 @@ public class ChatHub : Hub
     public async Task SendMessage(CreateMessageCommand command)
     {
         var message = await _mediator.Send(command);
-        
+
         var groupName = GetGroupName(command.CurrUserUsername, command.RecipientUsername);
-        
+
         await Clients.Group(groupName).SendAsync("ReceiveMessage", message.Value);
     }
 
@@ -29,7 +29,7 @@ public class ChatHub : Hub
 
         await Clients.Caller.SendAsync("ReceiveChatMessages", messages.Value);
     }
-    
+
     public override async Task OnConnectedAsync()
     {
         var httpContext = Context.GetHttpContext();
@@ -38,9 +38,9 @@ public class ChatHub : Hub
         var recipientUsername = httpContext.Request.Query["recipientUsername"].ToString();
 
         var groupName = GetGroupName(currUserUsername, recipientUsername);
-        
+
         await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
-        
+
         await GetChatMessages(new GetMessagesQuery
         {
             CurrUserUsername = currUserUsername,
@@ -51,14 +51,10 @@ public class ChatHub : Hub
     private string GetGroupName(string currUserUsername, string recipientUsername)
     {
         int comparisonResult = string.Compare(currUserUsername, recipientUsername);
-        
+
         if (comparisonResult < 0)
-        {
             return $"{currUserUsername}_{recipientUsername}";
-        }
-        else
-        {
-            return $"{recipientUsername}_{currUserUsername}";
-        }
+
+        return $"{recipientUsername}_{currUserUsername}";
     }
 }

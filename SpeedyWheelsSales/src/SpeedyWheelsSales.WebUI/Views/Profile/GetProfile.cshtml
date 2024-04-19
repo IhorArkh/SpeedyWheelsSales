@@ -1,6 +1,6 @@
 ﻿@using System.Security.Claims
 @using Microsoft.AspNetCore.Mvc.TagHelpers
-@model UserProfileViewModel
+@model SpeedyWheelsSales.WebUI.Models.UserProfileViewModel
 
 @{
     ViewData["Title"] = $"{Model.UserProfileDto.Name}'s Profile";
@@ -67,10 +67,10 @@
             }
             else if (User.Identity.IsAuthenticated)
             {
-                <form class="mx-2" asp-controller="Chat" asp-action="GetChat" method="get">
+                <form class="text-center" asp-controller="Chat" asp-action="GetChat" method="get">
                     <input type="hidden" name="currUserUsername" value="@User.FindFirstValue("username")"/>
                     <input type="hidden" name="recipientUsername" value="@Model.UserProfileDto.Username"/>
-                    <button type="submit" class="btn btn-primary rounded-pill px-3">Open chat</button>
+                    <button type="submit" class="btn btn-primary btn-lg rounded-pill px-3">Open chat</button>
                 </form>
             }
         </div>
