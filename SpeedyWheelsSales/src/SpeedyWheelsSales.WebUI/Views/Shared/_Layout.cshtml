@@ -26,6 +26,9 @@
             </button>
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav ms-auto">
+                    <li class="nav-link">
+                        <partial name="_Culture"/>
+                    </li>
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item">

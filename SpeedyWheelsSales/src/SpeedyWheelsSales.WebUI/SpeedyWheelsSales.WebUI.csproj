@@ -23,4 +23,28 @@
       <_ContentIncludedByDefault Remove="Views\Chat\GetChat.cshtml" />
     </ItemGroup>
 
+    <ItemGroup>
+      <EmbeddedResource Update="Resources\Views\Account\Logout.en.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Logout.en.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Views\Account\Logout.uk.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Logout.uk.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Resources\Views\Account\Logout.en.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Logout.en.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Views\Account\Logout.uk.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Logout.uk.resx</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
 </Project>
