@@ -60,6 +60,33 @@ namespace SpeedyWheelsSales.WebUI.Resources.Views.SavedSearch {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Brand.
+        /// </summary>
+        internal static string Brand {
+            get {
+                return ResourceManager.GetString("Brand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to City.
+        /// </summary>
+        internal static string City {
+            get {
+                return ResourceManager.GetString("City", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color.
+        /// </summary>
+        internal static string Color {
+            get {
+                return ResourceManager.GetString("Color", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         internal static string Delete {
@@ -69,11 +96,101 @@ namespace SpeedyWheelsSales.WebUI.Resources.Views.SavedSearch {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Engine type.
+        /// </summary>
+        internal static string EngineType {
+            get {
+                return ResourceManager.GetString("EngineType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Go to ads.
         /// </summary>
         internal static string Go_to_ads {
             get {
                 return ResourceManager.GetString("Go to ads", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Max engine size.
+        /// </summary>
+        internal static string MaxEngineSize {
+            get {
+                return ResourceManager.GetString("MaxEngineSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Max fuel consumption.
+        /// </summary>
+        internal static string MaxFuelConsumption {
+            get {
+                return ResourceManager.GetString("MaxFuelConsumption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Max manufacture year.
+        /// </summary>
+        internal static string MaxManufactureYear {
+            get {
+                return ResourceManager.GetString("MaxManufactureYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Max mileage.
+        /// </summary>
+        internal static string MaxMileage {
+            get {
+                return ResourceManager.GetString("MaxMileage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Max price.
+        /// </summary>
+        internal static string MaxPrice {
+            get {
+                return ResourceManager.GetString("MaxPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Min engine size.
+        /// </summary>
+        internal static string MinEngineSize {
+            get {
+                return ResourceManager.GetString("MinEngineSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Min manufacture year.
+        /// </summary>
+        internal static string MinManufactureYear {
+            get {
+                return ResourceManager.GetString("MinManufactureYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Min price.
+        /// </summary>
+        internal static string MinPrice {
+            get {
+                return ResourceManager.GetString("MinPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Model.
+        /// </summary>
+        internal static string Model {
+            get {
+                return ResourceManager.GetString("Model", resourceCulture);
             }
         }
         
@@ -101,6 +218,24 @@ namespace SpeedyWheelsSales.WebUI.Resources.Views.SavedSearch {
         internal static string Saved_searches {
             get {
                 return ResourceManager.GetString("Saved searches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transmission.
+        /// </summary>
+        internal static string Transmission {
+            get {
+                return ResourceManager.GetString("Transmission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type of drive.
+        /// </summary>
+        internal static string TypeOfDrive {
+            get {
+                return ResourceManager.GetString("TypeOfDrive", resourceCulture);
             }
         }
     }

@@ -37,7 +37,7 @@
             </div>
             <div class="card mt-3">
                 <div class="card-body">
-                    <h5 class="card-title">@Model.CarDto.Brand @Model.CarDto.Model @Model.CarDto.ManufactureDate.Year</h5>
+                    <h5 class="card-title text-center">@Model.CarDto.Brand.ToUpper() @Model.CarDto.Model.ToUpper() @Model.CarDto.ManufactureDate.Year</h5>
                     <p class="card-text text-left font-weight-bold text-success custom-display">
                         <i class="fa-solid fa-dollar-sign"></i> @Model.CarDto.Price.ToString("0.##")
                     </p>
@@ -67,6 +67,9 @@
                         <span class="float-right">
                             <i class="fa-solid fa-palette"></i> @Model.CarDto.Color
                         </span>
+                    </p>
+                    <p class="card-text">
+                        <i class="fa-solid fa-car-side"></i> @Model.CarDto.TypeOfDrive.ToString().ToUpper()
                     </p>
                     <p class="card-text text-muted">
                         <i class="fa-solid fa-clock"></i> @Model.CreatedAt.ToShortDateString()

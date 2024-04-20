@@ -3,6 +3,8 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=3dfa78d4_002Def83_002D4db0_002D839c_002Ded518cff16e7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from &amp;lt;tests&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Project Location="C:\Users\wasbo\Downloads\Projects\SpeedyWheelsSales\SpeedyWheelsSales" Presentation="&amp;lt;tests&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Miscellaneous_0020Files_002FVeqedul/@EntryIndexedValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Miscellaneous_0020Files_002FVeqedul/@EntryIndexRemoved">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=src_002FSpeedyWheelsSales_002EWebUI_002FResources_002FViews_002FAccount_002FLogout/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=src_002FSpeedyWheelsSales_002EWebUI_002FResources_002FViews_002FAd_002FGetAddAdPhotoView/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=src_002FSpeedyWheelsSales_002EWebUI_002FResources_002FViews_002FAd_002FGetAdDetails/@EntryIndexedValue">False</s:Boolean>
@@ -16,7 +18,7 @@
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=src_002FSpeedyWheelsSales_002EWebUI_002FResources_002FViews_002FProfile_002FGetChangePhotoView/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=src_002FSpeedyWheelsSales_002EWebUI_002FResources_002FViews_002FProfile_002FGetProfile/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=src_002FSpeedyWheelsSales_002EWebUI_002FResources_002FViews_002FProfile_002FGetUpdateProfileView/@EntryIndexedValue">False</s:Boolean>
-	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=src_002FSpeedyWheelsSales_002EWebUI_002FResources_002FViews_002FSavedSearch_002FGetSavedSearches/@EntryIndexedValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=src_002FSpeedyWheelsSales_002EWebUI_002FResources_002FViews_002FSavedSearch_002FGetSavedSearches/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=src_002FSpeedyWheelsSales_002EWebUI_002FResources_002FViews_002FShared_002FError/@EntryIndexedValue">False</s:Boolean>
 	
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=src_002FSpeedyWheelsSales_002EWebUI_002FResources_002FViews_002FShared_002F_005FLayout/@EntryIndexedValue">False</s:Boolean>

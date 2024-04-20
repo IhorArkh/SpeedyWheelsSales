@@ -60,6 +60,33 @@ namespace SpeedyWheelsSales.WebUI.Resources.Views.SavedSearch {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Бренд.
+        /// </summary>
+        internal static string Brand {
+            get {
+                return ResourceManager.GetString("Brand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Місто.
+        /// </summary>
+        internal static string City {
+            get {
+                return ResourceManager.GetString("City", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Колір.
+        /// </summary>
+        internal static string Color {
+            get {
+                return ResourceManager.GetString("Color", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Видалити.
         /// </summary>
         internal static string Delete {
@@ -69,11 +96,101 @@ namespace SpeedyWheelsSales.WebUI.Resources.Views.SavedSearch {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Тип двигуна.
+        /// </summary>
+        internal static string EngineType {
+            get {
+                return ResourceManager.GetString("EngineType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to До оголошень.
         /// </summary>
         internal static string Go_to_ads {
             get {
                 return ResourceManager.GetString("Go to ads", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Макс. об&apos;єм двигуна.
+        /// </summary>
+        internal static string MaxEngineSize {
+            get {
+                return ResourceManager.GetString("MaxEngineSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Макс. розхід палива.
+        /// </summary>
+        internal static string MaxFuelConsumption {
+            get {
+                return ResourceManager.GetString("MaxFuelConsumption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Макс. рік виробництва.
+        /// </summary>
+        internal static string MaxManufactureYear {
+            get {
+                return ResourceManager.GetString("MaxManufactureYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Макс. пробіг.
+        /// </summary>
+        internal static string MaxMileage {
+            get {
+                return ResourceManager.GetString("MaxMileage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Макс. ціна.
+        /// </summary>
+        internal static string MaxPrice {
+            get {
+                return ResourceManager.GetString("MaxPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Мін. об&apos;єм двигуна.
+        /// </summary>
+        internal static string MinEngineSize {
+            get {
+                return ResourceManager.GetString("MinEngineSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Мін. рік виробництва.
+        /// </summary>
+        internal static string MinManufactureYear {
+            get {
+                return ResourceManager.GetString("MinManufactureYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Мін. ціна.
+        /// </summary>
+        internal static string MinPrice {
+            get {
+                return ResourceManager.GetString("MinPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Модель.
+        /// </summary>
+        internal static string Model {
+            get {
+                return ResourceManager.GetString("Model", resourceCulture);
             }
         }
         
@@ -101,6 +218,24 @@ namespace SpeedyWheelsSales.WebUI.Resources.Views.SavedSearch {
         internal static string Saved_searches {
             get {
                 return ResourceManager.GetString("Saved searches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Трансміссія.
+        /// </summary>
+        internal static string Transmission {
+            get {
+                return ResourceManager.GetString("Transmission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Привід.
+        /// </summary>
+        internal static string TypeOfDrive {
+            get {
+                return ResourceManager.GetString("TypeOfDrive", resourceCulture);
             }
         }
     }

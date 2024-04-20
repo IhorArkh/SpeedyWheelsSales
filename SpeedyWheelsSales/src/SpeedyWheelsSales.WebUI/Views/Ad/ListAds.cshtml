@@ -191,7 +191,7 @@
                             <div class="sold-overlay d-flex justify-content-center align-items-center">@Localizer["SOLD"]</div>
                         }
                         <div class="card-body">
-                            <h5 class="card-title">@ad.CarDto.Brand @ad.CarDto.Model @ad.CarDto.ManufactureDate.Year</h5>
+                            <h5 class="card-title text-center">@ad.CarDto.Brand.ToUpper() @ad.CarDto.Model.ToUpper() @ad.CarDto.ManufactureDate.Year</h5>
                             <p class="card-text text-left font-weight-bold text-success custom-display">
                                 <i class="fa-solid fa-dollar-sign"></i> @ad.CarDto.Price.ToString("0.##")
                             </p>

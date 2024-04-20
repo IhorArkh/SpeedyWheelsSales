@@ -33,4 +33,49 @@
     <data name="No saved searches found" xml:space="preserve">
         <value>No saved searches found</value>
     </data>
+    <data name="City" xml:space="preserve">
+        <value>City</value>
+    </data>
+    <data name="Brand" xml:space="preserve">
+        <value>Brand</value>
+    </data>
+    <data name="Model" xml:space="preserve">
+        <value>Model</value>
+    </data>
+    <data name="Transmission" xml:space="preserve">
+        <value>Transmission</value>
+    </data>
+    <data name="Color" xml:space="preserve">
+        <value>Color</value>
+    </data>
+    <data name="EngineType" xml:space="preserve">
+        <value>Engine type</value>
+    </data>
+    <data name="MaxEngineSize" xml:space="preserve">
+        <value>Max engine size</value>
+    </data>
+    <data name="MaxFuelConsumption" xml:space="preserve">
+        <value>Max fuel consumption</value>
+    </data>
+    <data name="MaxManufactureYear" xml:space="preserve">
+        <value>Max manufacture year</value>
+    </data>
+    <data name="MinManufactureYear" xml:space="preserve">
+        <value>Min manufacture year</value>
+    </data>
+    <data name="MaxMileage" xml:space="preserve">
+        <value>Max mileage</value>
+    </data>
+    <data name="MaxPrice" xml:space="preserve">
+        <value>Max price</value>
+    </data>
+    <data name="MinPrice" xml:space="preserve">
+        <value>Min price</value>
+    </data>
+    <data name="MinEngineSize" xml:space="preserve">
+        <value>Min engine size</value>
+    </data>
+    <data name="TypeOfDrive" xml:space="preserve">
+        <value>Type of drive</value>
+    </data>
 </root>

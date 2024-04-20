@@ -33,4 +33,49 @@
     <data name="Saved searches" xml:space="preserve">
         <value>Збережені пошуки</value>
     </data>
+    <data name="City" xml:space="preserve">
+        <value>Місто</value>
+    </data>
+    <data name="Brand" xml:space="preserve">
+        <value>Бренд</value>
+    </data>
+    <data name="Model" xml:space="preserve">
+        <value>Модель</value>
+    </data>
+    <data name="MinPrice" xml:space="preserve">
+        <value>Мін. ціна</value>
+    </data>
+    <data name="MaxPrice" xml:space="preserve">
+        <value>Макс. ціна</value>
+    </data>
+    <data name="MaxMileage" xml:space="preserve">
+        <value>Макс. пробіг</value>
+    </data>
+    <data name="MinManufactureYear" xml:space="preserve">
+        <value>Мін. рік виробництва</value>
+    </data>
+    <data name="MaxManufactureYear" xml:space="preserve">
+        <value>Макс. рік виробництва</value>
+    </data>
+    <data name="MinEngineSize" xml:space="preserve">
+        <value>Мін. об'єм двигуна</value>
+    </data>
+    <data name="MaxEngineSize" xml:space="preserve">
+        <value>Макс. об'єм двигуна</value>
+    </data>
+    <data name="MaxFuelConsumption" xml:space="preserve">
+        <value>Макс. розхід палива</value>
+    </data>
+    <data name="EngineType" xml:space="preserve">
+        <value>Тип двигуна</value>
+    </data>
+    <data name="Transmission" xml:space="preserve">
+        <value>Трансміссія</value>
+    </data>
+    <data name="TypeOfDrive" xml:space="preserve">
+        <value>Привід</value>
+    </data>
+    <data name="Color" xml:space="preserve">
+        <value>Колір</value>
+    </data>
 </root>

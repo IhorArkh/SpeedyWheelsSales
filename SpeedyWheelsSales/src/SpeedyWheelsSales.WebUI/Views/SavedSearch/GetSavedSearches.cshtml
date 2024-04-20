@@ -57,42 +57,42 @@
 
 @functions {
 
-    string GetPropertyName(string propertyName)
+    LocalizedHtmlString GetPropertyName(string propertyName)
     {
         switch (propertyName)
         {
             case "City":
-                return "City";
+                return Localizer["City"];
             case "Brand":
-                return "Brand";
+                return Localizer["Brand"];
             case "Model":
-                return "Model";
+                return Localizer["Model"];
             case "MinPrice":
-                return "Minimum Price";
+                return Localizer["MinPrice"];
             case "MaxPrice":
-                return "Maximum Price";
+                return Localizer["MaxPrice"];
             case "MaxMileage":
-                return "Maximum Mileage";
+                return Localizer["MaxMileage"];
             case "MinManufactureYear":
-                return "Minimum Manufacture Year";
+                return Localizer["MinManufactureYear"];
             case "MaxManufactureYear":
-                return "Maximum Manufacture Year";
+                return Localizer["MaxManufactureYear"];
             case "MinEngineSize":
-                return "Minimum Engine Size";
+                return Localizer["MinEngineSize"];
             case "MaxEngineSize":
-                return "Maximum Engine Size";
+                return Localizer["MaxEngineSize"];
             case "MaxFuelConsumption":
-                return "Maximum Fuel Consumption";
+                return Localizer["MaxFuelConsumption"];
             case "EngineType":
-                return "Engine Type";
+                return Localizer["EngineType"];
             case "Transmission":
-                return "Transmission";
+                return Localizer["Transmission"];
             case "TypeOfDrive":
-                return "Type of Drive";
+                return Localizer["TypeOfDrive"];
             case "Color":
-                return "Color";
+                return Localizer["Color"];
             default:
-                return propertyName;
+                return new LocalizedHtmlString(propertyName, propertyName);
         }
     }
 

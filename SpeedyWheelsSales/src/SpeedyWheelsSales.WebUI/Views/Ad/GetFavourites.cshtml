@@ -33,7 +33,7 @@
                         <div class="sold-overlay d-flex justify-content-center align-items-center">@Localizer["DELETED"]</div>
                     }
                     <div class="card-body">
-                        <h5 class="card-title">@favAd.CarDto.Brand @favAd.CarDto.Model @favAd.CarDto.ManufactureDate.Year</h5>
+                        <h5 class="card-title text-center">@favAd.CarDto.Brand.ToUpper() @favAd.CarDto.Model.ToUpper() @favAd.CarDto.ManufactureDate.Year</h5>
                         <p class="card-text text-left font-weight-bold text-success custom-display">
                             <i class="fa-solid fa-dollar-sign"></i> @favAd.CarDto.Price.ToString("0.##")
                         </p>
