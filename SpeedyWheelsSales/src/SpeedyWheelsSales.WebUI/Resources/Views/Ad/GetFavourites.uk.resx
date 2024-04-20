@@ -30,4 +30,7 @@
     <data name="SOLD" xml:space="preserve">
         <value>ПРОДАНО</value>
     </data>
+    <data name="No favourite ads found" xml:space="preserve">
+        <value>Обрані оголошення не знайдені</value>
+    </data>
 </root>

@@ -134,7 +134,7 @@ public class AdController : Controller
         if (!response.IsSuccessStatusCode)
             return await _errorHandlingService.HandleErrorResponseAsync(response);
 
-        return RedirectToAction("GetFavourites");
+        return Json(new { success = true });
     }
 
     [Authorize]

@@ -222,12 +222,9 @@
                                 {
                                     string iconClass = ad.IsFavourite ? "fas fa-heart" : "far fa-heart";
 
-                                    <form asp-controller="Ad" asp-action="ToggleFavourite" method="post">
-                                        <input type="hidden" name="adId" value="@ad.Id"/>
-                                        <button type="submit" class="btn btn-link">
-                                            <i class="@iconClass"></i>
-                                        </button>
-                                    </form>
+                                    <button class="btn btn-link toggle-favourite" data-adid="@ad.Id">
+                                        <i class="@iconClass"></i>
+                                    </button>
                                 }
                             </div>
                         </div>
@@ -260,9 +257,31 @@
     </div>
 </div>
 
-<script>
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('.toggle-favourite').click(function(e) {
+            e.preventDefault();
+            var adId = $(this).data('adid');
+            var button = $(this);
+            
+            $.ajax({
+                url: '@Url.Action("ToggleFavourite", "Ad")',
+                type: 'POST',
+                data: { adId: adId },
+                success: function(result) {
+                    var icon = button.find('i');
+                    icon.toggleClass('far fa-heart fas fa-heart');
+                }
+            });
+        });
+    });
+</script>
+    <script>
     function setFormAction(action) {
         document.getElementById('saveSearchForm').action = action;
         document.getElementById('saveSearchForm').submit();
     }
 </script>
+}

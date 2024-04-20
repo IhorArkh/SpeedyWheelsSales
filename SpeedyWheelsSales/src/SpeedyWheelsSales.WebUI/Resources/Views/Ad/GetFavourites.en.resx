@@ -30,4 +30,7 @@
     <data name="Details" xml:space="preserve">
         <value>Details</value>
     </data>
+    <data name="No favourite ads found" xml:space="preserve">
+        <value>No favourite ads found</value>
+    </data>
 </root>

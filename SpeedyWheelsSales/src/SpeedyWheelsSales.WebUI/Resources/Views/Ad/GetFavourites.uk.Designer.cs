@@ -87,6 +87,15 @@ namespace SpeedyWheelsSales.WebUI.Resources.Views.Ad {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Обрані оголошення не знайдені.
+        /// </summary>
+        internal static string No_favourite_ads_found {
+            get {
+                return ResourceManager.GetString("No favourite ads found", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ПРОДАНО.
         /// </summary>
         internal static string SOLD {
