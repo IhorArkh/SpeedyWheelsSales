@@ -32,6 +32,126 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>Logout.uk.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Views\Shared\_Layout.en.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>_Layout.en.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Views\Shared\_Layout.uk.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>_Layout.uk.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Views\Shared\Error.en.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Error.en.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Views\Shared\Error.uk.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Error.uk.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Views\SavedSearch\GetSavedSearches.en.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>GetSavedSearches.en.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Views\SavedSearch\GetSavedSearches.uk.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>GetSavedSearches.uk.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Views\Profile\GetChangePhotoView.en.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>GetChangePhotoView.en.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Views\Profile\GetChangePhotoView.uk.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>GetChangePhotoView.uk.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Views\Profile\GetProfile.en.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>GetProfile.en.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Views\Profile\GetProfile.uk.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>GetProfile.uk.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Views\Profile\GetUpdateProfileView.en.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>GetUpdateProfileView.en.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Views\Profile\GetUpdateProfileView.uk.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>GetUpdateProfileView.uk.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Views\Ad\GetAddAdPhotoView.en.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>GetAddAdPhotoView.en.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Views\Ad\GetAddAdPhotoView.uk.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>GetAddAdPhotoView.uk.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Views\Ad\GetMarkAdAsSoldView.en.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>GetMarkAdAsSoldView.en.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Views\Ad\GetMarkAdAsSoldView.uk.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>GetMarkAdAsSoldView.uk.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Views\Ad\GetDeleteAdView.en.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>GetDeleteAdView.en.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Views\Ad\GetDeleteAdView.uk.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>GetDeleteAdView.uk.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Views\Ad\GetUpdateAdView.en.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>GetUpdateAdView.en.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Views\Ad\GetUpdateAdView.uk.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>GetUpdateAdView.uk.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Views\Ad\GetCreateAdView.en.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>GetCreateAdView.en.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Views\Ad\GetCreateAdView.uk.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>GetCreateAdView.uk.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Views\Chat\GetChat.en.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>GetChat.en.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Views\Chat\GetChat.uk.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>GetChat.uk.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Views\Ad\GetAdDetails.en.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>GetAdDetails.en.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Views\Ad\GetAdDetails.uk.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>GetAdDetails.uk.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Views\Ad\GetFavourites.en.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>GetFavourites.en.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Views\Ad\GetFavourites.uk.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>GetFavourites.uk.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Views\Ad\ListAds.en.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ListAds.en.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Views\Ad\ListAds.uk.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ListAds.uk.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -44,6 +164,156 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>Logout.uk.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Views\Shared\_Layout.en.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>_Layout.en.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Views\Shared\_Layout.uk.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>_Layout.uk.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Views\Shared\Error.en.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Error.en.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Views\Shared\Error.uk.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Error.uk.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Views\SavedSearch\GetSavedSearches.en.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>GetSavedSearches.en.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Views\SavedSearch\GetSavedSearches.uk.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>GetSavedSearches.uk.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Views\Profile\GetChangePhotoView.en.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>GetChangePhotoView.en.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Views\Profile\GetChangePhotoView.uk.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>GetChangePhotoView.uk.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Views\Profile\GetProfile.en.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>GetProfile.en.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Views\Profile\GetProfile.uk.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>GetProfile.uk.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Views\Profile\GetUpdateProfileView.en.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>GetUpdateProfileView.en.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Views\Profile\GetUpdateProfileView.uk.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>GetUpdateProfileView.uk.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Views\Ad\GetAddAdPhotoView.en.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>GetAddAdPhotoView.en.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Views\Ad\GetAddAdPhotoView.uk.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>GetAddAdPhotoView.uk.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Views\Ad\GetMarkAdAsSoldView.en.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>GetMarkAdAsSoldView.en.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Views\Ad\GetMarkAdAsSoldView.uk.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>GetMarkAdAsSoldView.uk.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Views\Ad\GetDeleteAdView.en.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>GetDeleteAdView.en.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Views\Ad\GetDeleteAdView.uk.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>GetDeleteAdView.uk.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Views\Ad\GetUpdateAdView.en.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>GetUpdateAdView.en.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Views\Ad\GetUpdateAdView.uk.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>GetUpdateAdView.uk.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Views\Ad\GetCreateAdView.en.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>GetCreateAdView.en.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Views\Ad\GetCreateAdView.uk.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>GetCreateAdView.uk.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Views\Chat\GetChat.en.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>GetChat.en.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Views\Chat\GetChat.uk.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>GetChat.uk.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Views\Ad\GetAdDetails.en.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>GetAdDetails.en.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Views\Ad\GetAdDetails.uk.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>GetAdDetails.uk.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Views\Ad\GetFavourites.en.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>GetFavourites.en.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Views\Ad\GetFavourites.uk.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>GetFavourites.uk.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Views\Ad\ListAds.en.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ListAds.en.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Views\Ad\ListAds.uk.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ListAds.uk.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 

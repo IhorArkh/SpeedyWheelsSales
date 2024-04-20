@@ -1,4 +1,7 @@
-﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@inject IViewLocalizer Localizer
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,26 +37,26 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Profile" asp-action="GetProfile">
                                 <i class="fa-solid fa-user"></i>
-                                <span>Profile</span>
+                                <span>@Localizer["Profile"]</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Ad" asp-action="GetFavourites">
                                 <i class="fa-solid fa-heart"></i>
-                                <span>Favourites</span>
+                                <span>@Localizer["Favourites"]</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="SavedSearch" asp-action="GetSavedSearches">
                                 <i class="fa-solid fa-magnifying-glass"></i>
-                                <span>Saved searches</span>
+                                <span>@Localizer["Saved searches"]</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <form class="form-inline" asp-controller="Account" asp-action="Logout" method="get">
                                 <button type="submit" class="btn btn-outline-danger rounded-pill px-3">
                                     <i class="fa-solid fa-right-from-bracket"></i>
-                                    <span>Logout</span>
+                                    <span>@Localizer["Logout"]</span>
                                 </button>
                             </form>
                         </li>
@@ -61,10 +64,10 @@
                     else
                     {
                         <li class="nav-item">
-                            <a class="btn btn-outline-primary rounded-pill px-3" asp-controller="Account" asp-action="Login">Login</a>
+                            <a class="btn btn-outline-primary rounded-pill px-3" asp-controller="Account" asp-action="Login">@Localizer["Login"]</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="btn btn-outline-primary rounded-pill px-3" asp-controller="Account" asp-action="Register">Register</a>
+                        <li class="nav-item ml-1">
+                            <a class="btn btn-outline-primary rounded-pill px-3" asp-controller="Account" asp-action="Register">@Localizer["Register"]</a>
                         </li>
                     }
                 </ul>

@@ -1,14 +1,16 @@
-﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@inject IViewLocalizer Localizer
 @{
-    ViewData["Title"] = "Upload profile photo";
+    ViewData["Title"] = Localizer["Upload profile photo"];
 }
 
-<h2 class="text-center">Upload new profile photo</h2>
+<h2 class="text-center">@Localizer["Upload profile photo"]</h2>
 <div class="d-flex justify-content-center mt-3">
     <form asp-action="ChangePhoto" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <input type="file" class="form-control" name="photo" accept="image/*" required>
         </div>
-        <button type="submit" class="btn btn-success btn-block rounded-pill px-3 mt-2" style="width: 100%;">Submit</button>
+        <button type="submit" class="btn btn-success btn-block rounded-pill px-3 mt-2" style="width: 100%;">@Localizer["Submit"]</button>
     </form>
 </div>

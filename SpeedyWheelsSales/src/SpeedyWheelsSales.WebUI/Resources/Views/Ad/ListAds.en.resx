@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="Ads" xml:space="preserve">
+        <value>Ads</value>
+    </data>
+    <data name="Filter ads" xml:space="preserve">
+        <value>Filter ads</value>
+    </data>
+    <data name="Sorting" xml:space="preserve">
+        <value>Sorting</value>
+    </data>
+    <data name="Sort by" xml:space="preserve">
+        <value>Sort by</value>
+    </data>
+    <data name="Price" xml:space="preserve">
+        <value>Price</value>
+    </data>
+    <data name="Mileage" xml:space="preserve">
+        <value>Mileage</value>
+    </data>
+    <data name="Creation date" xml:space="preserve">
+        <value>Creation date</value>
+    </data>
+    <data name="Manufacture date" xml:space="preserve">
+        <value>Manufacture date</value>
+    </data>
+    <data name="Sort order" xml:space="preserve">
+        <value>Sort order</value>
+    </data>
+    <data name="Ascending" xml:space="preserve">
+        <value>Ascending</value>
+    </data>
+    <data name="Descending" xml:space="preserve">
+        <value>Descending</value>
+    </data>
+    <data name="Filtering" xml:space="preserve">
+        <value>Filtering</value>
+    </data>
+    <data name="City" xml:space="preserve">
+        <value>City</value>
+    </data>
+    <data name="Brand" xml:space="preserve">
+        <value>Brand</value>
+    </data>
+    <data name="Model" xml:space="preserve">
+        <value>Model</value>
+    </data>
+    <data name="Price range" xml:space="preserve">
+        <value>Price range</value>
+    </data>
+    <data name="Min Price" xml:space="preserve">
+        <value>Min Price</value>
+    </data>
+    <data name="Max Price" xml:space="preserve">
+        <value>Max Price</value>
+    </data>
+    <data name="Max mileage" xml:space="preserve">
+        <value>Max mileage</value>
+    </data>
+    <data name="Engine size range" xml:space="preserve">
+        <value>Engine size range</value>
+    </data>
+    <data name="Min Engine Size" xml:space="preserve">
+        <value>Min Engine Size</value>
+    </data>
+    <data name="Max Engine Size" xml:space="preserve">
+        <value>Max Engine Size</value>
+    </data>
+    <data name="Max fuel consumption" xml:space="preserve">
+        <value>Max fuel consumption</value>
+    </data>
+    <data name="Manufacture year range" xml:space="preserve">
+        <value>Manufacture year range</value>
+    </data>
+    <data name="Min Manufacture Year" xml:space="preserve">
+        <value>Min Manufacture Year</value>
+    </data>
+    <data name="Max Manufacture Year" xml:space="preserve">
+        <value>Max Manufacture Year</value>
+    </data>
+    <data name="Engine type" xml:space="preserve">
+        <value>Engine type</value>
+    </data>
+    <data name="Transmission" xml:space="preserve">
+        <value>Transmission</value>
+    </data>
+    <data name="Type of drive" xml:space="preserve">
+        <value>Type of drive</value>
+    </data>
+    <data name="Color" xml:space="preserve">
+        <value>Color</value>
+    </data>
+    <data name="Save Search" xml:space="preserve">
+        <value>Save Search</value>
+    </data>
+    <data name="Your ad" xml:space="preserve">
+        <value>Your ad</value>
+    </data>
+    <data name="Details" xml:space="preserve">
+        <value>Details</value>
+    </data>
+    <data name="No ads found" xml:space="preserve">
+        <value>No ads found</value>
+    </data>
+    <data name="Apply filters" xml:space="preserve">
+        <value>Apply filters</value>
+    </data>
+    <data name="SOLD" xml:space="preserve">
+        <value>SOLD</value>
+    </data>
+</root>

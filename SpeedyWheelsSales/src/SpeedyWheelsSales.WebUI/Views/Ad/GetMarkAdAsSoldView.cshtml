@@ -1,19 +1,23 @@
-﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model int
+@inject IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = "Mark ad as sold";
+    ViewData["Title"] = Localizer["Mark ad as sold"];
 }
 
 
-<div class="container mt-4">
-    <h2>Mark ad as sold</h2>
-    <p>Are you sure you want to mark this ad as sold? This is an irreversible action!</p>
-    <form asp-action="MarkAdAsSold" method="post">
-        <input type="hidden" name="adId" value="@Model"/>
-        <button type="submit" class="btn btn-danger">Mark as sold</button>
-    </form>
-    <form asp-controller="Profile" asp-action="GetProfile" method="get">
-        <button type="submit" class="btn btn-secondary">Cancel</button>
-    </form>
+<div class="text-center">
+    <h2>@Localizer["Mark ad as sold"]</h2>
+    <b>@Localizer["Are you sure you want to mark this ad as sold? This is an irreversible action!"]</b>
+    <div class="d-flex justify-content-center mt-3">
+        <form class="mx-2" asp-action="MarkAdAsSold" method="post">
+            <input type="hidden" name="adId" value="@Model"/>
+            <button type="submit" class="btn btn-danger rounded-pill px-3">@Localizer["Mark as sold"]</button>
+        </form>
+        <form class="mx-2" asp-controller="Profile" asp-action="GetProfile" method="get">
+            <button type="submit" class="btn btn-secondary rounded-pill px-3">@Localizer["Cancel"]</button>
+        </form>
+    </div>
 </div>

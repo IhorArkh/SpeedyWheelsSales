@@ -1,5 +1,8 @@
-﻿@{
-    ViewData["Title"] = "Chat";
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["Chat with"];
     var recipientUsername = (string)ViewBag.recipientUsername;
     var currUserUsername = (string)ViewBag.currUserUsername;
 }
@@ -15,17 +18,17 @@
 </head>
 <body>
 <div class="container-fluid chat-container">
-    <h1 class="text-center mb-4">Chat with @recipientUsername</h1>
+    <h1 class="text-center mb-4">@Localizer["Chat with"] @recipientUsername</h1>
 
     <div class="message-container" id="chatMessages">
         <!-- Chat messages will be displayed here -->
     </div>
 
     <div class="input-group">
-        <input type="text" id="message" class="form-control" placeholder="Enter your message">
+        <input type="text" id="message" class="form-control" placeholder="@Localizer["Enter your message"]">
         <input type="hidden" id="recipientUsername" class="form-control" value="@recipientUsername">
         <div class="input-group-append">
-            <button class="btn btn-primary" type="button" onclick="sendMessage()">Send message</button>
+            <button class="btn btn-primary" type="button" onclick="sendMessage()">@Localizer["Send message"]</button>
         </div>
     </div>
 </div>

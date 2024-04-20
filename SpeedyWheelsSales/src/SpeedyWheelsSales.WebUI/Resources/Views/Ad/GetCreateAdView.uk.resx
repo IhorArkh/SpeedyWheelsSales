@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="Brand" xml:space="preserve">
+        <value>Бренд</value>
+    </data>
+    <data name="Cancel" xml:space="preserve">
+        <value>Скасувати</value>
+    </data>
+    <data name="City" xml:space="preserve">
+        <value>Місто</value>
+    </data>
+    <data name="Color" xml:space="preserve">
+        <value>Колір</value>
+    </data>
+    <data name="Create ad" xml:space="preserve">
+        <value>Створити оголошення</value>
+    </data>
+    <data name="Description" xml:space="preserve">
+        <value>Опис</value>
+    </data>
+    <data name="Engine size" xml:space="preserve">
+        <value>Об'єм двигуна</value>
+    </data>
+    <data name="Engine type" xml:space="preserve">
+        <value>Тип двигуна</value>
+    </data>
+    <data name="Fuel consumption" xml:space="preserve">
+        <value>Розхід палива</value>
+    </data>
+    <data name="Main photo(required)" xml:space="preserve">
+        <value>Головне фото(обов'язково)</value>
+    </data>
+    <data name="Manufacture date" xml:space="preserve">
+        <value>Дата випуску</value>
+    </data>
+    <data name="Mileage" xml:space="preserve">
+        <value>Пробіг</value>
+    </data>
+    <data name="Model" xml:space="preserve">
+        <value>Модель</value>
+    </data>
+    <data name="Photo" xml:space="preserve">
+        <value>Фото</value>
+    </data>
+    <data name="Plates" xml:space="preserve">
+        <value>Держ. номер</value>
+    </data>
+    <data name="Price" xml:space="preserve">
+        <value>Ціна</value>
+    </data>
+    <data name="Transmission" xml:space="preserve">
+        <value>Трансміссія</value>
+    </data>
+    <data name="Type of drive" xml:space="preserve">
+        <value>Привід</value>
+    </data>
+</root>

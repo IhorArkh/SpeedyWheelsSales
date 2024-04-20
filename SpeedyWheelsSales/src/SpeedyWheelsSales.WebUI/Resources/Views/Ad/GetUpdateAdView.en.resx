@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="Edit ad" xml:space="preserve">
+        <value>Edit ad</value>
+    </data>
+    <data name="Add photo" xml:space="preserve">
+        <value>Add photo</value>
+    </data>
+    <data name="Main photo (can't be deleted)" xml:space="preserve">
+        <value>Main photo (can't be deleted)</value>
+    </data>
+    <data name="Set main" xml:space="preserve">
+        <value>Set main</value>
+    </data>
+    <data name="Delete" xml:space="preserve">
+        <value>Delete</value>
+    </data>
+    <data name="Description" xml:space="preserve">
+        <value>Description</value>
+    </data>
+    <data name="City" xml:space="preserve">
+        <value>City</value>
+    </data>
+    <data name="Price" xml:space="preserve">
+        <value>Price</value>
+    </data>
+    <data name="Mileage" xml:space="preserve">
+        <value>Mileage</value>
+    </data>
+    <data name="Engine size" xml:space="preserve">
+        <value>Engine size</value>
+    </data>
+    <data name="Fuel consumption" xml:space="preserve">
+        <value>Fuel consumption</value>
+    </data>
+    <data name="Plates" xml:space="preserve">
+        <value>Plates</value>
+    </data>
+    <data name="Engine type" xml:space="preserve">
+        <value>Engine type</value>
+    </data>
+    <data name="Transmission" xml:space="preserve">
+        <value>Transmission</value>
+    </data>
+    <data name="Type of drive" xml:space="preserve">
+        <value>Type of drive</value>
+    </data>
+    <data name="Color" xml:space="preserve">
+        <value>Color</value>
+    </data>
+    <data name="Save Changes" xml:space="preserve">
+        <value>Save Changes</value>
+    </data>
+    <data name="Cancel" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
+</root>

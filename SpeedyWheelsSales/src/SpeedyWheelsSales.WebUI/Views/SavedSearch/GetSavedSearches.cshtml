@@ -1,8 +1,9 @@
-﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model List<SpeedyWheelsSales.Application.Features.SavedSearch.Queries.GetSavedSearches.SavedSearchDto>
-
+@inject IViewLocalizer Localizer
 @{
-    ViewData["Title"] = "Saved searches";
+    ViewData["Title"] = Localizer["Saved searches"];
 
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -11,7 +12,7 @@
     <link rel="stylesheet" href="~/css/styles.css">
 }
 
-<h2 class="text-center mb-4">Saved searches</h2>
+<h2 class="text-center mb-4">@Localizer["Saved searches"]</h2>
 
 <div class="col-6 mx-auto">
     @if (Model.Any())
@@ -21,7 +22,7 @@
             <div class="col mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title text-center">Saved Search</h5>
+                        <h5 class="card-title text-center">@Localizer["Saved Search"]</h5>
                         @foreach (var property in search.GetType().GetProperties())
                         {
                             var value = property.GetValue(search);
@@ -35,11 +36,11 @@
                     <div class="d-flex justify-content-center mt-3 mb-3">
                         <form asp-controller="Ad" asp-action="ListAds" class="mx-2" method="get">
                             <input type="hidden" name="queryStrFromSavedSearch" value="@search.QueryString"/>
-                            <button type="submit" class="btn btn-primary rounded-pill px-3">Go to ads</button>
+                            <button type="submit" class="btn btn-primary rounded-pill px-3">@Localizer["Go to ads"]</button>
                         </form>
                         <form asp-controller="SavedSearch" asp-action="DeleteSearch" class="mx-2" method="post">
                             <input type="hidden" name="searchId" value="@search.Id"/>
-                            <button type="submit" class="btn btn-danger rounded-pill px-3">Delete</button>
+                            <button type="submit" class="btn btn-danger rounded-pill px-3">@Localizer["Delete"]</button>
                         </form>
                     </div>
                 </div>
@@ -49,7 +50,7 @@
     else
     {
         <div class="col-md-12">
-            <p class="text-center">No saved searches found.</p>
+            <p class="text-center">@Localizer["No saved searches found"]</p>
         </div>
     }
 </div>

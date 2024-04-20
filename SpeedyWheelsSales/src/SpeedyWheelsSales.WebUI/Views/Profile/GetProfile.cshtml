@@ -1,9 +1,11 @@
 ﻿@using System.Security.Claims
+@using Microsoft.AspNetCore.Mvc.Localization
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @model SpeedyWheelsSales.WebUI.Models.UserProfileViewModel
+@inject IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = $"{Model.UserProfileDto.Name}'s Profile";
+    ViewData["Title"] = $"{Model.UserProfileDto.Name}{Localizer["profile"]}";
 
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -43,7 +45,7 @@
                     }
                     <p class="card-text text-muted">
                         <i class="fa-solid fa-clock"></i>
-                        Registered:@Model.UserProfileDto.RegisterDate.ToShortDateString()
+                        @Localizer["Registered"]:@Model.UserProfileDto.RegisterDate.ToShortDateString()
                     </p>
                 </div>
 
@@ -51,10 +53,10 @@
                 {
                     <div class="d-flex justify-content-center mt-2 mb-2">
                         <form class="mx-2" asp-controller="Profile" asp-action="GetUpdateProfileView" method="get">
-                            <button type="submit" class="btn btn-primary rounded-pill px-3">Edit profile</button>
+                            <button type="submit" class="btn btn-primary rounded-pill px-3">@Localizer["Edit profile"]</button>
                         </form>
                         <form class="mx-2" asp-controller="Profile" asp-action="GetChangePhotoView" method="get">
-                            <button type="submit" class="btn btn-primary rounded-pill px-3">Change photo</button>
+                            <button type="submit" class="btn btn-primary rounded-pill px-3">@Localizer["Change photo"]</button>
                         </form>
                     </div>
                 }
@@ -62,7 +64,7 @@
             @if (Model.IsOwner)
             {
                 <form class="text-center" asp-controller="Ad" asp-action="GetCreateAdView" method="get">
-                    <button type="submit" class="btn btn-success btn-lg rounded-pill px-3">Create new ad</button>
+                    <button type="submit" class="btn btn-success btn-lg rounded-pill px-3">@Localizer["Create new ad"]</button>
                 </form>
             }
             else if (User.Identity.IsAuthenticated)
@@ -70,7 +72,7 @@
                 <form class="text-center" asp-controller="Chat" asp-action="GetChat" method="get">
                     <input type="hidden" name="currUserUsername" value="@User.FindFirstValue("username")"/>
                     <input type="hidden" name="recipientUsername" value="@Model.UserProfileDto.Username"/>
-                    <button type="submit" class="btn btn-primary btn-lg rounded-pill px-3">Open chat</button>
+                    <button type="submit" class="btn btn-primary btn-lg rounded-pill px-3">@Localizer["Open chat"]</button>
                 </form>
             }
         </div>
@@ -115,7 +117,7 @@
                             </div>
                             <a href="@Url.Action("GetAdDetails", "Ad", new { id = ad.Id })"
                                class="btn btn-primary rounded-pill px-3 ml-2 mr-2">
-                                Details
+                                @Localizer["Details"]
                             </a>
 
 
@@ -124,17 +126,17 @@
                                 <div class="d-flex justify-content-center mt-2 mb-2">
                                     <form class="mx-4" asp-controller="Ad" asp-action="GetMarkAdAsSoldView" method="get">
                                         <input type="hidden" name="adId" value="@ad.Id"/>
-                                        <button type="submit" class="btn btn-success rounded-pill px-3 custom-btn">Mark as sold</button>
+                                        <button type="submit" class="btn btn-success rounded-pill px-3 custom-btn">@Localizer["Mark as sold"]</button>
                                     </form>
 
                                     <form class="mx-4" asp-controller="Ad" asp-action="GetUpdateAdView" method="get">
                                         <input type="hidden" name="adId" value="@ad.Id"/>
-                                        <button type="submit" class="btn btn-warning rounded-pill px-3 custom-btn">Edit</button>
+                                        <button type="submit" class="btn btn-warning rounded-pill px-3 custom-btn">@Localizer["Edit"]</button>
                                     </form>
 
                                     <form class="mx-4" asp-controller="Ad" asp-action="GetDeleteAdView" method="post">
                                         <input type="hidden" name="adId" value="@ad.Id"/>
-                                        <button type="submit" class="btn btn-danger rounded-pill px-3 custom-btn">Delete</button>
+                                        <button type="submit" class="btn btn-danger rounded-pill px-3 custom-btn">@Localizer["Delete"]</button>
                                     </form>
                                 </div>
                             }
@@ -144,7 +146,7 @@
             }
             else
             {
-                <h2 class="text-center">No active ads found</h2>
+                <h2 class="text-center">@Localizer["No active ads found"]</h2>
             }
 
             @if (Model.IsOwner)
@@ -155,7 +157,7 @@
                             <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseArchivedAds" aria-expanded="true"
                                     aria-controls="collapseArchivedAds">
-                                Archived Ads
+                                @Localizer["Archived Ads"]
                             </button>
                         </h2>
                         <div id="collapseArchivedAds" class="accordion-collapse collapse"
@@ -203,19 +205,19 @@
                                                     @if (ad.IsDeleted)
                                                     {
                                                         <div class="sold-overlay d-flex justify-content-center align-items-center">
-                                                            DELETED
+                                                            @Localizer["DELETED"]
                                                         </div>
                                                     }
                                                     @if (ad.IsSold)
                                                     {
                                                         <div class="sold-overlay d-flex justify-content-center align-items-center">
-                                                            SOLD
+                                                            @Localizer["SOLD"]
                                                         </div>
                                                     }
                                                 </div>
                                                 <a href="@Url.Action("GetAdDetails", "Ad", new { id = ad.Id })"
                                                    class="btn btn-primary rounded-pill px-3 mb-3 ml-2 mr-2">
-                                                    View Details
+                                                    @Localizer["Details"]
                                                 </a>
                                             </div>
                                         }
@@ -223,7 +225,7 @@
                                 }
                                 else
                                 {
-                                    <h2 class="text-center">No archived ads found</h2>
+                                    <h2 class="text-center">@Localizer["No archived ads found"]</h2>
                                 }
                             </div>
                         </div>

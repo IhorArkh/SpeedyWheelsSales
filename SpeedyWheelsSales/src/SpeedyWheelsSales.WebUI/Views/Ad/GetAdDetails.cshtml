@@ -1,8 +1,11 @@
-﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+﻿@using System.Security.Claims
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model SpeedyWheelsSales.Application.Features.Ad.Queries.GetAdDetails.DTOs.AdDetailsDto
+@inject IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = "Ad details";
+    ViewData["Title"] = Localizer["Ad details"];
 
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -100,18 +103,24 @@
                             </p>
                         }
                         <p class="card-text text-muted">
-                            <i class="fa-solid fa-clock"></i> Registered:@Model.AppUserDto.RegisterDate.ToShortDateString()
+                            <i class="fa-solid fa-clock"></i>@Localizer["Registered"]:@Model.AppUserDto.RegisterDate.ToShortDateString()
                         </p>
                     </div>
 
+                    @if (User.Identity.IsAuthenticated && !Model.IsAuthor)
+                    {
+                        <form class="text-center" asp-controller="Chat" asp-action="GetChat" method="get">
+                            <input type="hidden" name="currUserUsername" value="@User.FindFirstValue("username")"/>
+                            <input type="hidden" name="recipientUsername" value="@Model.AppUserDto.UserName"/>
+                            <button type="submit" class="btn btn-primary rounded-pill px-3" style="width: 100%;">@Localizer["Open chat"]</button>
+                        </form>
+                    }
                     @if (!Model.IsAuthor)
                     {
-                        <div>
-                            <form asp-controller="Profile" asp-action="GetProfile" method="get">
-                                <input type="hidden" name="username" value="@Model.AppUserDto.UserName"/>
-                                <button type="submit" class="btn btn-primary rounded-pill px-3" style="width: 100%;">View profile</button>
-                            </form>
-                        </div>
+                        <form class="text-2 mt-2" asp-controller="Profile" asp-action="GetProfile" method="get">
+                            <input type="hidden" name="username" value="@Model.AppUserDto.UserName"/>
+                            <button type="submit" class="btn btn-primary rounded-pill px-3" style="width: 100%;">@Localizer["Profile"]</button>
+                        </form>
                     }
                 </div>
             </div>
