@@ -26,7 +26,9 @@ public class AdController : BaseApiController
     [HttpGet]
     public async Task<IActionResult> GetAds([FromQuery] AdParams adParams)
     {
-        return HandlePagedResult(await Mediator.Send(new GetAdListQuery { AdParams = adParams }));
+        var result = await RetryPolicy.ExecuteAsync(async () =>
+            HandlePagedResult(await Mediator.Send(new GetAdListQuery { AdParams = adParams })));
+        return result;
     }
 
     /// <summary>
@@ -37,7 +39,9 @@ public class AdController : BaseApiController
     [HttpGet("{id}")]
     public async Task<IActionResult> GetAdDetails(int id)
     {
-        return HandleResult(await Mediator.Send(new GetAdDetailsQuery { Id = id }));
+        var result = await RetryPolicy.ExecuteAsync(async () =>
+            HandleResult(await Mediator.Send(new GetAdDetailsQuery { Id = id })));
+        return result;
     }
 
     /// <summary>
@@ -57,7 +61,9 @@ public class AdController : BaseApiController
     [HttpPost]
     public async Task<IActionResult> CreateAd(CreateAdDto createAdDto)
     {
-        return HandleResult(await Mediator.Send(new CreateAdCommand { CreateAdDto = createAdDto }));
+        var result = await RetryPolicy.ExecuteAsync(async () =>
+            HandleResult(await Mediator.Send(new CreateAdCommand { CreateAdDto = createAdDto })));
+        return result;
     }
 
     /// <summary>
@@ -74,7 +80,9 @@ public class AdController : BaseApiController
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateAd(int id, UpdateAdDto updateAdDto)
     {
-        return HandleResult(await Mediator.Send(new UpdateAdCommand { UpdateAdDto = updateAdDto, Id = id }));
+        var result = await RetryPolicy.ExecuteAsync(async () =>
+            HandleResult(await Mediator.Send(new UpdateAdCommand { UpdateAdDto = updateAdDto, Id = id })));
+        return result;
     }
 
     /// <summary>
@@ -90,7 +98,9 @@ public class AdController : BaseApiController
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteAd(int id)
     {
-        return HandleResult(await Mediator.Send(new DeleteAdCommand { Id = id }));
+        var result = await RetryPolicy.ExecuteAsync(async () =>
+            HandleResult(await Mediator.Send(new DeleteAdCommand { Id = id })));
+        return result;
     }
 
     /// <summary>
@@ -106,7 +116,9 @@ public class AdController : BaseApiController
     [HttpPut("markAsSold/{id}")]
     public async Task<IActionResult> MarkAsSold(int id)
     {
-        return HandleResult(await Mediator.Send(new MarkAdAsSoldCommand { Id = id }));
+        var result = await RetryPolicy.ExecuteAsync(async () =>
+            HandleResult(await Mediator.Send(new MarkAdAsSoldCommand { Id = id })));
+        return result;
     }
 
     /// <summary>
@@ -124,7 +136,9 @@ public class AdController : BaseApiController
     [HttpPost("toggleFavourite/{id}")]
     public async Task<IActionResult> ToggleFavourite(int id)
     {
-        return HandleResult(await Mediator.Send(new ToggleFavouriteAdCommand() { AdId = id }));
+        var result = await RetryPolicy.ExecuteAsync(async () =>
+            HandleResult(await Mediator.Send(new ToggleFavouriteAdCommand { AdId = id })));
+        return result;
     }
 
     /// <summary>
@@ -137,7 +151,9 @@ public class AdController : BaseApiController
     [HttpGet("favourites")]
     public async Task<IActionResult> GetFavouriteAds([FromQuery] PagingParams pagingParams)
     {
-        return HandlePagedResult(await Mediator.Send(new GetFavouriteAdsQuery { PagingParams = pagingParams }));
+        var result = await RetryPolicy.ExecuteAsync(async () =>
+            HandlePagedResult(await Mediator.Send(new GetFavouriteAdsQuery { PagingParams = pagingParams })));
+        return result;
     }
 
     /// <summary>
@@ -158,7 +174,9 @@ public class AdController : BaseApiController
     [HttpDelete("photo/{photoId}")]
     public async Task<IActionResult> DeleteAdPhoto(string photoId)
     {
-        return HandleResult(await Mediator.Send(new DeleteAdPhotoCommand { PhotoId = photoId }));
+        var result = await RetryPolicy.ExecuteAsync(async () =>
+            HandleResult(await Mediator.Send(new DeleteAdPhotoCommand { PhotoId = photoId })));
+        return result;
     }
 
     /// <summary>
@@ -177,7 +195,9 @@ public class AdController : BaseApiController
     [HttpPut("photo/{photoId}")]
     public async Task<IActionResult> SetMainAdPhoto(string photoId)
     {
-        return HandleResult(await Mediator.Send(new SetMainAdPhotoCommand { PhotoId = photoId }));
+        var result = await RetryPolicy.ExecuteAsync(async () =>
+            HandleResult(await Mediator.Send(new SetMainAdPhotoCommand { PhotoId = photoId })));
+        return result;
     }
 
     /// <summary>
@@ -197,6 +217,8 @@ public class AdController : BaseApiController
     [HttpPost("photo/{adId}")]
     public async Task<IActionResult> AddAdPhoto(int adId, IFormFile photo)
     {
-        return HandleResult(await Mediator.Send(new AddAdPhotoCommand { AdId = adId, Photo = photo }));
+        var result = await RetryPolicy.ExecuteAsync(async () =>
+            HandleResult(await Mediator.Send(new AddAdPhotoCommand { AdId = adId, Photo = photo })));
+        return result;
     }
 }

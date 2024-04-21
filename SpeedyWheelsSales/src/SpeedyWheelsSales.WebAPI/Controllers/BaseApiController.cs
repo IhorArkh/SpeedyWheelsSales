@@ -1,5 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Polly;
+using Polly.Retry;
 using SpeedyWheelsSales.Application.Core;
 using SpeedyWheelsSales.WebAPI.Extensions;
 
@@ -10,8 +12,15 @@ namespace SpeedyWheelsSales.WebAPI.Controllers;
 public class BaseApiController : ControllerBase
 {
     private IMediator _mediator;
-
     protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
+    protected AsyncRetryPolicy<ActionResult> RetryPolicy { get; init; }
+
+    public BaseApiController()
+    {
+        RetryPolicy = Policy
+            .HandleResult<ActionResult>(result => !(result is OkObjectResult))
+            .RetryAsync(3);
+    }
 
     protected ActionResult HandleResult<T>(Result<T> result)
     {

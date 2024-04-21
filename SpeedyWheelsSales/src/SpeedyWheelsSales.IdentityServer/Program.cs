@@ -54,7 +54,12 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         opt.ClientSecret = googleAuth["ClientSecret"];
     });
 
-builder.Host.UseSerilog(); // TODO Need to configure logger
+builder.Host.UseSerilog((ctx, lc) => lc
+    .WriteTo.Console(
+        outputTemplate:
+        "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}")
+    .Enrich.FromLogContext()
+    .ReadFrom.Configuration(ctx.Configuration));
 
 var app = builder.Build();
 

@@ -19,7 +19,9 @@ public class SavedSearchController : BaseApiController
     [HttpGet]
     public async Task<IActionResult> GetSavedSearches()
     {
-        return HandleResult(await Mediator.Send(new GetSavedSearchesQuery()));
+        var result = await RetryPolicy.ExecuteAsync(async () =>
+            HandleResult(await Mediator.Send(new GetSavedSearchesQuery())));
+        return result;
     }
 
     /// <summary>
@@ -37,7 +39,9 @@ public class SavedSearchController : BaseApiController
     [HttpPost]
     public async Task<IActionResult> SaveSearch([FromQuery] SaveSearchParams saveSearchParams)
     {
-        return HandleResult(await Mediator.Send(new SaveSearchCommand { SaveSearchParams = saveSearchParams }));
+        var result = await RetryPolicy.ExecuteAsync(async () =>
+            HandleResult(await Mediator.Send(new SaveSearchCommand { SaveSearchParams = saveSearchParams })));
+        return result;
     }
 
     /// <summary>
@@ -52,6 +56,8 @@ public class SavedSearchController : BaseApiController
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteSavedSearch(int id)
     {
-        return HandleResult(await Mediator.Send(new DeleteSearchCommand { Id = id }));
+        var result = await RetryPolicy.ExecuteAsync(async () =>
+            HandleResult(await Mediator.Send(new DeleteSearchCommand { Id = id })));
+        return result;
     }
 }
