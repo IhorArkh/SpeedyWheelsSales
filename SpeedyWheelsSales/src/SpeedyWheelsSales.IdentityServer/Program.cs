@@ -1,5 +1,7 @@
 using Domain.Entities;
+using Duende.IdentityServer;
 using Duende.IdentityServer.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -40,6 +42,17 @@ builder.Services.AddIdentityServer(opt =>
         b.UseSqlServer(connString, options => options.MigrationsAssembly(migrationsAssembly)))
     .AddAspNetIdentity<AppUser>()
     .AddProfileService<ProfileService>();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie()
+    .AddGoogle("Google", opt =>
+    {
+        var googleAuth = builder.Configuration.GetSection("Authentication:Google");
+
+        opt.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+        opt.ClientId = googleAuth["ClientId"];
+        opt.ClientSecret = googleAuth["ClientSecret"];
+    });
 
 builder.Host.UseSerilog(); // TODO Need to configure logger
 

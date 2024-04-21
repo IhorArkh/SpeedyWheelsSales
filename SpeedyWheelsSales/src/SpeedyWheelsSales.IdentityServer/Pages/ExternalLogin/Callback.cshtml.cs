@@ -66,8 +66,12 @@ public class Callback : PageModel
                        throw new InvalidOperationException("Null scheme in authentiation properties");
         var providerUserId = userIdClaim.Value;
 
+        var userEmail = externalUser.FindFirst(ClaimTypes.Email)?.Value ??
+                        throw new InvalidOperationException("Unknown user email");
+
         // find external user
-        var user = await _userManager.FindByLoginAsync(provider, providerUserId);
+
+        var user = await _userManager.FindByEmailAsync(userEmail);
         if (user == null)
         {
             // this might be where you might initiate a custom workflow for user registration
@@ -75,10 +79,16 @@ public class Callback : PageModel
             // simply auto-provisions new external user
             //
             // remove the user id claim so we don't include it as an extra claim if/when we provision the user
-            var claims = externalUser.Claims.ToList();
-            claims.Remove(userIdClaim);
+            var name = externalUser.FindFirst(ClaimTypes.Name)?.Value ??
+                       throw new InvalidOperationException("Unknown user name");
 
-            user = new AppUser() { UserName = Guid.NewGuid().ToString() }; // ???
+            user = new AppUser
+            {
+                UserName = Guid.NewGuid().ToString(),
+                Email = userEmail,
+                Name = name,
+                RegisterDate = DateTime.UtcNow
+            };
             await _userManager.CreateAsync(user);
 
             await _userManager.AddLoginAsync(user, new UserLoginInfo(provider, providerUserId, provider));
@@ -87,16 +97,19 @@ public class Callback : PageModel
         // this allows us to collect any additional claims or properties
         // for the specific protocols used and store them in the local auth cookie.
         // this is typically used to store data needed for signout from those protocols.
-        var additionalLocalClaims = new List<Claim>();
         var localSignInProps = new AuthenticationProperties();
-        CaptureExternalLoginContext(result, additionalLocalClaims, localSignInProps);
 
         // issue authentication cookie for user
+        var claims = new List<Claim>
+        {
+            new Claim("username", user.UserName)
+        };
+
         var isuser = new IdentityServerUser(user.Id)
         {
             DisplayName = user.UserName,
             IdentityProvider = provider,
-            AdditionalClaims = additionalLocalClaims
+            AdditionalClaims = claims
         };
 
         await HttpContext.SignInAsync(isuser, localSignInProps);

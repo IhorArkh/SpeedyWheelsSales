@@ -43,9 +43,15 @@
                             <i class="fa-solid fa-address-card"></i> @Model.UserProfileDto.Bio
                         </p>
                     }
+                    @if (Model.UserProfileDto.PhoneNumber != null)
+                    {
+                    <p class="card-text">
+                        <i class="fa-solid fa-phone"></i> @Model.UserProfileDto.PhoneNumber
+                    </p>
+                    }
                     <p class="card-text text-muted">
                         <i class="fa-solid fa-clock"></i>
-                        @Localizer["Registered"]:@Model.UserProfileDto.RegisterDate.ToShortDateString()
+                        @Localizer["Registered"]: @Model.UserProfileDto.RegisterDate.ToShortDateString()
                     </p>
                 </div>
 
