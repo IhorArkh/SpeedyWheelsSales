@@ -1,22 +1,125 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
 body {
-  margin-bottom: 60px;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.chat-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.message-container {
+    overflow-y: auto;
+    max-height: 750px;
+}
+
+.message {
+    padding: 10px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+}
+
+.message.sent {
+    background-color: #e6f2ff;
+}
+
+.message.received {
+    background-color: #f2f2f2;
+}
+
+.message-header {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.input-group {
+    margin-top: 20px;
+}
+
+#message {
+    border-radius: 20px;
+}
+
+.btn-primary {
+    border-radius: 20px;
+}
+/*ad card*/
+.sold-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 0, 0, 0.5);
+    color: white;
+    font-size: 24px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    width: 70%;
+}
+
+.card-img-top {
+    padding-top: 2%;
+    padding-left: 2%;
+    padding-right: 2%;
+    border-radius: 4%;
+}
+
+.card-body {
+    padding-left: 4%;
+    padding-right: 4%;
+    padding-bottom: 4%;
+    flex-grow: 1;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 3%;
+}
+
+.card-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* like ad button */
+.fas.fa-heart, .far.fa-heart {
+    font-size: 40px;
+    color: #f04646;
+}
+
+/*Carousel*/
+.carousel-inner {
+    border-radius: 10px;
+}
+
+.carousel-item img {
+    border-radius: 10px;
+}
+
+.carousel {
+    margin: auto;
+}
+
+
+.custom-display {
+    font-size: 1.7rem;
+}
+
+.custom-btn {
+    width: 180px;
+    height: 40px;
+}
+
+#saveSearchForm label {
+    font-family: Arial, sans-serif;
+    font-weight: bold;
 }
