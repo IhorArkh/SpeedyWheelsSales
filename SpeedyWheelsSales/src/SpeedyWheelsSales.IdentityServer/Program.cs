@@ -11,6 +11,12 @@ using Log = SpeedyWheelsSales.IdentityServer.Pages.Log;
 
 var builder = WebApplication.CreateBuilder(args);
 
+IConfiguration configuration = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json")
+    .Build();
+Config.SetConfiguration(configuration);
+
 var connString = builder.Configuration.GetConnectionString("DefaultConnection") ??
                  throw new InvalidOperationException("Connection string not found.");
 

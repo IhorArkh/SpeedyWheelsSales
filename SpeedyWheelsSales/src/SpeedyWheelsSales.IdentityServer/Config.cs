@@ -4,6 +4,13 @@ namespace SpeedyWheelsSales.IdentityServer;
 
 public static class Config
 {
+    private static IConfiguration _configuration;
+
+    public static void SetConfiguration(IConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
+
     public static IEnumerable<IdentityResource> IdentityResources =>
         new[]
         {
@@ -29,7 +36,9 @@ public static class Config
         {
             Scopes = new List<string> { "speedywheelssalesapi.read", "speedywheelssalesapi.write" },
             ApiSecrets = new List<Secret>
-                { new Secret("ScopeSecret".Sha256()) }, // TODO secrets should be in appsettings file
+            {
+                new Secret(_configuration["IdentityServerConfig:Clients:SpeedyWheelsSalesWebUI:ClientSecret"].Sha256())
+            },
             UserClaims = new List<string> { "username" }
         }
     };
@@ -37,11 +46,15 @@ public static class Config
     public static IEnumerable<Client> Clients =>
         new[]
         {
-            // interactive client using code flow + pkce
+            // WebUI client
             new Client
             {
                 ClientId = "speedywheelssaleswebui",
-                ClientSecrets = { new Secret("SuperSecretPasswordSuperSecretPasswordSuperSecretPassword".Sha256()) },
+                ClientSecrets =
+                {
+                    new Secret
+                        (_configuration["IdentityServerConfig:ApiResources:SpeedyWheelsSalesApi:ApiSecret"].Sha256())
+                },
 
                 AllowedGrantTypes = GrantTypes.Code,
 
@@ -52,7 +65,8 @@ public static class Config
                 AllowOfflineAccess = true,
                 AlwaysIncludeUserClaimsInIdToken = true,
                 AlwaysSendClientClaims = true,
-                AllowedScopes = { "openid", "profile", "speedywheelssalesapi.read", "customProfile" },
+                AllowedScopes =
+                    { "openid", "profile", "speedywheelssalesapi.read", "speedywheelssalesapi.write", "customProfile" },
                 RequirePkce = true,
                 AllowPlainTextPkce = false,
                 RequireConsent = false

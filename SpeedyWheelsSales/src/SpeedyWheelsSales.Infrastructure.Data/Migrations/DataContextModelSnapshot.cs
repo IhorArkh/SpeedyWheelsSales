@@ -60,7 +60,7 @@ namespace SpeedyWheelsSales.Infrastructure.Data.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("Ads");
+                    b.ToTable("Ads", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Car", b =>
@@ -130,7 +130,7 @@ namespace SpeedyWheelsSales.Infrastructure.Data.Migrations
                     b.HasIndex("AdId")
                         .IsUnique();
 
-                    b.ToTable("Cars");
+                    b.ToTable("Cars", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.FavouriteAd", b =>
@@ -154,7 +154,7 @@ namespace SpeedyWheelsSales.Infrastructure.Data.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("FavouriteAds");
+                    b.ToTable("FavouriteAds", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Message", b =>
@@ -187,7 +187,7 @@ namespace SpeedyWheelsSales.Infrastructure.Data.Migrations
 
                     b.HasIndex("SenderId");
 
-                    b.ToTable("Messages");
+                    b.ToTable("Messages", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Photo", b =>
@@ -209,7 +209,7 @@ namespace SpeedyWheelsSales.Infrastructure.Data.Migrations
 
                     b.HasIndex("AdId");
 
-                    b.ToTable("Photos");
+                    b.ToTable("Photos", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.SavedSearch", b =>
@@ -283,7 +283,7 @@ namespace SpeedyWheelsSales.Infrastructure.Data.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("SavedSearches");
+                    b.ToTable("SavedSearches", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
