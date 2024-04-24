@@ -37,7 +37,7 @@ public static class Config
             Scopes = new List<string> { "speedywheelssalesapi.read", "speedywheelssalesapi.write" },
             ApiSecrets = new List<Secret>
             {
-                new Secret(_configuration["IdentityServerConfig:Clients:SpeedyWheelsSalesWebUI:ClientSecret"].Sha256())
+                new Secret(_configuration["IdentityServerConfig:ApiResources:SpeedyWheelsSalesApi:ApiSecret"].Sha256())
             },
             UserClaims = new List<string> { "username" }
         }
@@ -53,7 +53,7 @@ public static class Config
                 ClientSecrets =
                 {
                     new Secret
-                        (_configuration["IdentityServerConfig:ApiResources:SpeedyWheelsSalesApi:ApiSecret"].Sha256())
+                        (_configuration["IdentityServerConfig:Clients:SpeedyWheelsSalesWebUI:ClientSecret"].Sha256())
                 },
 
                 AllowedGrantTypes = GrantTypes.Code,
