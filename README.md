@@ -51,6 +51,7 @@
 
 ### 3rd party services
 - Cloudinary - for storing and managing images.
+- Google OAuth
 
  
 ## Database schema
