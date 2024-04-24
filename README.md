@@ -54,5 +54,6 @@
 
  
 ## Database schema
-![image](https://github.com/IhorArkh/SpeedyWheelsSales/assets/118860688/45c3beb8-b9e2-474f-b5ec-f6f8ee7e0a02)
+<img width="685" alt="Ssms_135URygAS2" src="https://github.com/IhorArkh/SpeedyWheelsSales/assets/118860688/ff025059-78d4-466b-bddf-3b1fc1a3b612">
+
 
