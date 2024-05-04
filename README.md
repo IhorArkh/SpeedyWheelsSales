@@ -27,6 +27,7 @@
 - Localization
   - User have ability to change app language.
 
+---
 ## Stack
 
 ### Architecture
@@ -53,8 +54,58 @@
 - Cloudinary - for storing and managing images.
 - Google OAuth
 
- 
+ ---
 ## Database schema
 <img width="685" alt="Ssms_135URygAS2" src="https://github.com/IhorArkh/SpeedyWheelsSales/assets/118860688/ff025059-78d4-466b-bddf-3b1fc1a3b612">
+
+---
+## UI screenshots
+**Main page**
+![chrome_S7gzz22y1R](https://github.com/IhorArkh/SpeedyWheelsSales/assets/118860688/ca0bd6e1-3f05-49d4-abf0-e8806fcaa767)
+
+
+**Sorting and filtering**
+<img width="1920" alt="chrome_TOGmM6ZmXs" src="https://github.com/IhorArkh/SpeedyWheelsSales/assets/118860688/778ac188-3c64-455b-9c17-2676c93be2a2">
+
+
+**Ad details**
+![image](https://github.com/IhorArkh/SpeedyWheelsSales/assets/118860688/87337d94-fc7b-4499-bde1-dbcf2cec197a)
+
+
+**Your profile**
+![chrome_tGHtpiYrDL](https://github.com/IhorArkh/SpeedyWheelsSales/assets/118860688/25d66696-4bdb-496f-827d-bc7ec39694d5)
+
+
+**Other user's profile**
+![image](https://github.com/IhorArkh/SpeedyWheelsSales/assets/118860688/6a8e5d41-7ddf-4ad5-8008-7ec6d31b5db2)
+
+
+**Live chat**
+![image](https://github.com/IhorArkh/SpeedyWheelsSales/assets/118860688/f55657b4-20ab-4337-bd76-50b012cdc679)
+
+
+**Favourite ads**
+![image](https://github.com/IhorArkh/SpeedyWheelsSales/assets/118860688/f63ee47e-6627-4875-98a0-e17c191c83b9)
+
+
+**Edit ad**
+![image](https://github.com/IhorArkh/SpeedyWheelsSales/assets/118860688/baec0490-adce-47ee-8576-f5d5ac478be1)
+
+
+**Create ad**
+![image](https://github.com/IhorArkh/SpeedyWheelsSales/assets/118860688/63d6d791-e0b2-49d8-9485-8c0f4516c982)
+
+
+**Edit profile**
+![image](https://github.com/IhorArkh/SpeedyWheelsSales/assets/118860688/e6d07b5c-d2ed-4520-a56e-b11f0489ca0f)
+
+
+**Saved searches**
+<img width="1920" alt="chrome_I8X6carRym" src="https://github.com/IhorArkh/SpeedyWheelsSales/assets/118860688/0af6d1b2-7844-4d97-9d0f-131d0afe95fa">
+
+
+
+
+
 
 
