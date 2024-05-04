@@ -1,0 +1,127 @@
+﻿@using Domain.Enums
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["Create ad"];
+    var todayDate = DateTime.UtcNow.ToString("yyyy-MM-dd");
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h2 class="text-center">@Localizer["Create ad"]</h2>
+            <form asp-controller="Ad" asp-action="CreateAd" method="post" enctype="multipart/form-data">
+                <div class="input-group mb-3">
+                    <span class="input-group-text">@Localizer["Main photo(required)"]</span>
+                    <input type="file" class="form-control" id="Photo1" name="createAdDto.Photos" accept="image/*" required>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">@Localizer["Photo"] 2</span>
+                    <input type="file" class="form-control" id="Photo2" name="createAdDto.Photos" accept="image/*">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">@Localizer["Photo"] 3</span>
+                    <input type="file" class="form-control" id="Photo3" name="createAdDto.Photos" accept="image/*">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">@Localizer["Photo"] 4</span>
+                    <input type="file" class="form-control" id="Photo4" name="createAdDto.Photos" accept="image/*">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">@Localizer["Photo"] 5</span>
+                    <input type="file" class="form-control" id="Photo5" name="createAdDto.Photos" accept="image/*">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">@Localizer["Description"]</span>
+                    <textarea type="text" class="form-control" id="Description" name="createAdDto.Description" required maxlength="2000"></textarea>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">@Localizer["City"]</span>
+                    <input type="text" class="form-control" id="City" name="createAdDto.City" required maxlength="50">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">@Localizer["Brand"]</span>
+                    <input type="text" class="form-control" id="Brand" name="createAdDto.CreateAdCarDto.Brand" required maxlength="50">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">@Localizer["Model"]</span>
+                    <input type="text" class="form-control" id="Model" name="createAdDto.CreateAdCarDto.Model" required maxlength="50">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">@Localizer["Price"]</span>
+                    <input type="number" class="form-control" id="Price" name="createAdDto.CreateAdCarDto.Price" required min="0" max="999999999">
+                    <span class="input-group-text">$</span>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">@Localizer["Mileage"]</span>
+                    <input type="number" class="form-control" id="Mileage" name="createAdDto.CreateAdCarDto.Mileage" required min="0" max="999999999">
+                    <span class="input-group-text">km</span>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">@Localizer["Engine size"]</span>
+                    <input type="number" step="0.1" class="form-control" id="EngineSize" name="createAdDto.CreateAdCarDto.EngineSize" required min="0" max="999999999">
+                    <span class="input-group-text">L</span>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">@Localizer["Fuel consumption"]</span>
+                    <input type="number" step="0.1" class="form-control" id="FuelConsumption" name="createAdDto.CreateAdCarDto.FuelConsumption" required min="0" max="999999999">
+                    <span class="input-group-text">L/100km</span>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">VIN</span>
+                    <input type="text" class="form-control" id="Vin" name="createAdDto.CreateAdCarDto.Vin" required maxlength="50">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">@Localizer["Plates"]</span>
+                    <input type="text" class="form-control" id="Plates" name="createAdDto.CreateAdCarDto.Plates" required maxlength="15">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">@Localizer["Manufacture date"]</span>
+                    <input type="date" class="form-control" id="ManufactureDate" name="createAdDto.CreateAdCarDto.ManufactureDate" required max="@todayDate">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">@Localizer["Engine type"]</span>
+                    <select class="form-select" id="EngineType" name="createAdDto.CreateAdCarDto.EngineType">
+                        @foreach (var engineType in Enum.GetValues(typeof(EngineType)))
+                        {
+                            <option value="@engineType">@engineType</option>
+                        }
+                    </select>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">@Localizer["Transmission"]</span>
+                    <select class="form-select" id="Transmission" name="createAdDto.CreateAdCarDto.Transmission">
+                        @foreach (var transmission in Enum.GetValues(typeof(Transmission)))
+                        {
+                            <option value="@transmission">@transmission</option>
+                        }
+                    </select>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">@Localizer["Type of drive"]</span>
+                    <select class="form-select" id="TypeOfDrive" name="createAdDto.CreateAdCarDto.TypeOfDrive">
+                        @foreach (var typeOfDrive in Enum.GetValues(typeof(TypeOfDrive)))
+                        {
+                            <option value="@typeOfDrive">@typeOfDrive</option>
+                        }
+                    </select>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">@Localizer["Color"]</span>
+                    <select class="form-select" id="Color" name="createAdDto.CreateAdCarDto.Color">
+                        @foreach (var color in Enum.GetValues(typeof(Colors)))
+                        {
+                            <option value="@color">@color</option>
+                        }
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success rounded-pill px-3" style="width: 100%;">@Localizer["Create ad"]</button>
+            </form>
+            <form asp-controller="Profile" asp-action="GetProfile" method="get">
+                <button type="submit" class="btn btn-secondary rounded-pill mt-2" style="width: 100%;">@Localizer["Cancel"]</button>
+            </form>
+        </div>
+    </div>
+</div>

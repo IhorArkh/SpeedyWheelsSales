@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="Delete" xml:space="preserve">
+        <value>Видалити</value>
+    </data>
+    <data name="Go to ads" xml:space="preserve">
+        <value>До оголошень</value>
+    </data>
+    <data name="No saved searches found" xml:space="preserve">
+        <value>Збережені пошуки не знайдені</value>
+    </data>
+    <data name="Saved Search" xml:space="preserve">
+        <value>Збережений пошук</value>
+    </data>
+    <data name="Saved searches" xml:space="preserve">
+        <value>Збережені пошуки</value>
+    </data>
+    <data name="City" xml:space="preserve">
+        <value>Місто</value>
+    </data>
+    <data name="Brand" xml:space="preserve">
+        <value>Бренд</value>
+    </data>
+    <data name="Model" xml:space="preserve">
+        <value>Модель</value>
+    </data>
+    <data name="MinPrice" xml:space="preserve">
+        <value>Мін. ціна</value>
+    </data>
+    <data name="MaxPrice" xml:space="preserve">
+        <value>Макс. ціна</value>
+    </data>
+    <data name="MaxMileage" xml:space="preserve">
+        <value>Макс. пробіг</value>
+    </data>
+    <data name="MinManufactureYear" xml:space="preserve">
+        <value>Мін. рік виробництва</value>
+    </data>
+    <data name="MaxManufactureYear" xml:space="preserve">
+        <value>Макс. рік виробництва</value>
+    </data>
+    <data name="MinEngineSize" xml:space="preserve">
+        <value>Мін. об'єм двигуна</value>
+    </data>
+    <data name="MaxEngineSize" xml:space="preserve">
+        <value>Макс. об'єм двигуна</value>
+    </data>
+    <data name="MaxFuelConsumption" xml:space="preserve">
+        <value>Макс. розхід палива</value>
+    </data>
+    <data name="EngineType" xml:space="preserve">
+        <value>Тип двигуна</value>
+    </data>
+    <data name="Transmission" xml:space="preserve">
+        <value>Трансміссія</value>
+    </data>
+    <data name="TypeOfDrive" xml:space="preserve">
+        <value>Привід</value>
+    </data>
+    <data name="Color" xml:space="preserve">
+        <value>Колір</value>
+    </data>
+</root>

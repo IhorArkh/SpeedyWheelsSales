@@ -1,0 +1,123 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model SpeedyWheelsSales.WebUI.Models.FavoriteAdsViewModel
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["Favourite ads"];
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+    <environment include="Development">
+        <link rel="stylesheet" href="~/css/styles.css">
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="~/css/styles.min.css">
+    </environment>
+}
+
+<div class="row">
+    @if (Model.FavouriteAdDtos.Any())
+    {
+        @foreach (var favAd in Model.FavouriteAdDtos)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    @if (favAd.PhotoDtos.Any())
+                    {
+                        <img src="@favAd.PhotoDtos.FirstOrDefault(x => x.IsMain)?.Url" class="card-img-top" alt="Car Photo">
+                    }
+                    @if (favAd.IsSold)
+                    {
+                        <div class="sold-overlay d-flex justify-content-center align-items-center">@Localizer["SOLD"]</div>
+                    }
+                    @if (favAd.IsDeleted)
+                    {
+                        <div class="sold-overlay d-flex justify-content-center align-items-center">@Localizer["DELETED"]</div>
+                    }
+                    <div class="card-body">
+                        <h5 class="card-title text-center">@favAd.CarDto.Brand.ToUpper() @favAd.CarDto.Model.ToUpper() @favAd.CarDto.ManufactureDate.Year</h5>
+                        <p class="card-text text-left font-weight-bold text-success custom-display">
+                            <i class="fa-solid fa-dollar-sign"></i> @favAd.CarDto.Price.ToString("0.##")
+                        </p>
+                        <p class="card-text">
+                            <i class="fa-solid fa-gauge-high"></i> @favAd.CarDto.Mileage km
+                            <span class="float-right">
+                                <i class="fa-solid fa-location-dot"></i> @favAd.City
+                            </span>
+                        </p>
+                        <p class="card-text">
+                            <i class="fa-solid fa-gas-pump"></i> @favAd.CarDto.EngineType, @favAd.CarDto.EngineSize L
+                            <span class="float-right">
+                                <i class="fa-sharp fa-solid fa-gears"></i> @favAd.CarDto.Transmission
+                            </span>
+                        </p>
+                        <p class="badge badge-primary">
+                            <i class="fa-solid fa-car"></i> @favAd.CarDto.Plates
+                        </p>
+                        <p class="badge badge-primary float-right">
+                            <i class="fa-solid fa-barcode"></i> @favAd.CarDto.Vin
+                        </p>
+                        <p class="card-text text-muted">
+                            <i class="fa-solid fa-clock"></i> @favAd.CreatedAt.ToShortDateString()
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="@Url.Action("GetAdDetails", "Ad", new { id = favAd.AdId })" class="btn btn-primary rounded-pill px-3">@Localizer["Details"]</a>
+
+                            <button class="btn btn-link toggle-favourite" data-adid="@favAd.AdId">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <h2 class="text-center">@Localizer["No favourite ads found"]</h2>
+    }
+
+    <div class="pagination justify-content-center">
+        @if (Model.TotalPages > 1)
+        {
+            <ul class="pagination">
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    Model.PagingParams.PageNumber = @i;
+                    Model.PagingParams.PageSize = Model.ItemsPerPage;
+                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                        <a class="page-link" href="@Url.Action("GetFavourites", "Ad", Model.PagingParams)">
+                            @i
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('.toggle-favourite').click(function(e) {
+            e.preventDefault();
+            var adId = $(this).data('adid');
+            var button = $(this);
+            
+            $.ajax({
+                url: '@Url.Action("ToggleFavourite", "Ad")',
+                type: 'POST',
+                data: { adId: adId },
+                success: function(result) {
+                    var icon = button.find('i');
+                    icon.toggleClass('far fa-heart fas fa-heart');
+                }
+            });
+        });
+    });
+</script>
+}

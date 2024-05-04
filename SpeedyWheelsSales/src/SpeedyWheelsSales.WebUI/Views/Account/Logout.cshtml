@@ -1,0 +1,19 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = Localizer["Logout"];
+}
+
+<div class="text-center">
+    <h2>@Localizer["Are you sure you want to log out?"]</h2>
+    <div class="d-flex justify-content-center mt-3">
+        <form class="mx-2" asp-action="LogoutConfirmed" method="post">
+            <button type="submit" class="btn btn-danger rounded-pill px-3">@Localizer["Logout button"]</button>
+        </form>
+        <form class="mx-2" asp-controller="Ad" asp-action="ListAds" method="get">
+            <button type="submit" class="btn btn-secondary rounded-pill px-3">@Localizer["Cancel button"]</button>
+        </form>
+    </div>
+</div>

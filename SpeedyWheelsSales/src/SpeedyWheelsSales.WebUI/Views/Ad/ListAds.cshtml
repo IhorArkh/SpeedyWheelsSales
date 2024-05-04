@@ -1,0 +1,292 @@
+﻿@using Domain.Enums
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model SpeedyWheelsSales.WebUI.Models.AdListViewModel
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["Ads"];
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+    <environment include="Development">
+        <link rel="stylesheet" href="~/css/styles.css">
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="~/css/styles.min.css">
+    </environment>
+}
+
+<div class="container">
+    <div class="accordion mb-4" id="filterAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" style="font-weight: bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFilters" aria-expanded="false" aria-controls="collapseFilters">
+                    @Localizer["Filter ads"]
+                </button>
+            </h2>
+            <div id="collapseFilters" class="accordion-collapse collapse" aria-labelledby="headingFilters" data-bs-parent="#filterAccordion">
+                <div class="accordion-body">
+                    <form id="saveSearchForm" method="post" action="@Url.Action("SaveSearch", "SavedSearch")">
+                        <div class="row">
+                            <h3 class="text-center">@Localizer["Sorting"]</h3>
+                            <div class="col-md-6 mb-3">
+                                <label for="sort" class="form-label">@Localizer["Sort by"]</label>
+                                <select id="sort" name="sortColumn" class="form-select">
+                                    <option value="">-- @Localizer["Sort by"] --</option>
+                                    <option value="price">@Localizer["Price"]</option>
+                                    <option value="mileage">@Localizer["Mileage"]</option>
+                                    <option value="createdat">@Localizer["Creation date"]</option>
+                                    <option value="manufacturedate">@Localizer["Manufacture date"]</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="order" class="form-label">@Localizer["Sort order"]</label>
+                                <select id="order" name="sortOrder" class="form-select">
+                                    <option value="">-- @Localizer["Sort order"] --</option>
+                                    <option value="asc">@Localizer["Ascending"]</option>
+                                    <option value="desc">@Localizer["Descending"]</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+                            <h3 class="text-center">@Localizer["Filtering"]</h3>
+                            <div class="col-md-4 mb-3">
+                                <label for="city" class="form-label">@Localizer["City"]</label>
+                                <input type="text" id="city" name="city" class="form-control" placeholder="@Localizer["City"]" value="@Model.AdParams.City"/>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="brand" class="form-label">@Localizer["Brand"]</label>
+                                <input type="text" id="brand" name="brand" class="form-control" placeholder="@Localizer["Brand"]" value="@Model.AdParams.Brand"/>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="model" class="form-label">@Localizer["Model"]</label>
+                                <input type="text" id="model" name="model" class="form-control" placeholder="@Localizer["Model"]" value="@Model.AdParams.Model"/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="priceRange" class="form-label">@Localizer["Price range"]</label>
+                                <div class="input-group">
+                                    <input type="number" id="minPrice" name="minPrice" class="form-control" placeholder="@Localizer["Min Price"]" value="@Model.AdParams.MinPrice"/>
+                                    <span class="input-group-text mr-2">$</span>
+                                    <input type="number" id="maxPrice" name="maxPrice" class="form-control" placeholder="@Localizer["Max Price"]" value="@Model.AdParams.MaxPrice"/>
+                                    <span class="input-group-text">$</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="maxMileage" class="form-label">@Localizer["Max mileage"]</label>
+                                <div class="input-group">
+                                    <input type="number" id="maxMileage" name="maxMileage" class="form-control" placeholder="@Localizer["Max mileage"]" value="@Model.AdParams.MaxMileage"/>
+                                    <span class="input-group-text">km</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="engineSizeRange" class="form-label">@Localizer["Engine size range"]</label>
+                                <div class="input-group">
+                                    <input type="number" step="0.1" id="minEngineSize" name="minEngineSize" class="form-control" placeholder="@Localizer["Min Engine Size"]" value="@Model.AdParams.MinEngineSize"/>
+                                    <span class="input-group-text mr-2">L</span>
+                                    <input type="number" step="0.1" id="maxEngineSize" name="maxEngineSize" class="form-control" placeholder="@Localizer["Max Engine Size"]" value="@Model.AdParams.MaxEngineSize"/>
+                                    <span class="input-group-text">L</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="maxFuelConsumption" class="form-label">@Localizer["Max fuel consumption"]</label>
+                                <div class="input-group">
+                                    <input type="number" step="0.1" id="maxFuelConsumption" name="maxFuelConsumption" class="form-control" placeholder="@Localizer["Max fuel consumption"]" value="@Model.AdParams.MaxFuelConsumption"/>
+                                    <span class="input-group-text">L/100km</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="manufactureYearRange" class="form-label">@Localizer["Manufacture year range"]</label>
+                                <div class="input-group">
+                                    <input type="number" id="minManufactureYear" name="minManufactureYear" class="form-control" placeholder="@Localizer["Min Manufacture Year"]" value="@Model.AdParams.MinManufactureYear"/>
+                                    <span class="mr-2"></span>
+                                    <input type="number" id="maxManufactureYear" name="maxManufactureYear" class="form-control" placeholder="@Localizer["Max Manufacture Year"]" value="@Model.AdParams.MaxManufactureYear"/>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="engineType" class="form-label">@Localizer["Engine type"]</label>
+                                <select id="engineType" name="engineType" class="form-select">
+                                    <option value="">-- @Localizer["Engine type"] --</option>
+                                    @foreach (var engineType in Enum.GetValues(typeof(EngineType)))
+                                    {
+                                        <option value="@engineType">@engineType</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="transmission" class="form-label">@Localizer["Transmission"]</label>
+                                <select id="transmission" name="transmission" class="form-select">
+                                    <option value="">-- @Localizer["Transmission"] --</option>
+                                    @foreach (var transmission in Enum.GetValues(typeof(Transmission)))
+                                    {
+                                        <option value="@transmission">@transmission</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="typeOfDrive" class="form-label">@Localizer["Type of drive"]</label>
+                                <select id="typeOfDrive" name="typeOfDrive" class="form-select">
+                                    <option value="">-- @Localizer["Type of drive"] --</option>
+                                    @foreach (var typeOfDrive in Enum.GetValues(typeof(TypeOfDrive)))
+                                    {
+                                        <option value="@typeOfDrive">@typeOfDrive</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="color" class="form-label">@Localizer["Color"]</label>
+                                <select id="color" name="color" class="form-select">
+                                    <option value="">-- @Localizer["Color"] --</option>
+                                    @foreach (var color in Enum.GetValues(typeof(Colors)))
+                                    {
+                                        <option value="@color">@color</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-12 text-end">
+                                <button type="submit" class="btn btn-primary rounded-pill px-3" onclick="setFormAction('@Url.Action("ListAds", "Ad")')">@Localizer["Apply filters"]</button>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <button type="submit" class="btn btn-success rounded-pill px-3">@Localizer["Save Search"]</button>
+                                }
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        @if (Model.Ads.Any())
+        {
+            @foreach (var ad in Model.Ads)
+            {
+                @if (ad.IsDeleted || (ad.IsSold && ad.SoldAt < DateTime.UtcNow.AddDays(-1)))
+                    continue;
+
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        @if (ad.PhotoDtos.Any())
+                        {
+                            <img src="@ad.PhotoDtos.FirstOrDefault(x => x.IsMain)?.Url" class="card-img-top" alt="Car Photo">
+                        }
+                        @if (User.Identity.IsAuthenticated && ad.IsAuthor)
+                        {
+                            <p class="badge badge-success mb-0">@Localizer["Your ad"]</p>
+                        }
+                        @if (ad.IsSold)
+                        {
+                            <div class="sold-overlay d-flex justify-content-center align-items-center">@Localizer["SOLD"]</div>
+                        }
+                        <div class="card-body">
+                            <h5 class="card-title text-center">@ad.CarDto.Brand.ToUpper() @ad.CarDto.Model.ToUpper() @ad.CarDto.ManufactureDate.Year</h5>
+                            <p class="card-text text-left font-weight-bold text-success custom-display">
+                                <i class="fa-solid fa-dollar-sign"></i> @ad.CarDto.Price.ToString("0.##")
+                            </p>
+                            <p class="card-text">
+                                <i class="fa-solid fa-gauge-high"></i> @ad.CarDto.Mileage km
+                                <span class="float-right">
+                                    <i class="fa-solid fa-location-dot"></i> @ad.City
+                                </span>
+                            </p>
+                            <p class="card-text">
+                                <i class="fa-solid fa-gas-pump"></i> @ad.CarDto.EngineType, @ad.CarDto.EngineSize L
+                                <span class="float-right">
+                                    <i class="fa-sharp fa-solid fa-gears"></i> @ad.CarDto.Transmission
+                                </span>
+                            </p>
+                            <p class="badge badge-primary">
+                                <i class="fa-solid fa-car"></i> @ad.CarDto.Plates
+                            </p>
+                            <p class="badge badge-primary float-right">
+                                <i class="fa-solid fa-barcode"></i> @ad.CarDto.Vin
+                            </p>
+                            <p class="card-text text-muted">
+                                <i class="fa-solid fa-clock"></i> @ad.CreatedAt.ToShortDateString()
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="@Url.Action("GetAdDetails", "Ad", new { id = ad.Id })" class="btn btn-primary rounded-pill px-3">@Localizer["Details"]</a>
+                                @if (User.Identity.IsAuthenticated && !ad.IsAuthor && !ad.IsSold)
+                                {
+                                    string iconClass = ad.IsFavourite ? "fas fa-heart" : "far fa-heart";
+
+                                    <button class="btn btn-link toggle-favourite" data-adid="@ad.Id">
+                                        <i class="@iconClass"></i>
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>@Localizer["No ads found"]</p>
+        }
+    </div>
+
+    <div class="pagination justify-content-center">
+        @if (Model.TotalPages > 1)
+        {
+            <ul class="pagination">
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    Model.AdParams.PageNumber = @i;
+                    Model.AdParams.PageSize = Model.ItemsPerPage;
+                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                        <a class="page-link" href="@Url.Action("ListAds", "Ad", Model.AdParams)">
+                            @i
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('.toggle-favourite').click(function(e) {
+            e.preventDefault();
+            var adId = $(this).data('adid');
+            var button = $(this);
+            
+            $.ajax({
+                url: '@Url.Action("ToggleFavourite", "Ad")',
+                type: 'POST',
+                data: { adId: adId },
+                success: function(result) {
+                    var icon = button.find('i');
+                    icon.toggleClass('far fa-heart fas fa-heart');
+                }
+            });
+        });
+    });
+</script>
+    <script>
+    function setFormAction(action) {
+        document.getElementById('saveSearchForm').action = action;
+        document.getElementById('saveSearchForm').submit();
+    }
+</script>
+}

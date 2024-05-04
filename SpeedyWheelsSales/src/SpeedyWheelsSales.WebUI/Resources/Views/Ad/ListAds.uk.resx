@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="Ads" xml:space="preserve">
+        <value>Оголошення</value>
+    </data>
+    <data name="Ascending" xml:space="preserve">
+        <value>За зростанням</value>
+    </data>
+    <data name="Brand" xml:space="preserve">
+        <value>Бренд</value>
+    </data>
+    <data name="City" xml:space="preserve">
+        <value>Місто</value>
+    </data>
+    <data name="Color" xml:space="preserve">
+        <value>Колір</value>
+    </data>
+    <data name="Creation date" xml:space="preserve">
+        <value>Дата створення</value>
+    </data>
+    <data name="Descending" xml:space="preserve">
+        <value>За зменшенням</value>
+    </data>
+    <data name="Details" xml:space="preserve">
+        <value>Деталі</value>
+    </data>
+    <data name="Engine size range" xml:space="preserve">
+        <value>Діапазон об'єму двигуна</value>
+    </data>
+    <data name="Engine type" xml:space="preserve">
+        <value>Тип двигуна</value>
+    </data>
+    <data name="Filter ads" xml:space="preserve">
+        <value>Фільтрувати оголошення</value>
+    </data>
+    <data name="Filtering" xml:space="preserve">
+        <value>Фільтрація</value>
+    </data>
+    <data name="Manufacture date" xml:space="preserve">
+        <value>Дата виготовлення</value>
+    </data>
+    <data name="Manufacture year range" xml:space="preserve">
+        <value>Діапазон дат виготовлення</value>
+    </data>
+    <data name="Max Engine Size" xml:space="preserve">
+        <value>Макс. об'єм двигуна</value>
+    </data>
+    <data name="Max fuel consumption" xml:space="preserve">
+        <value>Макс. розхід палива</value>
+    </data>
+    <data name="Max Manufacture Year" xml:space="preserve">
+        <value>Макс. дата виготовлення</value>
+    </data>
+    <data name="Max mileage" xml:space="preserve">
+        <value>Макс. пробіг</value>
+    </data>
+    <data name="Max Price" xml:space="preserve">
+        <value>Макс. ціна</value>
+    </data>
+    <data name="Mileage" xml:space="preserve">
+        <value>Пробіг</value>
+    </data>
+    <data name="Min Engine Size" xml:space="preserve">
+        <value>Мін. об'єм двигуна</value>
+    </data>
+    <data name="Min Manufacture Year" xml:space="preserve">
+        <value>Мін. дата виготовлення</value>
+    </data>
+    <data name="Min Price" xml:space="preserve">
+        <value>Мін. ціна</value>
+    </data>
+    <data name="Model" xml:space="preserve">
+        <value>Модель</value>
+    </data>
+    <data name="No ads found" xml:space="preserve">
+        <value>Оголошення не знайдені</value>
+    </data>
+    <data name="Price" xml:space="preserve">
+        <value>Ціна</value>
+    </data>
+    <data name="Price range" xml:space="preserve">
+        <value>Діапазон цін</value>
+    </data>
+    <data name="Save Search" xml:space="preserve">
+        <value>Зберегти пошук</value>
+    </data>
+    <data name="Sort by" xml:space="preserve">
+        <value>Сортувати за</value>
+    </data>
+    <data name="Sort order" xml:space="preserve">
+        <value>Порядок сортування</value>
+    </data>
+    <data name="Sorting" xml:space="preserve">
+        <value>Сортування</value>
+    </data>
+    <data name="Transmission" xml:space="preserve">
+        <value>Трансміссія</value>
+    </data>
+    <data name="Type of drive" xml:space="preserve">
+        <value>Привід</value>
+    </data>
+    <data name="Your ad" xml:space="preserve">
+        <value>Ваше оголошення</value>
+    </data>
+    <data name="Apply filters" xml:space="preserve">
+        <value>Застосувати фільтри</value>
+    </data>
+    <data name="SOLD" xml:space="preserve">
+        <value>ПРОДАНО</value>
+    </data>
+</root>

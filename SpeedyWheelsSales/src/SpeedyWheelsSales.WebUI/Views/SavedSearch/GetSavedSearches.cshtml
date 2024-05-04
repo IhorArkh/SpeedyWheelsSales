@@ -1,0 +1,123 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model List<SpeedyWheelsSales.Application.Features.SavedSearch.Queries.GetSavedSearches.SavedSearchDto>
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = Localizer["Saved searches"];
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+    <environment include="Development">
+        <link rel="stylesheet" href="~/css/styles.css">
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="~/css/styles.min.css">
+    </environment>
+}
+
+<h2 class="text-center mb-4">@Localizer["Saved searches"]</h2>
+
+<div class="col-6 mx-auto">
+    @if (Model.Any())
+    {
+        @foreach (var search in Model)
+        {
+            <div class="col mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">@Localizer["Saved Search"]</h5>
+                        @foreach (var property in search.GetType().GetProperties())
+                        {
+                            var value = property.GetValue(search);
+                            if (property.Name != "QueryString" && property.Name != "Id"
+                                                               && value != null && !string.IsNullOrWhiteSpace(value.ToString()))
+                            {
+                                <p class="card-text"><strong>@GetPropertyName(property.Name)</strong>: @FormatPropertyValue(property.Name, value)</p>
+                            }
+                        }
+                    </div>
+                    <div class="d-flex justify-content-center mt-3 mb-3">
+                        <form asp-controller="Ad" asp-action="ListAds" class="mx-2" method="get">
+                            <input type="hidden" name="queryStrFromSavedSearch" value="@search.QueryString"/>
+                            <button type="submit" class="btn btn-primary rounded-pill px-3">@Localizer["Go to ads"]</button>
+                        </form>
+                        <form asp-controller="SavedSearch" asp-action="DeleteSearch" class="mx-2" method="post">
+                            <input type="hidden" name="searchId" value="@search.Id"/>
+                            <button type="submit" class="btn btn-danger rounded-pill px-3">@Localizer["Delete"]</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="col-md-12">
+            <p class="text-center">@Localizer["No saved searches found"]</p>
+        </div>
+    }
+</div>
+
+@functions {
+
+    LocalizedHtmlString GetPropertyName(string propertyName)
+    {
+        switch (propertyName)
+        {
+            case "City":
+                return Localizer["City"];
+            case "Brand":
+                return Localizer["Brand"];
+            case "Model":
+                return Localizer["Model"];
+            case "MinPrice":
+                return Localizer["MinPrice"];
+            case "MaxPrice":
+                return Localizer["MaxPrice"];
+            case "MaxMileage":
+                return Localizer["MaxMileage"];
+            case "MinManufactureYear":
+                return Localizer["MinManufactureYear"];
+            case "MaxManufactureYear":
+                return Localizer["MaxManufactureYear"];
+            case "MinEngineSize":
+                return Localizer["MinEngineSize"];
+            case "MaxEngineSize":
+                return Localizer["MaxEngineSize"];
+            case "MaxFuelConsumption":
+                return Localizer["MaxFuelConsumption"];
+            case "EngineType":
+                return Localizer["EngineType"];
+            case "Transmission":
+                return Localizer["Transmission"];
+            case "TypeOfDrive":
+                return Localizer["TypeOfDrive"];
+            case "Color":
+                return Localizer["Color"];
+            default:
+                return new LocalizedHtmlString(propertyName, propertyName);
+        }
+    }
+
+    string FormatPropertyValue(string propertyName, object value)
+    {
+        switch (propertyName)
+        {
+            case "MinPrice":
+            case "MaxPrice":
+                return $"{value:0.##}$";
+            case "MinEngineSize":
+            case "MaxEngineSize":
+                return $"{value} L";
+            case "MaxFuelConsumption":
+                return $"{value} L/100km";
+            case "MaxMileage":
+                return $"{value} km";
+            default:
+                return value.ToString();
+        }
+    }
+
+}

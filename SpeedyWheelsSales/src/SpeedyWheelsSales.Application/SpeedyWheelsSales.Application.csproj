@@ -4,11 +4,18 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <NoWarn>CS8618</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\SpeedyWheelsSales.Domain\SpeedyWheelsSales.Domain.csproj" />
       <ProjectReference Include="..\SpeedyWheelsSales.Infrastructure.Data\SpeedyWheelsSales.Infrastructure.Data.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="13.0.1" />
+      <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+      <PackageReference Include="MediatR" Version="12.2.0" />
     </ItemGroup>
 
 </Project>

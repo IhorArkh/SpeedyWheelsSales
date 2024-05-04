@@ -1,0 +1,248 @@
+﻿@using System.Security.Claims
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model SpeedyWheelsSales.WebUI.Models.UserProfileViewModel
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = $"{Model.UserProfileDto.Name}{Localizer["profile"]}";
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+    <environment include="Development">
+        <link rel="stylesheet" href="~/css/styles.css">
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="~/css/styles.min.css">
+    </environment>
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-4">
+                @if (Model.UserProfileDto.PhotoUrl != null)
+                {
+                    <img src="@Model.UserProfileDto.PhotoUrl" class="card-img-top" alt="User Photo">
+                }
+                else
+                {
+                    <img src="/genericProfile.png" class="card-img-top" alt="User Photo">
+                }
+                <div class="card-body">
+                    <h5 class="card-title">@Model.UserProfileDto.Name</h5>
+                    <p class="card-text">
+                        <i class="fa-solid fa-at"></i> @Model.UserProfileDto.Username
+                    </p>
+                    @if (Model.UserProfileDto.Location != null)
+                    {
+                        <p class="card-text">
+                            <i class="fa-solid fa-location-dot"></i> @Model.UserProfileDto.Location
+                        </p>
+                    }
+                    @if (Model.UserProfileDto.Bio != null)
+                    {
+                        <p class="card-text">
+                            <i class="fa-solid fa-address-card"></i> @Model.UserProfileDto.Bio
+                        </p>
+                    }
+                    @if (Model.UserProfileDto.PhoneNumber != null)
+                    {
+                    <p class="card-text">
+                        <i class="fa-solid fa-phone"></i> @Model.UserProfileDto.PhoneNumber
+                    </p>
+                    }
+                    <p class="card-text text-muted">
+                        <i class="fa-solid fa-clock"></i>
+                        @Localizer["Registered"]: @Model.UserProfileDto.RegisterDate.ToShortDateString()
+                    </p>
+                </div>
+
+                @if (Model.IsOwner)
+                {
+                    <div class="d-flex justify-content-center mt-2 mb-2">
+                        <form class="mx-2" asp-controller="Profile" asp-action="GetUpdateProfileView" method="get">
+                            <button type="submit" class="btn btn-primary rounded-pill px-3">@Localizer["Edit profile"]</button>
+                        </form>
+                        <form class="mx-2" asp-controller="Profile" asp-action="GetChangePhotoView" method="get">
+                            <button type="submit" class="btn btn-primary rounded-pill px-3">@Localizer["Change photo"]</button>
+                        </form>
+                    </div>
+                }
+            </div>
+            @if (Model.IsOwner)
+            {
+                <form class="text-center" asp-controller="Ad" asp-action="GetCreateAdView" method="get">
+                    <button type="submit" class="btn btn-success btn-lg rounded-pill px-3">@Localizer["Create new ad"]</button>
+                </form>
+            }
+            else if (User.Identity.IsAuthenticated)
+            {
+                <form class="text-center" asp-controller="Chat" asp-action="GetChat" method="get">
+                    <input type="hidden" name="currUserUsername" value="@User.FindFirstValue("username")"/>
+                    <input type="hidden" name="recipientUsername" value="@Model.UserProfileDto.Username"/>
+                    <button type="submit" class="btn btn-primary btn-lg rounded-pill px-3">@Localizer["Open chat"]</button>
+                </form>
+            }
+        </div>
+        <div class="col-md-8">
+            @if (Model.UserProfileDto.AdDtos.Any())
+            {
+                foreach (var ad in Model.UserProfileDto.AdDtos)
+                {
+                    @if (!ad.IsDeleted && !ad.IsSold)
+                    {
+                        <div class="card mb-4">
+                            @if (ad.PhotoDtos.Any())
+                            {
+                                <img src="@ad.PhotoDtos.FirstOrDefault(x => x.IsMain)?.Url" class="card-img-top" alt="Car Photo">
+                            }
+                            <div class="card-body">
+                                <h5 class="card-title">@ad.CarDto.Brand @ad.CarDto.Model @ad.CarDto.ManufactureDate.Year</h5>
+                                <p class="card-text text-left font-weight-bold text-success custom-display">
+                                    <i class="fa-solid fa-dollar-sign"></i> @ad.CarDto.Price.ToString("0.##")
+                                </p>
+                                <p class="card-text">
+                                    <i class="fa-solid fa-gauge-high"></i> @ad.CarDto.Mileage k km
+                                    <span class="float-right">
+                                        <i class="fa-solid fa-location-dot"></i> @ad.City
+                                    </span>
+                                </p>
+                                <p class="card-text">
+                                    <i class="fa-solid fa-gas-pump"></i> @ad.CarDto.EngineType, @ad.CarDto.EngineSize L
+                                    <span class="float-right">
+                                        <i class="fa-sharp fa-solid fa-gears"></i> @ad.CarDto.Transmission
+                                    </span>
+                                </p>
+                                <p class="badge badge-primary">
+                                    <i class="fa-solid fa-car"></i> @ad.CarDto.Plates
+                                </p>
+                                <p class="badge badge-primary float-right">
+                                    <i class="fa-solid fa-barcode"></i> @ad.CarDto.Vin
+                                </p>
+                                <p class="card-text text-muted">
+                                    <i class="fa-solid fa-clock"></i> @ad.CreatedAt.ToShortDateString()
+                                </p>
+                            </div>
+                            <a href="@Url.Action("GetAdDetails", "Ad", new { id = ad.Id })"
+                               class="btn btn-primary rounded-pill px-3 ml-2 mr-2">
+                                @Localizer["Details"]
+                            </a>
+
+
+                            @if (Model.IsOwner)
+                            {
+                                <div class="d-flex justify-content-center mt-2 mb-2">
+                                    <form class="mx-4" asp-controller="Ad" asp-action="GetMarkAdAsSoldView" method="get">
+                                        <input type="hidden" name="adId" value="@ad.Id"/>
+                                        <button type="submit" class="btn btn-success rounded-pill px-3 custom-btn">@Localizer["Mark as sold"]</button>
+                                    </form>
+
+                                    <form class="mx-4" asp-controller="Ad" asp-action="GetUpdateAdView" method="get">
+                                        <input type="hidden" name="adId" value="@ad.Id"/>
+                                        <button type="submit" class="btn btn-warning rounded-pill px-3 custom-btn">@Localizer["Edit"]</button>
+                                    </form>
+
+                                    <form class="mx-4" asp-controller="Ad" asp-action="GetDeleteAdView" method="post">
+                                        <input type="hidden" name="adId" value="@ad.Id"/>
+                                        <button type="submit" class="btn btn-danger rounded-pill px-3 custom-btn">@Localizer["Delete"]</button>
+                                    </form>
+                                </div>
+                            }
+                        </div>
+                    }
+                }
+            }
+            else
+            {
+                <h2 class="text-center">@Localizer["No active ads found"]</h2>
+            }
+
+            @if (Model.IsOwner)
+            {
+                <div class="accordion" id="archivedAdsAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="archivedAdsHeading">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseArchivedAds" aria-expanded="true"
+                                    aria-controls="collapseArchivedAds">
+                                @Localizer["Archived Ads"]
+                            </button>
+                        </h2>
+                        <div id="collapseArchivedAds" class="accordion-collapse collapse"
+                             aria-labelledby="archivedAdsHeading" data-bs-parent="#archivedAdsAccordion">
+                            <div class="accordion-body">
+                                @if (Model.UserProfileDto.AdDtos.Any(ad => ad.IsDeleted || ad.IsSold))
+                                {
+                                    foreach (var ad in Model.UserProfileDto.AdDtos)
+                                    {
+                                        if (ad.IsDeleted || ad.IsSold)
+                                        {
+                                            <div class="card mb-4">
+                                                @if (ad.PhotoDtos.Any())
+                                                {
+                                                    <img src="@ad.PhotoDtos.FirstOrDefault(x => x.IsMain)?.Url" class="card-img-top"
+                                                         alt="Car Photo">
+                                                }
+                                                <div class="card-body">
+                                                    <h5 class="card-title">@ad.CarDto.Brand @ad.CarDto.Model @ad.CarDto.ManufactureDate.Year</h5>
+                                                    <p class="card-text text-left font-weight-bold text-success custom-display">
+                                                        <i class="fa-solid fa-dollar-sign"></i> @ad.CarDto.Price.ToString("0.##")
+                                                    </p>
+                                                    <p class="card-text">
+                                                        <i class="fa-solid fa-gauge-high"></i> @ad.CarDto.Mileage k km
+                                                        <span class="float-right">
+                                                            <i class="fa-solid fa-location-dot"></i> @ad.City
+                                                        </span>
+                                                    </p>
+                                                    <p class="card-text">
+                                                        <i class="fa-solid fa-gas-pump"></i> @ad.CarDto.EngineType
+                                                        , @ad.CarDto.EngineSize L
+                                                        <span class="float-right">
+                                                            <i class="fa-sharp fa-solid fa-gears"></i> @ad.CarDto.Transmission
+                                                        </span>
+                                                    </p>
+                                                    <p class="badge badge-primary">
+                                                        <i class="fa-solid fa-car"></i> @ad.CarDto.Plates
+                                                    </p>
+                                                    <p class="badge badge-primary float-right">
+                                                        <i class="fa-solid fa-barcode"></i> @ad.CarDto.Vin
+                                                    </p>
+                                                    <p class="card-text text-muted">
+                                                        <i class="fa-solid fa-clock"></i> @ad.CreatedAt.ToShortDateString()
+                                                    </p>
+                                                    @if (ad.IsDeleted)
+                                                    {
+                                                        <div class="sold-overlay d-flex justify-content-center align-items-center">
+                                                            @Localizer["DELETED"]
+                                                        </div>
+                                                    }
+                                                    @if (ad.IsSold)
+                                                    {
+                                                        <div class="sold-overlay d-flex justify-content-center align-items-center">
+                                                            @Localizer["SOLD"]
+                                                        </div>
+                                                    }
+                                                </div>
+                                                <a href="@Url.Action("GetAdDetails", "Ad", new { id = ad.Id })"
+                                                   class="btn btn-primary rounded-pill px-3 mb-3 ml-2 mr-2">
+                                                    @Localizer["Details"]
+                                                </a>
+                                            </div>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    <h2 class="text-center">@Localizer["No archived ads found"]</h2>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
